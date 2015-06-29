@@ -3,23 +3,25 @@
 <link href="../../../assets/css/bootstrap.min.css" rel="stylesheet" />
 <link href="../../../assets/css/font-awesome.min.css" rel="stylesheet" />
 
-<a href="{{gvAddUrl}}">Agregar</a>
-<div class="responsive-table">
-    <table>
+<a href="{{addUrl}}">Add</a>
+<div class="table-responsive">
+    <table class="table table-striped">
         <thead>
             <tr>
-                <th ng-repeat="column in gvData.columns">
+                <th ng-repeat="column in gvRows.columns">
                     {{column}}
                 </th>
+                <th></th>
             </tr>
         </thead>
-        <tr ng-repeat="row in gvData">
-            <td ng-repeat="column in gvData.columns">
+        <tr class="gv-row" ng-repeat="row in gvRows">
+            <td ng-repeat="column in gvRows.columns">
                 {{row[column]}}
             </td>
             <td>
-                <a href='gvEditUrl' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i>Editar</a>
-                <a href='gvDeleteUrl' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i>Eliminar</a>
+                <a href='{{viewUrl + "/" + row[gvRowKey]}}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='{{editUrl + "/" + row[gvRowKey]}}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a href='{{deleteUrl + "/" + row[gvRowKey]}}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </td>
         </tr>
     </table>

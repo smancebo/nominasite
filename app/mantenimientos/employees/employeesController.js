@@ -2,9 +2,29 @@
 var app = angular.module('fmpPortal');
 
 
-app.controllerProvider.register('employeesController', ['$scope', function ($scope) {
+app.controller('employeesController', ['$scope', function ($scope) {
 
-    $scope.variable = 9;
+    $scope.dataRows = {};
+    $scope.dataRows = [
+        { 'Employee Code': '25002144', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002145', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002146', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002144', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002145', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002146', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002144', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002145', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002146', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002144', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002145', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002146', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002144', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002145', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002146', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' },
+        { 'Employee Code': '25002147', 'Name': 'Samuel J Mancebo', 'Email': 'sjmancebo@gmail.com' }
+    ];
+    $scope.dataRows.columns = ['Employee Code', 'Name', 'Email'];
+
 
 }]);
 

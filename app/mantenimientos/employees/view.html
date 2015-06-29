@@ -1,6 +1,11 @@
 
 
 <div>
-    <h1>employees {{variable}}</h1>
-    <grid-view gv-add-url='employees/add'></grid-view>
+    <h2>Employees</h2>
+    <grid-view add-url="'employees/add'" 
+               edit-url="'employees/edit'" 
+               delete-url="'employees/delete'" 
+               view-url="'employees/view'"
+               gv-row-key="'Employee Code'" 
+               gv-rows="dataRows"></grid-view>
 </div>
