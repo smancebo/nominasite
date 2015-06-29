@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en"  ng-app="fmpPortal" >
+<head>
+    <meta charset="utf-8" />
+    <title>FMP Admin</title>
+    <link href="assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/animations.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" />
+</head>
+<body>
+    <div class="navbar navbar-default no-margin fmp-navbar">
+        <div class="navbar-brand"><i class="fa fa-building"></i>FMP PORTAL</div>
+    </div>
+    <div id="body">
+        <div class="container-fluid">
+            <div class="row main">
+                <div ng-controller="indexController" class="col-md-2 max-height" style="padding:0">
+                    <ul class="menu list-unstyled">
+                        <li ng-repeat="item in menu">
+                            <div class="li-bound">
+                                <a href="{{item.url}}" ng-click="showHideSubMenu(item)">
+                                    <div>
+                                        <i ng-class=" 'fa ' + item.icon"></i>{{item.text}}
+                                    </div>
+                                </a>
+                                <ul class='sub-parent' ng-if="item.subItems.length && item.showMenu">
+                                    <li class="subItem" ng-repeat="subItem in item.subItems">
+                                        <a href="{{subItem.url}}">{{subItem.text}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-10">
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+
+       
+    </div>
+
+
+    <script src="assets/js/jquery-1.10.2.min.js"></script>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/app.directives.js"></script>
+</body>
+</html>

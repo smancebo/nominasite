@@ -1,0 +1,26 @@
+
+
+<link href="../../../assets/css/bootstrap.min.css" rel="stylesheet" />
+<link href="../../../assets/css/font-awesome.min.css" rel="stylesheet" />
+
+<a href="{{gvAddUrl}}">Agregar</a>
+<div class="responsive-table">
+    <table>
+        <thead>
+            <tr>
+                <th ng-repeat="column in gvData.columns">
+                    {{column}}
+                </th>
+            </tr>
+        </thead>
+        <tr ng-repeat="row in gvData">
+            <td ng-repeat="column in gvData.columns">
+                {{row[column]}}
+            </td>
+            <td>
+                <a href='gvEditUrl' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i>Editar</a>
+                <a href='gvDeleteUrl' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i>Eliminar</a>
+            </td>
+        </tr>
+    </table>
+</div>
