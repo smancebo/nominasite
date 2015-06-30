@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="payments">
+    <Key>
+      <PropertyRef Name="payment_id" />
+    </Key>
+    <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="startdate" Type="date" />
+    <Property Name="enddate" Type="date" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="payments_details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="payment_id" Type="int" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" />
+    <Property Name="day" Type="date" />
+    <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="comments" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="phones">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" />
+    <Property Name="number" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="phone_type" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="reimbursement">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="payrate" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="schools">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="50" />
+    <Property Name="location" Type="varchar" MaxLength="200" />
+    <Property Name="size" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="employee_manager" Type="varchar" MaxLength="100" />
+    <Property Name="supervisor" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="staff">
+    <Key>
+      <PropertyRef Name="employee_code" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="middle_name" Type="varchar" MaxLength="100" />
+    <Property Name="last_name" Type="varchar" MaxLength="100" />
+    <Property Name="address" Type="varchar" MaxLength="200" />
+    <Property Name="sex" Type="varchar" MaxLength="1" />
+    <Property Name="birthday" Type="date" />
+    <Property Name="email" Type="varchar" MaxLength="200" />
+    <Property Name="title" Type="int" />
+    <Property Name="hire_date" Type="date" />
+    <Property Name="status" Type="varchar" MaxLength="1" />
+    <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="titles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="100" />
+    <Property Name="payrate" Type="decimal" Precision="18" Scale="4" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" />
+    <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__payments___emplo__145C0A3F">
+    <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+    <End Role="payments_details" Type="Self.payments_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="employee_code" />
+      </Principal>
+      <Dependent Role="payments_details">
+        <PropertyRef Name="employee_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__payments___payme__1367E606">
+    <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
+    <End Role="payments_details" Type="Self.payments_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="payments">
+        <PropertyRef Name="payment_id" />
+      </Principal>
+      <Dependent Role="payments_details">
+        <PropertyRef Name="payment_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__payments__userna__0EA330E9">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="payments" Type="Self.payments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="payments">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__phones__employee__1ED998B2">
+    <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+    <End Role="phones" Type="Self.phones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="employee_code" />
+      </Principal>
+      <Dependent Role="phones">
+        <PropertyRef Name="employee_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__schools__employe__1A14E395">
+    <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+    <End Role="schools" Type="Self.schools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="employee_code" />
+      </Principal>
+      <Dependent Role="schools">
+        <PropertyRef Name="employee_manager" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__staff__title__0519C6AF">
+    <End Role="titles" Type="Self.titles" Multiplicity="0..1" />
+    <End Role="staff" Type="Self.staff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="titles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="staff">
+        <PropertyRef Name="title" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__users__employee___09DE7BCC">
+    <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="employee_code" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="employee_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="fmpModelStoreContainer">
+    <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payments_details" EntityType="Self.payments_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="titles" EntityType="Self.titles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="schools" EntityType="Self.schools" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [schools].[id] AS [id], 
+    [schools].[code] AS [code], 
+    [schools].[location] AS [location], 
+    [schools].[size] AS [size], 
+    [schools].[employee_manager] AS [employee_manager], 
+    [schools].[supervisor] AS [supervisor]
+    FROM [dbo].[schools] AS [schools]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__payments___emplo__145C0A3F" Association="Self.FK__payments___emplo__145C0A3F">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="payments_details" EntitySet="payments_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
+      <End Role="payments" EntitySet="payments" />
+      <End Role="payments_details" EntitySet="payments_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payments__userna__0EA330E9" Association="Self.FK__payments__userna__0EA330E9">
+      <End Role="users" EntitySet="users" />
+      <End Role="payments" EntitySet="payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__phones__employee__1ED998B2" Association="Self.FK__phones__employee__1ED998B2">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="phones" EntitySet="phones" />
+    </AssociationSet>
+    <AssociationSet Name="FK__schools__employe__1A14E395" Association="Self.FK__schools__employe__1A14E395">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="schools" EntitySet="schools" />
+    </AssociationSet>
+    <AssociationSet Name="FK__staff__title__0519C6AF" Association="Self.FK__staff__title__0519C6AF">
+      <End Role="titles" EntitySet="titles" />
+      <End Role="staff" EntitySet="staff" />
+    </AssociationSet>
+    <AssociationSet Name="FK__users__employee___09DE7BCC" Association="Self.FK__users__employee___09DE7BCC">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
