@@ -6,6 +6,9 @@
 
 
     var app = angular.module('fmpPortal', ['ngRoute']);
+    app.constant('$serverInfo', {
+        server: "http://localhost:58514"
+    })
 
 
     app.controller('indexController', ['$scope', function ($scope) {
