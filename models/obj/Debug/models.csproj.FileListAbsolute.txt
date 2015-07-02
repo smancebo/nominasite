@@ -1,0 +1,10 @@
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\models.dll.config
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\models.dll
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\models.pdb
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\EntityFramework.dll
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\EntityFramework.xml
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\obj\Debug\models.csprojResolveAssemblyReference.cache
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\obj\Debug\models.dll
+C:\Users\Jeancarlos Mancebo\Desktop\fmpPortal\models\obj\Debug\models.pdb

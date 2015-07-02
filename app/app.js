@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute']);
     app.constant('$serverInfo', {
-        server: "http://localhost:58514"
+        server: "http://10.0.0.5:85"
     })
 
 

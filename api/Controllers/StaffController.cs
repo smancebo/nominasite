@@ -5,9 +5,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-using api.Models;
+//using api.Models;
 using Newtonsoft.Json;
-using utilities;
+//using utilities;
 
 namespace API.Controllers
 {
@@ -37,7 +37,7 @@ namespace API.Controllers
         
         [Route("save")]
         [HttpPost]
-        public IHttpActionResult save(dynamic employee_obj)
+        public IHttpActionResult save([FromBody]emp employee_obj)
         {
             try
             {
@@ -51,13 +51,13 @@ namespace API.Controllers
 
                 if (record != null)
                 {
-                    objMapper.Map<staff>(ref record, employee_obj);
+                    //objMapper.Map<staff>(ref record, employee_obj);
                     fmp.staff.Add(record);
                 }
                 else
                 {
                     staff new_record = new staff();
-                    objMapper.Map<staff>(ref new_record, employee_obj);
+                    //objMapper.Map<staff>(ref new_record, employee_obj);
                 }
                 fmp.SaveChanges();
                 return Ok("1");

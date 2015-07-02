@@ -10,8 +10,8 @@
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="startdate" Type="date" />
-          <Property Name="enddate" Type="date" />
+          <Property Name="startdate" Type="datetime" />
+          <Property Name="enddate" Type="datetime" />
           <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="payments_details">
@@ -21,9 +21,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_id" Type="int" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="day" Type="date" />
-          <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="day" Type="datetime" />
+          <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="phones">
@@ -32,7 +32,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="number" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="number" Type="decimal" Precision="18" Scale="0" />
           <Property Name="phone_type" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="reimbursement">
@@ -43,8 +43,6 @@
           <Property Name="description" Type="varchar" MaxLength="100" />
           <Property Name="payrate" Type="decimal" Precision="18" Scale="4" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="schools">
           <Key>
             <PropertyRef Name="id" />
@@ -67,10 +65,10 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <Property Name="last_name" Type="varchar" MaxLength="100" />
           <Property Name="address" Type="varchar" MaxLength="200" />
           <Property Name="sex" Type="varchar" MaxLength="1" />
-          <Property Name="birthday" Type="date" />
+          <Property Name="birthday" Type="datetime" />
           <Property Name="email" Type="varchar" MaxLength="200" />
           <Property Name="title" Type="int" />
-          <Property Name="hire_date" Type="date" />
+          <Property Name="hire_date" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="1" />
           <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -180,19 +178,10 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <EntitySet Name="payments_details" EntityType="Self.payments_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="titles" EntityType="Self.titles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="schools" EntityType="Self.schools" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [schools].[id] AS [id], 
-    [schools].[code] AS [code], 
-    [schools].[location] AS [location], 
-    [schools].[size] AS [size], 
-    [schools].[employee_manager] AS [employee_manager], 
-    [schools].[supervisor] AS [supervisor]
-    FROM [dbo].[schools] AS [schools]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__payments___emplo__145C0A3F" Association="Self.FK__payments___emplo__145C0A3F">
             <End Role="staff" EntitySet="staff" />
             <End Role="payments_details" EntitySet="payments_details" />
@@ -232,8 +221,8 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="startdate" Type="DateTime" Precision="0" />
-          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="startdate" Type="DateTime" Precision="3" />
+          <Property Name="enddate" Type="DateTime" Precision="3" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments" ToRole="payments_details" />
           <NavigationProperty Name="users" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="payments" ToRole="users" />
@@ -245,7 +234,7 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payment_id" Type="Int32" />
           <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="day" Type="DateTime" Precision="0" />
+          <Property Name="day" Type="DateTime" Precision="3" />
           <Property Name="required_hours" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="overtime" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -270,6 +259,18 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="payrate" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
+        <EntityType Name="schools">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="size" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="employee_manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supervisor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
+        </EntityType>
         <EntityType Name="staff">
           <Key>
             <PropertyRef Name="employee_code" />
@@ -281,10 +282,10 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="sex" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="birthday" Type="DateTime" Precision="3" />
           <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="title" Type="Int32" />
-          <Property Name="hire_date" Type="DateTime" Precision="0" />
+          <Property Name="hire_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="supervisor_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="staff" ToRole="payments_details" />
@@ -312,18 +313,6 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
           <NavigationProperty Name="staff" Relationship="Self.FK__users__employee___09DE7BCC" FromRole="users" ToRole="staff" />
-        </EntityType>
-        <EntityType Name="schools">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="size" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="employee_manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="supervisor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
         </EntityType>
         <Association Name="FK__payments___payme__1367E606">
           <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -414,10 +403,10 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
           <EntitySet Name="payments_details" EntityType="Self.payments_details" />
           <EntitySet Name="phones" EntityType="Self.phones" />
           <EntitySet Name="reimbursement" EntityType="Self.reimbursement" />
+          <EntitySet Name="schools" EntityType="Self.schools" />
           <EntitySet Name="staff" EntityType="Self.staff" />
           <EntitySet Name="titles" EntityType="Self.titles" />
           <EntitySet Name="users" EntityType="Self.users" />
-          <EntitySet Name="schools" EntityType="Self.schools" />
           <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
             <End Role="payments" EntitySet="payments" />
             <End Role="payments_details" EntitySet="payments_details" />
@@ -495,6 +484,18 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="schools">
+            <EntityTypeMapping TypeName="fmpModel.schools">
+              <MappingFragment StoreEntitySet="schools">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="employee_manager" ColumnName="employee_manager" />
+                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="staff">
             <EntityTypeMapping TypeName="fmpModel.staff">
               <MappingFragment StoreEntitySet="staff">
@@ -533,18 +534,6 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="schools">
-            <EntityTypeMapping TypeName="fmpModel.schools">
-              <MappingFragment StoreEntitySet="schools">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="location" ColumnName="location" />
-                <ScalarProperty Name="size" ColumnName="size" />
-                <ScalarProperty Name="employee_manager" ColumnName="employee_manager" />
-                <ScalarProperty Name="supervisor" ColumnName="supervisor" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -561,7 +550,7 @@ warning 6002: The table/view 'fmp.dbo.schools' does not have a primary key defin
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
