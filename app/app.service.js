@@ -5,21 +5,20 @@ app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverIn
     var staffService = {};
     console.log($serverInfo);
     staffService.getAll = function (callback) {
-        $http.get('/api/staff/get')
+        $http.get($serverInfo.server + '/api/staff/get')
         .success(function (data) {
             callback(data);
         });
     };
 
     staffService.get = function (employee_code, callback) {
-        $http.get('/api/staff/get/' + employee_code)
+        $http.get($serverInfo.server + '/api/staff/get/' + employee_code)
         .success(function (data) {
             callback(data);
         });
     };
 
     staffService.save = function (employee, callback) {
-        debugger
         $http.post($serverInfo.server + '/api/staff/save', employee)
         .success(function (data) {
             callback(data);
@@ -27,7 +26,7 @@ app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverIn
     };
 
     staffService.delete = function (employee_code, callback) {
-        $http.post('/api/staff/delete/' + employee_code)
+        $http.post($serverInfo.server + '/api/staff/delete/' + employee_code)
         .success(function (data) {
             callback(data);
         });

@@ -7,7 +7,7 @@ using System.Web.Http;
 
 //using api.Models;
 using Newtonsoft.Json;
-//using utilities;
+using utilities;
 
 namespace API.Controllers
 {
@@ -37,7 +37,7 @@ namespace API.Controllers
         
         [Route("save")]
         [HttpPost]
-        public IHttpActionResult save([FromBody]emp employee_obj)
+        public IHttpActionResult save([FromBody]staff employee_obj)
         {
             try
             {
@@ -51,15 +51,17 @@ namespace API.Controllers
 
                 if (record != null)
                 {
-                    //objMapper.Map<staff>(ref record, employee_obj);
-                    fmp.staff.Add(record);
+                    objMapper.Map<staff>(ref record, employee_obj);
+                    //fmp.staff.Add(record);
                 }
                 else
                 {
-                    staff new_record = new staff();
-                    //objMapper.Map<staff>(ref new_record, employee_obj);
+                   
+                    fmp.staff.Add(employee_obj);
                 }
                 fmp.SaveChanges();
+                string a = employee_obj.employee_code;
+               
                 return Ok("1");
             }
             catch (Exception ex)

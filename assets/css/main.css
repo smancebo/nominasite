@@ -76,5 +76,9 @@
     margin-bottom:10px;
 }
 
+.table thead th
+{
+    padding:8px;
+}
 .gv-row:hover{
 }

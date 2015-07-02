@@ -1,0 +1,12 @@
+C:\Users\smancebo\Desktop\proj\utilities\bin\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\utilities\bin\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
+C:\Users\smancebo\Desktop\proj\utilities\obj\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\utilities\obj\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\obj\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
