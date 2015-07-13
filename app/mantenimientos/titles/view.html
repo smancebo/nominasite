@@ -2,5 +2,16 @@
 
 <div>
     <h2>Titles</h2>
-    <grid-view add-url="'titles/add'"></grid-view>
+    <a href="/titles/add">Add</a>
+    <grid-view gv-rows="dataRows" gv-controller="titlesController">
+        <columns>
+            <column header-text="Description" data-field="description"></column>
+            <column header-text="Payrate" data-field="payrate"></column>
+            <templateColumn>
+                <a href='titles/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='titles/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a href='titles/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+            </templateColumn>
+        </columns>
+    </grid-view>
 </div>

@@ -8,7 +8,7 @@ ng.directive('gridView', ['$compile',function ($compile) {
         scope: {
             gvRows: '='
         },
-        controller: '@',
+        controller: '@' || ['$scope',function ($scope) { }],
         name: 'gvController',
         link: function (scope, element, attr) {
             $(element).find('columns').css('display', 'none');
@@ -54,6 +54,17 @@ ng.directive('gridView', ['$compile',function ($compile) {
                 function disposeGrid() {
                     element.find('.ng-grid-view').remove();
                 }
+                function getObjValue(obj, values) {
+                    var props = values.split('.');
+                    var arr = '';
+                    props.forEach(function (e, i) {
+                        arr += '[\'' + e + '\']';
+                    });
+
+                    var fn = new Function('obj', 'return obj' + arr);
+                    return fn(obj);
+                }
+              
 
                 disposeGrid();
                 var dv_responsive = $("<div class='ng-grid-view table-responsive'>")
@@ -61,7 +72,6 @@ ng.directive('gridView', ['$compile',function ($compile) {
                 var thead = $("<thead>");
                 var tbody = $("<tbody>");
                 var columns = [];
-
 
 
                 element.find('columns').children().each(function () {
@@ -106,7 +116,7 @@ ng.directive('gridView', ['$compile',function ($compile) {
                                 td.append(r + 1);
                             }
                             else if (column.dataField) {
-                                td.append(row[column.dataField] == null ? parseBinding(column.nullText, row) : row[column.dataField]);
+                                td.append(getObjValue(row, column.dataField) == null ? parseBinding(column.nullText, row) : getObjValue(row, column.dataField));
                             }
                             else if (column.text) {
                                 td.append(parseBinding(column.text, row));

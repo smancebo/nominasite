@@ -67,3 +67,38 @@ C:\Users\smancebo\Desktop\proj\nv\nominasite\api\bin\Antlr3.Runtime.pdb
 C:\Users\smancebo\Desktop\proj\nv\nominasite\api\obj\Debug\api.csprojResolveAssemblyReference.cache
 C:\Users\smancebo\Desktop\proj\nv\nominasite\api\obj\Debug\api.dll
 C:\Users\smancebo\Desktop\proj\nv\nominasite\api\obj\Debug\api.pdb
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\api.dll.config
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\api.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\api.pdb
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\Antlr3.Runtime.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\EntityFramework.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\Newtonsoft.Json.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Net.Http.Formatting.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Helpers.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Http.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Http.WebHost.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Optimization.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Razor.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.Razor.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\utilities.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\WebGrease.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\utilities.pdb
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\EntityFramework.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\Newtonsoft.Json.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Net.Http.Formatting.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Helpers.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Http.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Http.WebHost.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Mvc.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Razor.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.WebPages.Razor.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\System.Web.Optimization.xml
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\bin\Antlr3.Runtime.pdb
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\obj\Debug\api.csprojResolveAssemblyReference.cache
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\obj\Debug\api.dll
+C:\Users\Jeancarlos Mancebo\Documents\GitHubVisualStudio\nominasite\api\obj\Debug\api.pdb

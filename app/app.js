@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView']);
     app.constant('$serverInfo', {
-        server: "http://10.172.0.173:85/api"
+        server: "http://10.0.0.7:85/api"
     })
 
 
@@ -70,6 +70,21 @@
             controller: 'titlesController',
         })
 
+        .when('/titles/edit/:titleId', {
+            templateUrl: 'app/mantenimientos/titles/add.html',
+            controller: 'titlesController'
+        })
+        .when('/titles/view/:titleId', {
+            templateUrl: 'app/mantenimientos/titles/add.html',
+            controller: ['$scope', '$routeParams', '$titlesService', function ($scope, $routeParams, $titlesService) {
+                $scope.viewMode = true;
+
+                $titlesService.get($routeParams.titleId, function (data) {
+                    $scope.title = data;
+                });
+            }]
+        })
+
         //</titles>
 
         //<employees>
@@ -81,6 +96,22 @@
         .when('/employees/add', {
             templateUrl: 'app/mantenimientos/employees/add.html',
             controller: 'employeesController',
+        })
+        
+        .when('/employees/edit/:employeeCode', {
+            templateUrl: 'app/mantenimientos/employees/add.html',
+            controller: 'employeesController',
+         })
+
+        .when('/employees/view/:employeeCode', {
+            templateUrl: 'app/mantenimientos/employees/add.html',
+            controller: ['$scope', '$staffService', '$routeParams', function ($scope, $staffService, $routeParams) {
+                $scope.viewMode = true;
+
+                $staffService.get($routeParams.employeeCode, function (data) {
+                    $scope.employee = data;
+                })
+            }]
         })
         //</employees>
 

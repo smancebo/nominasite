@@ -34,7 +34,20 @@ namespace API.Controllers
             return Ok(staff);
         }
 
-        
+        [HttpGet]
+        [Route("get/{employee_code}")]
+        public IHttpActionResult get(string employee_code)
+        {
+            var staff = (from emp in fmp.staff
+                        where emp.employee_code == employee_code
+                        select emp).FirstOrDefault();
+
+
+
+            return Ok(staff);
+        }
+
+
         [Route("save")]
         [HttpPost]
         public IHttpActionResult save([FromBody]staff employee_obj)
@@ -71,12 +84,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("get/{id}")]
-        public IHttpActionResult prueba(string id)
-        {
-            return Ok(new { nombre = "prueba" });
-        }
+        
 
     }
 }

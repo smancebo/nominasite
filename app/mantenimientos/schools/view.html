@@ -2,5 +2,12 @@
 
 <div>
     <h2>Schools</h2>
-    <grid-view add-url="'schools/add'"></grid-view>
+    <a href="/schools/add">Add</a>
+    <grid-view gv-rows="schools" gv-controller="schoolsController">
+        <columns>
+            <column header-text="Name" data-field="name"></column>
+            <column header-text="Manager" data-field="employee_manager.name"></column>
+            <column header-text="Supervisor" data-field="supervisor.name"></column>
+        </columns>
+    </grid-view>
 </div>
