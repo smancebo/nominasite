@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView']);
     app.constant('$serverInfo', {
-        server: "http://10.0.0.7:85/api"
+        server: "http://10.172.0.173:85/api"
     })
 
 
@@ -125,6 +125,30 @@
             templateUrl: 'app/mantenimientos/schools/add.html',
             controller: 'schoolsController',
         })
+
+        .when('/schools/edit/:schoolId', {
+            templateUrl: 'app/mantenimientos/schools/add.html',
+            controller: 'schoolsController'
+        })
+
+        .when('/schools/view/:schoolId',{
+            templateUrl: 'app/mantenimientos/schools/add.html',
+            controller: ['$scope', '$schoolService', '$routeParams', '$staffService', function ($scope, $schoolService, $routeParams,$staffService) {
+                $scope.viewMode = true;
+
+                $staffService.getAll(function (data) {
+                    $scope.charges = data;
+                    $staffService.getSupervisors(function (sups) {
+                        $scope.supervisors = sups
+                    });
+
+                });
+
+                $schoolService.get($routeParams.schoolId, function (data) {
+                    $scope.school = data;
+                })
+            }]
+        })
         //</schools>
 
         //<reimbursement>
@@ -137,8 +161,30 @@
             templateUrl: 'app/mantenimientos/reimbursement/add.html',
             controller: 'reimbursementController',
         })
+
+         .when('/reimbursements/edit/:Id', {
+             templateUrl: 'app/mantenimientos/reimbursement/add.html',
+             controller: 'reimbursementController'
+         })
+
+        .when('/reimbursements/view/:Id', {
+            templateUrl: 'app/mantenimientos/reimbursement/add.html',
+            controller: ['$scope', '$reimbursementService', '$routeParams', function ($scope, $reimbursementService, $routeParams) {
+                $scope.viewMode = true;
+
+                $reimbursementService.get($routeParams.Id, function (data) {
+                    $scope.reimbursement = data;
+                })
+            }]
+        })
         //</reimbursement>
 
+
+
+        .when('/payroll', {
+            templateUrl: 'app/payroll/payroll.html',
+            controller:'payrollController'
+        })
 
         .otherwise({
             redirectTo: '/'
@@ -152,7 +198,7 @@
 
 
     var menu = [
-        { text: 'Payroll', url: '/', icon: 'fa-money' },
+        { text: 'Payroll', url: '/payroll', icon: 'fa-money' },
         { text: 'Solicitud Materiales', url: '/', icon: 'fa-cube' },
         { text: 'Elaboracion Permisos', url: '/', icon: 'fa-calendar' },
         {
@@ -167,5 +213,15 @@
         { text: 'Reports', url: '/', icon: 'fa-clipboard' },
 
     ]
+
+    Date.prototype.formatDate = function formatDate() {
+        var date = this;
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1;
+        var yyyy = date.getFullYear();
+        if (dd < 10) { dd = '0' + dd }
+        if (mm < 10) { mm = '0' + mm };
+        return (mm + '/' + dd + '/' + yyyy);
+    }
 
 })();

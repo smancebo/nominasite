@@ -2,16 +2,24 @@
 var app = angular.module('fmpPortal');
 
 
-app.controller('employeesController', ['$scope', '$staffService', '$routeParams', function ($scope, $staffService, $routeParams) {
+app.controller('employeesController', ['$scope', '$staffService', '$routeParams', '$titlesService', function ($scope, $staffService, $routeParams, $titlesService) {
 
     $scope.dataRows = {};
+    $scope.titles = {};
     //$scope.dataRows.columns = ['Employee Code', 'Name', 'Email'];
-    if ($routeParams.employeeCode)
-    {
-        $staffService.get($routeParams.employeeCode, function (data) {
-            $scope.employee = data;
-        });
-    }
+
+    $titlesService.getAll(function (data) {
+        $scope.titles = data;
+
+        if ($routeParams.employeeCode) {
+            $staffService.get($routeParams.employeeCode, function (data) {
+                $scope.employee = data;
+            });
+        }
+
+    });
+
+
 
     $staffService.getAll(function (data) {
         $scope.dataRows = data;
@@ -20,7 +28,7 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
         
         
         if ($scope.employee != undefined) {
-            
+            debugger
             $staffService.save($scope.employee, function (data) {
                 console.log(data);
             });

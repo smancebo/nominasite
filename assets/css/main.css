@@ -61,6 +61,7 @@
 .content-place-holder
 {
   padding-bottom: 15px;
+  padding-top:15px;
   height: 90vh;
   overflow-y: scroll;
   background-color: white;
@@ -72,7 +73,7 @@
 {
     border:1px solid #ccc;
     border-radius:5px;
-    padding:5px;
+    padding:10px;
     margin-bottom:10px;
 }
 
@@ -81,4 +82,20 @@
     padding:8px;
 }
 .gv-row:hover{
+}
+
+.arrow
+{
+    font-size:2em;
+    color:#222
+}
+
+.full-width{
+    width:100% !important
+}
+.half49-width{
+    width:49% !important
+}
+.half-width{
+    width:50.5% !important
 }

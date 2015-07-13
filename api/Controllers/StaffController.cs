@@ -8,6 +8,7 @@ using System.Web.Http;
 //using api.Models;
 using Newtonsoft.Json;
 using utilities;
+using api.Models;
 
 namespace API.Controllers
 {
@@ -27,7 +28,23 @@ namespace API.Controllers
         public IHttpActionResult getAll()
         {
             var staff = from emp in fmp.staff
-                        select emp;
+                        select new
+                        {
+                            emp.name,
+                            emp.last_name,
+                            emp.phones,
+                            emp.address,
+                            emp.birthday,
+                            emp.email,
+                            emp.employee_code,
+                            emp.hire_date,
+                            emp.title,
+                            emp.id,
+                            emp.middle_name,
+                            emp.sex,
+                            emp.status,
+                            emp.supervisor_code
+                        };
 
             
 
@@ -35,12 +52,59 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("supervisors")]
+        public IHttpActionResult getSupervisors()
+        {
+            var staff = from emp in fmp.staff
+                        where emp.supervisor_code != null
+                        select new
+                        {
+                            emp.name,
+                            emp.last_name,
+                            emp.phones,
+                            emp.address,
+                            emp.birthday,
+                            emp.email,
+                            emp.employee_code,
+                            emp.hire_date,
+                            emp.title,
+                            emp.id,
+                            emp.middle_name,
+                            emp.sex,
+                            emp.status,
+                            emp.supervisor_code
+                        };
+
+            
+
+            return Ok(staff);
+        }
+
+        
+
+        [HttpGet]
         [Route("get/{employee_code}")]
-        public IHttpActionResult get(string employee_code)
+        public IHttpActionResult get(int employee_code)
         {
             var staff = (from emp in fmp.staff
-                        where emp.employee_code == employee_code
-                        select emp).FirstOrDefault();
+                        where emp.id == employee_code
+                         select new
+                         {
+                             emp.name,
+                             emp.last_name,
+                             emp.phones,
+                             emp.address,
+                             emp.birthday,
+                             emp.email,
+                             emp.employee_code,
+                             emp.hire_date,
+                             emp.title,
+                             emp.id,
+                             emp.middle_name,
+                             emp.sex,
+                             emp.status,
+                             emp.supervisor_code
+                         }).FirstOrDefault();
 
 
 

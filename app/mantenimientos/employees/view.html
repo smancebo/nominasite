@@ -10,9 +10,9 @@
             <column header-text="Name" text="{name} {middle_name} {last_name}"></column>
             <column header-text="Email" data-field="email" null-text="{last_name} no email address"></column>
             <templateColumn>
-                <a href='employees/view/{employee_code}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
-                <a href='employees/edit/{employee_code}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a href='employees/delete/{employee_code}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                <a href='employees/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='employees/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a href='employees/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templateColumn>
         </columns>
     </grid-view>

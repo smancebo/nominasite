@@ -26,13 +26,16 @@
     <div class="form-group">
         <label>Sex</label>
         <select class="form-control" ng-model='employee.sex'>
+            <option value="">Choose...</option>
+            <option value="M">M</option>
+            <option value="F">F</option>
         </select>
     </div>
     
     <div class="form-group">
         <label>Birthday</label>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model='employee.birthday'/>
+        <div class="input-group" date-picker date-model="employee.birthday">
+            <input type="text" class="form-control" ng-model='employee.birthday' />
             <div class='input-group-addon'>
                 <a href="#"><i class="fa fa-calendar"></i></a>
             </div>
@@ -58,24 +61,24 @@
     
     <div class="form-group">
         <label>Address</label>
-        <input type="text" class="form-control" ng-model='employee.addres'/>
+        <input type="text" class="form-control" ng-model='employee.address'/>
     </div>
     
      <div class="form-group">
         <label>Title</label>
-        <select class="form-control" ng-model='employee.title'>
-        
+        <select class="form-control" ng-model='employee.title' ng-options="title.id as title.description for title in titles">
+            <option value="">Choose...</option>
         </select>
     </div>
     
      <div class="form-group">
         <label>Hire date</label>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model='employee.hireDate'/>
-            <div class='input-group-addon'>
-                <a href="#"><i class="fa fa-calendar"></i></a>
-            </div>
-        </div>
+         <div class="input-group" date-picker date-model="employee.hire_date">
+             <input type="text" class="form-control" ng-model='employee.hire_date' />
+             <div class='input-group-addon'>
+                 <a href="#"><i class="fa fa-calendar"></i></a>
+             </div>
+         </div>
     </div>
 
     <div class="round-section">

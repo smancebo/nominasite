@@ -33,7 +33,8 @@
     <div class="form-group">
         <label>User in Charge</label>
         <div class="input-group">
-            <select class="form-control" ng-model='school.employee_manager'>
+            <select class="form-control" ng-model='school.employee_manager' ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
+                <option value="">Choose...</option>
             </select>
             <div class="input-group-addon">
                 <a>
@@ -46,7 +47,9 @@
     <div class="form-group">
         <label>Supervisor</label>
         <div class="input-group">
-            <select class="form-control" ng-model='school.supervisor'></select>
+            <select class="form-control" ng-model='school.supervisor' ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
+                <option value="">Choose...</option>
+            </select>
             <div class="input-group-addon">
                 <a>
                     <i class="fa fa-search"></i>
@@ -58,15 +61,15 @@
    
     
     <div>
-        <div class='col-md-12 container'>
+        <div class='col-md-12 container' ng-hide="viewMode">
             <div class="col-md-6 col-xs-6">
-                <button class='col-md-12 col-xs-12 btn btn-primary'>Add</button>
+                <button class='col-md-12 col-xs-12 btn btn-primary' ng-click="save()">Add</button>
             </div>
             <div class="col-md-6 col-xs-6">
                 <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
             </div>
-            
-            
+
+
         </div>
     </div>
     

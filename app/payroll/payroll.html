@@ -1,0 +1,110 @@
+﻿
+<div>
+
+    <p>
+        <label>Payroll:</label>
+        <label>M01</label>
+    </p>
+
+    <label>Pay Period</label>
+    <div class="round-section">
+        <div class="form-inline">
+            <div class="form-group half49-width">
+                <label>From</label>
+                <div class="input-group" date-picker date-model="payroll.startdate">
+                    <input class="form-control full-width" ng-model="payroll.startdate" />
+                    <div class="input-group-addon">
+                        <a href="#"><i class="fa fa-calendar"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group half-width">
+                <label>To</label>
+                <div class="input-group" date-picker date-model="payroll.enddate" date-change="calculateDiff()">
+                    <input class="form-control full-width" ng-model="payroll.enddate" />
+                    <div class="input-group-addon">
+                        <a href="#"><i class="fa fa-calendar"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label>Employee: </label>
+        <select class="form-control">
+            <option value="">Choose...</option>
+        </select>
+        <label>Regular Rate: </label>
+        <label>25.55</label>
+    </div>
+
+    <div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Regular Hours</th>
+                        <th>Overtime</th>
+                        <th>Reimbursement</th>
+                    </tr>
+                </thead>
+                <tr ng-repeat="day in payrollform.days">
+                    <td>
+                        <label>{{day.day}}</label>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" event-handler on-blur="checkOvertime(day)" ng-model="day.regularHours" />
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" ng-model="day.overtime" />
+                    </td>
+                    <td>
+                        <a ng-click="addReimbursement()">Add</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="col-md-1"><a class="arrow" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
+    <div class="col-md-10">
+
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>MON</th>
+                        <th>TUE</th>
+                        <th>WED</th>
+                        <th>THU</th>
+                        <th>FRI</th>
+                        <th>SAT</th>
+                        <th>SUN</th>
+                        <th>TOTAL HOURS</th>
+                        <th>GROSS PAY</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Regular Hours</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+    <div class="col-md-1"><a class="arrow" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+</div>

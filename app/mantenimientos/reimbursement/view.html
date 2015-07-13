@@ -2,5 +2,16 @@
 
 <div>
     <h2>Reimbursements</h2>
-    <grid-view add-url="'reimbursements/add'"></grid-view>
+    <a href="/reimbursements/add">Add</a>
+    <grid-view gv-rows="reimbursements" gv-controller="reimbursementController">
+        <columns>
+            <column header-text="Description" data-field="description"></column>
+            <column header-text="Payrate" data-field="payrate"></column>
+            <templatecolumn>
+                <a href='reimbursements/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='reimbursements/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a href='reimbursements/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+            </templatecolumn>
+        </columns>
+    </grid-view>
 </div>

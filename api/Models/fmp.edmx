@@ -4,14 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="payments">
           <Key>
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="startdate" Type="datetime" />
-          <Property Name="enddate" Type="datetime" />
+          <Property Name="startdate" Type="date" />
+          <Property Name="enddate" Type="date" />
           <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="payments_details">
@@ -21,9 +21,9 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_id" Type="int" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="day" Type="datetime" />
-          <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="day" Type="date" />
+          <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
           <Property Name="comments" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="phones">
@@ -32,7 +32,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="number" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="number" Type="numeric" Precision="18" Scale="0" />
           <Property Name="phone_type" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="reimbursement">
@@ -53,6 +53,7 @@
           <Property Name="size" Type="decimal" Precision="18" Scale="2" />
           <Property Name="employee_manager" Type="varchar" MaxLength="100" />
           <Property Name="supervisor" Type="varchar" MaxLength="100" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -65,10 +66,10 @@
           <Property Name="last_name" Type="varchar" MaxLength="100" />
           <Property Name="address" Type="varchar" MaxLength="200" />
           <Property Name="sex" Type="varchar" MaxLength="1" />
-          <Property Name="birthday" Type="datetime" />
+          <Property Name="birthday" Type="date" />
           <Property Name="email" Type="varchar" MaxLength="200" />
           <Property Name="title" Type="int" />
-          <Property Name="hire_date" Type="datetime" />
+          <Property Name="hire_date" Type="date" />
           <Property Name="status" Type="varchar" MaxLength="1" />
           <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -211,8 +212,7 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -221,8 +221,8 @@
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="startdate" Type="DateTime" Precision="3" />
-          <Property Name="enddate" Type="DateTime" Precision="3" />
+          <Property Name="startdate" Type="DateTime" Precision="0" />
+          <Property Name="enddate" Type="DateTime" Precision="0" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments" ToRole="payments_details" />
           <NavigationProperty Name="users" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="payments" ToRole="users" />
@@ -234,7 +234,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payment_id" Type="Int32" />
           <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="day" Type="DateTime" Precision="3" />
+          <Property Name="day" Type="DateTime" Precision="0" />
           <Property Name="required_hours" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="overtime" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -270,6 +270,7 @@
           <Property Name="employee_manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="supervisor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -282,10 +283,10 @@
           <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="sex" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="birthday" Type="DateTime" Precision="3" />
+          <Property Name="birthday" Type="DateTime" Precision="0" />
           <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="title" Type="Int32" />
-          <Property Name="hire_date" Type="DateTime" Precision="3" />
+          <Property Name="hire_date" Type="DateTime" Precision="0" />
           <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="supervisor_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="staff" ToRole="payments_details" />
@@ -487,6 +488,7 @@
           <EntitySetMapping Name="schools">
             <EntityTypeMapping TypeName="fmpModel.schools">
               <MappingFragment StoreEntitySet="schools">
+                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="code" ColumnName="code" />
                 <ScalarProperty Name="location" ColumnName="location" />

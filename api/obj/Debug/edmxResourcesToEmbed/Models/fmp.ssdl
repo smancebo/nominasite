@@ -5,8 +5,8 @@
       <PropertyRef Name="payment_id" />
     </Key>
     <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="startdate" Type="datetime" />
-    <Property Name="enddate" Type="datetime" />
+    <Property Name="startdate" Type="date" />
+    <Property Name="enddate" Type="date" />
     <Property Name="username" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="payments_details">
@@ -16,9 +16,9 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="payment_id" Type="int" />
     <Property Name="employee_code" Type="varchar" MaxLength="100" />
-    <Property Name="day" Type="datetime" />
-    <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="day" Type="date" />
+    <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="phones">
@@ -27,7 +27,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="employee_code" Type="varchar" MaxLength="100" />
-    <Property Name="number" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="number" Type="numeric" Precision="18" Scale="0" />
     <Property Name="phone_type" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="reimbursement">
@@ -48,6 +48,7 @@
     <Property Name="size" Type="decimal" Precision="18" Scale="2" />
     <Property Name="employee_manager" Type="varchar" MaxLength="100" />
     <Property Name="supervisor" Type="varchar" MaxLength="100" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="staff">
     <Key>
@@ -60,10 +61,10 @@
     <Property Name="last_name" Type="varchar" MaxLength="100" />
     <Property Name="address" Type="varchar" MaxLength="200" />
     <Property Name="sex" Type="varchar" MaxLength="1" />
-    <Property Name="birthday" Type="datetime" />
+    <Property Name="birthday" Type="date" />
     <Property Name="email" Type="varchar" MaxLength="200" />
     <Property Name="title" Type="int" />
-    <Property Name="hire_date" Type="datetime" />
+    <Property Name="hire_date" Type="date" />
     <Property Name="status" Type="varchar" MaxLength="1" />
     <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
   </EntityType>

@@ -40,8 +40,6 @@ app.factory('$titlesService', ['$http', '$serverInfo', function ($http, $serverI
     return titlesService;
 
 }]);
-
-
 app.factory('$schoolService', ['$http', '$serverInfo', function ($http, $serverInfo) {
 
     var schoolService = {};
@@ -79,7 +77,6 @@ app.factory('$schoolService', ['$http', '$serverInfo', function ($http, $serverI
     return schoolService;
 
 }]);
-
 app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverInfo) {
     var staffService = {};
     
@@ -88,6 +85,13 @@ app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverIn
         .success(function (data) {
             callback(data);
         });
+    };
+
+    staffService.getSupervisors = function (callback) {
+        $http.get($serverInfo.server + '/api/staff/supervisors')
+        .success(function (data) {
+            callback(data);
+        })
     };
 
     staffService.get = function (employee_code, callback) {
@@ -112,4 +116,37 @@ app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverIn
     };
 
     return staffService;
+}]);
+app.factory('$reimbursementService', ['$http', '$serverInfo', function ($http, $serverInfo) {
+    var reimbursementService = {};
+
+    reimbursementService.getAll = function (callback) {
+        $http.get($serverInfo.server + '/api/reimbursement/get')
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    reimbursementService.get = function (code, callback) {
+        $http.get($serverInfo.server + '/api/reimbursement/get/' + code)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    reimbursementService.save = function (reimbursement, callback) {
+        $http.post($serverInfo.server + '/api/reimbursement/save', reimbursement)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    reimbursementService.delete = function (code, callback) {
+        $http.post($serverInfo.server + '/api/reimbursement/delete/' + code)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    return reimbursementService;
 }]);

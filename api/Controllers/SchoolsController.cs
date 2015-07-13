@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -20,10 +21,47 @@ namespace api.Controllers
         public IHttpActionResult getAllSchools()
         {
             var sh = from s in fmp.schools
-                     select s;
+                     from sup in fmp.staff
+                     from charge in fmp.staff
+                     where sup.employee_code == s.supervisor &&
+                     charge.employee_code == s.employee_manager
+
+                     select new
+                     {
+                         s.id,
+                         s.code,
+                         employee_manager = new { charge.employee_code, name = charge.name + " " + charge.middle_name + " " + charge.last_name  },
+                         s.location,
+                         s.name,
+                         s.size,
+                         supervisor = new { sup.employee_code, name = sup.name + " " + sup.middle_name + " " + sup.last_name }
+                     };
 
             return Ok(sh);
         }
+
+        [HttpGet]
+        [Route("get/{schoolId}")]
+        public IHttpActionResult get(int schoolId)
+        {
+            var sh = (from s in fmp.schools
+                      where s.id == schoolId
+                      select new
+                      {
+                          s.id,
+                          s.code,
+                          s.employee_manager,
+                          s.location,
+                          s.name,
+                          s.size,
+                          s.supervisor
+                      }).FirstOrDefault();
+
+
+
+            return Ok(sh);
+        }
+
 
         [HttpPost]
         [Route("save")]

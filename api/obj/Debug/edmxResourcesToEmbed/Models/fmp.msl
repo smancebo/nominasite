@@ -46,6 +46,7 @@
     <EntitySetMapping Name="schools">
       <EntityTypeMapping TypeName="fmpModel.schools">
         <MappingFragment StoreEntitySet="schools">
+          <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="code" ColumnName="code" />
           <ScalarProperty Name="location" ColumnName="location" />

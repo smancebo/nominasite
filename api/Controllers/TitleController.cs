@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,8 +19,12 @@ namespace api.Controllers
         [Route("get")]
         public IHttpActionResult getAll()
         {
-            var t = from titles in fmp.titles
-                        select titles;
+            var t = from title in fmp.titles
+                    select new { 
+                        title.id,
+                        title.description,
+                        title.payrate
+                    };
 
             return Ok(t);
         }
@@ -28,9 +33,13 @@ namespace api.Controllers
         [Route("get/{titleId}")]
         public IHttpActionResult get(int titleId)
         {
-            titles t = (from title in fmp.titles
-                     where title.id == titleId
-                     select title).FirstOrDefault<titles>();
+            var t = (from title in fmp.titles
+                        where title.id == titleId
+                        select new {
+                            title.id,
+                            title.description,
+                            title.payrate
+                        }).FirstOrDefault();
             return Ok(t);
         }
 

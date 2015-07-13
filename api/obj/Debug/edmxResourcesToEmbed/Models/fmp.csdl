@@ -5,8 +5,8 @@
       <PropertyRef Name="payment_id" />
     </Key>
     <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="startdate" Type="DateTime" Precision="3" />
-    <Property Name="enddate" Type="DateTime" Precision="3" />
+    <Property Name="startdate" Type="DateTime" Precision="0" />
+    <Property Name="enddate" Type="DateTime" Precision="0" />
     <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments" ToRole="payments_details" />
     <NavigationProperty Name="users" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="payments" ToRole="users" />
@@ -18,7 +18,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="payment_id" Type="Int32" />
     <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="day" Type="DateTime" Precision="3" />
+    <Property Name="day" Type="DateTime" Precision="0" />
     <Property Name="required_hours" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="overtime" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -54,6 +54,7 @@
     <Property Name="employee_manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="supervisor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="staff">
     <Key>
@@ -66,10 +67,10 @@
     <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="sex" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-    <Property Name="birthday" Type="DateTime" Precision="3" />
+    <Property Name="birthday" Type="DateTime" Precision="0" />
     <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="title" Type="Int32" />
-    <Property Name="hire_date" Type="DateTime" Precision="3" />
+    <Property Name="hire_date" Type="DateTime" Precision="0" />
     <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Name="supervisor_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="staff" ToRole="payments_details" />
