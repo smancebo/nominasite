@@ -16,6 +16,13 @@ app.factory('$titlesService', ['$http', '$serverInfo', function ($http, $serverI
         });
     };
 
+    titlesService.getByEmployee = function (employee_code, callback) {
+        $http.get(serviceBaseAddress + '/get-by-employee/' + employee_code)
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
     titlesService.get = function (title_code, callback) {
         $http.get(serviceBaseAddress + '/get/' + title_code)
         .success(function (data) {
@@ -93,6 +100,7 @@ app.factory('$staffService', ['$http', '$serverInfo', function ($http, $serverIn
             callback(data);
         })
     };
+
 
     staffService.get = function (employee_code, callback) {
         $http.get($serverInfo.server + '/api/staff/get/' + employee_code)

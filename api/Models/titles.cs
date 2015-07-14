@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public partial class titles
 {
-    public titles()
+    /*public titles()
     {
         this.staff = new HashSet<staff>();
     }
@@ -21,5 +21,5 @@ public partial class titles
     public string description { get; set; }
     public Nullable<decimal> payrate { get; set; }
 
-    public virtual ICollection<staff> staff { get; set; }
+    public virtual ICollection<staff> staff { get; set; }*/
 }

@@ -9,3 +9,124 @@
 
 using System;
 using System.Collections.Generic;
+
+public partial class payments
+{
+    public payments()
+    {
+        this.payments_details = new HashSet<payments_details>();
+    }
+
+    public int payment_id { get; set; }
+    public Nullable<System.DateTime> startdate { get; set; }
+    public Nullable<System.DateTime> enddate { get; set; }
+    public string username { get; set; }
+
+    public virtual ICollection<payments_details> payments_details { get; set; }
+    public virtual users users { get; set; }
+}
+
+public partial class payments_details
+{
+    public int id { get; set; }
+    public Nullable<int> payment_id { get; set; }
+    public string employee_code { get; set; }
+    public Nullable<System.DateTime> day { get; set; }
+    public Nullable<decimal> required_hours { get; set; }
+    public Nullable<decimal> overtime { get; set; }
+    public string comments { get; set; }
+
+    public virtual payments payments { get; set; }
+    public virtual staff staff { get; set; }
+}
+
+public partial class phones
+{
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public Nullable<decimal> number { get; set; }
+    public string phone_type { get; set; }
+
+    public virtual staff staff { get; set; }
+}
+
+public partial class reimbursement
+{
+    public int id { get; set; }
+    public string description { get; set; }
+    public Nullable<decimal> payrate { get; set; }
+}
+
+public partial class schools
+{
+    public int id { get; set; }
+    public string code { get; set; }
+    public string location { get; set; }
+    public Nullable<decimal> size { get; set; }
+    public string employee_manager { get; set; }
+    public string supervisor { get; set; }
+    public string name { get; set; }
+
+    public virtual staff staff { get; set; }
+}
+
+public partial class staff
+{
+    public staff()
+    {
+        this.payments_details = new HashSet<payments_details>();
+        this.phones = new HashSet<phones>();
+        this.schools = new HashSet<schools>();
+        this.users = new HashSet<users>();
+    }
+
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public string name { get; set; }
+    public string middle_name { get; set; }
+    public string last_name { get; set; }
+    public string address { get; set; }
+    public string sex { get; set; }
+    public Nullable<System.DateTime> birthday { get; set; }
+    public string email { get; set; }
+    public Nullable<int> title { get; set; }
+    public Nullable<System.DateTime> hire_date { get; set; }
+    public string status { get; set; }
+    public string supervisor_code { get; set; }
+
+    public virtual ICollection<payments_details> payments_details { get; set; }
+    public virtual ICollection<phones> phones { get; set; }
+    public virtual ICollection<schools> schools { get; set; }
+    public virtual titles titles { get; set; }
+    public virtual ICollection<users> users { get; set; }
+}
+
+public partial class titles
+{
+    public titles()
+    {
+        this.staff = new HashSet<staff>();
+    }
+
+    public int id { get; set; }
+    public string description { get; set; }
+    public Nullable<decimal> payrate { get; set; }
+
+    public virtual ICollection<staff> staff { get; set; }
+}
+
+public partial class users
+{
+    public users()
+    {
+        this.payments = new HashSet<payments>();
+    }
+
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public string username { get; set; }
+    public string password { get; set; }
+
+    public virtual ICollection<payments> payments { get; set; }
+    public virtual staff staff { get; set; }
+}

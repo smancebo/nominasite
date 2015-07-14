@@ -10,10 +10,15 @@ var app = angular.module('fmpPortal');
 app.controller('payrollController', ['$scope', '$routeParams', '$staffService', function ($scope, $routeParams, $staffService) {
 
     $scope.payrollform = {};
+    $scope.current = {
+        employee: {},
+        days:[]
+    };
     $scope.payroll = {
         startdate: '',
         enddate: '',
-        username:''
+        username: '',
+        employees: []
     }
 
     $scope.$watch('payroll.enddate', function (oldValue, newValue) {
@@ -23,16 +28,25 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
     }, true);
 
     $staffService.getAll(function (data) {
-        debugger
         $scope.employees = data;
     });
     
     $scope.checkOvertime = function(day)
     {
-        if(day.regularHours > 8)
+       
+        if(parseInt(day.regularHours) > 0)
         {
-            day.regularHours = 8;
-            day.overtime = day.regularHours - 8;
+            if (day.day == 'Sunday' || day.day == 'Saturday') {
+                day.overtime = day.regularHours;
+                day.regularHours = 0;
+            }
+            else {
+                if (parseInt(day.regularHours) > 8) {
+
+                    day.overtime = day.regularHours - 8;
+                    day.regularHours = 8;
+                }
+            }
         }
     }
 
@@ -40,8 +54,8 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
         
         var dateFrom = new Date($scope.payroll.startdate);
         var dateTo = new Date($scope.payroll.enddate);
-        $scope.payrollform.days = [];
-        debugger
+        $scope.current.days = [];
+        
         var totalDays = dateTo.getDate() - dateFrom.getDate();
         for (var i = 0; i <= totalDays ; i++) {
             var day = new Object();
@@ -50,17 +64,52 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
             day.day = weekDays[currentDate.getDay()];
             day.regularHours = 0;
             day.overtime = 0;
-            $scope.payrollform.days.push(day);
+            day.diffHours = 0;
+            day.regularReimbursement = 0;
+            day.overtimeReimbursement = 0;
+            $scope.current.days.push(day);
         }
+    }
 
-        console.log($scope.payrollform.days);
+    $scope.parseInt = function (value) {
+        if (value === '') {
+            return 0;
+        }
+        return parseInt(value);
+    }
 
+    $scope.parseFloat = function (value) {
+        if (value === '') {
+            return 0;
+        }
+        return parseFloat(value);
+    }
+
+    $scope.getRegsHours = function () {
+        var regularHour = 0;
         
+        
+        
+        return regularHour;
+    }
+
+    $scope.getOvertimes = function () {
+        var Overtime = 0;
+        $scope.current.days.forEach(function (e) {
+            Overtime += e.overtime;
+        });
+        return Overtime;
     }
 
 
-
-
+    $("#ddlEmployees").on('change', function () {
+        var emp = $scope.payroll.employees.filter(function (e) {
+            return e.employee.employee_code == $scope.current.employee.employee_code
+        });
+        $scope.payroll.employees = emp;
+        emp.push($scope.current);
+        console.log($scope.payroll);
+    });
 
 }]);
 

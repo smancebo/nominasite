@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public partial class reimbursement
 {
-    public int id { get; set; }
+    /*public int id { get; set; }
     public string description { get; set; }
-    public Nullable<decimal> payrate { get; set; }
+    public Nullable<decimal> payrate { get; set; }*/
 }

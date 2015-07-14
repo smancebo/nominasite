@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using api.Models;
 using utilities;
 
 namespace api.Controllers

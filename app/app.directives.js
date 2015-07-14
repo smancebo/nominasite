@@ -56,8 +56,16 @@ app.directive('eventHandler', function () {
             onBlur: '&'
         },
         link: function (scope, element, attr) {
+            $(element).on('focus', function () {
+                $(this).select().mouseup(function (e) {
+                    e.preventDefault();
+                    $(this).unbind("mouseup");
+                });
+            });
             $(element).on('blur', function () {
-
+                scope.$apply(function () {
+                    scope.onBlur();
+                });
             });
         }
     };

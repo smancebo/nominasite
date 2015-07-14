@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView']);
     app.constant('$serverInfo', {
-        server: "http://10.0.0.11:85/api"
+        server: "http://10.172.0.173:85/api"
     })
 
 

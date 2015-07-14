@@ -1,5 +1,4 @@
-﻿using api.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,14 +18,33 @@ namespace api.Controllers
         [Route("get")]
         public IHttpActionResult getAll()
         {
-            var t = from title in fmp.titles
-                    select new { 
-                        title.id,
-                        title.description,
-                        title.payrate
-                    };
+            var t = fmp.titles.ToList<titles>().Select(title => new
+            {
+                title.id,
+                title.description,
+                payrate = Convert.ToDecimal(title.payrate).ToString("N2")
+            });
 
             return Ok(t);
+        }
+
+        [HttpGet]
+        [Route("get-by-employee/{employee_code}")]
+        public IHttpActionResult getEmployeeTitle(string employee_code)
+        {
+            var title = (from t in fmp.titles
+                            from e in fmp.staff
+                            where e.title == t.id &&
+                            e.employee_code == employee_code
+                            select new
+                            {
+                                t.id,
+                                t.payrate,
+                                t.description
+                            }).FirstOrDefault();
+
+            return Ok(title);
+
         }
 
         [HttpGet]

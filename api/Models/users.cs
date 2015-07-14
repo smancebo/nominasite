@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 public partial class users
 {
-    public users()
+   /* public users()
     {
         this.payments = new HashSet<payments>();
     }
@@ -23,5 +23,5 @@ public partial class users
     public string password { get; set; }
 
     public virtual ICollection<payments> payments { get; set; }
-    public virtual staff staff { get; set; }
+    public virtual staff staff { get; set; }*/
 }

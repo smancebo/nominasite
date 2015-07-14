@@ -32,11 +32,11 @@
 
     <div>
         <label>Employee: </label>
-        <select class="form-control" ng-model="payrollform.employee" ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in employees">
+        <select id="ddlEmployees" class="form-control" ng-model="current.employee" ng-options="(employee.name + ' ' + employee.last_name) for employee in employees">
             <option value="">Choose...</option>
         </select>
         <label>Regular Rate: </label>
-        <label>{{payrollform.employee}}</label>
+        <label class="money">{{current.employee.title.payrate | currency : $}}</label>
     </div>
 
     <div>
@@ -50,18 +50,18 @@
                         <th>Reimbursement</th>
                     </tr>
                 </thead>
-                <tr ng-repeat="day in payrollform.days">
+                <tr ng-repeat="day in current.days">
                     <td>
                         <label>{{day.day}}</label>
                     </td>
                     <td>
-                        <input type="text" class="form-control" event-handler on-blur="checkOvertime(day)" ng-model="day.regularHours" />
+                        <input type="text" class="form-control" event-handler on-blur="checkOvertime(day)" ng-model="day.regularHours" ng-init="day.regularHours = 0" />
                     </td>
                     <td>
-                        <input type="text" class="form-control" ng-model="day.overtime" />
+                        <input type="text" class="form-control" ng-model="day.overtime" ng-init="day.overtime = 0" />
                     </td>
                     <td>
-                        <a ng-click="addReimbursement()">Add</a>
+                        <a class="btn btn-xs btn-success" ng-click="addReimbursement()"><i class="fa fa-plus"></i> Add</a>
                     </td>
                 </tr>
             </table>
@@ -69,11 +69,11 @@
     </div>
 
 
-    <div class="col-md-1"><a class="arrow" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
+    <div class="col-md-1"><a class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
     <div class="col-md-10">
 
         <div class="table-responsive">
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th></th>
@@ -91,20 +91,122 @@
                 <tbody>
                     <tr>
                         <td>Regular Hours</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class='number-td'>{{current.days[0].regularHours}}</td>
+                        <td class='number-td'>{{current.days[1].regularHours}}</td>
+                        <td class='number-td'>{{current.days[2].regularHours}}</td>
+                        <td class='number-td'>{{current.days[3].regularHours}}</td>
+                        <td class='number-td'>{{current.days[4].regularHours}}</td>
+                        <td class='number-td'>{{current.days[5].regularHours}}</td>
+                        <td class='number-td'>{{current.days[6].regularHours}}</td>
+                        
+                        <td class='number-td'>{{parseInt(current.days[0].regularHours) +
+                                                parseInt(current.days[1].regularHours) +
+                                                parseInt(current.days[2].regularHours) +
+                                                parseInt(current.days[3].regularHours) +
+                                                parseInt(current.days[4].regularHours) +
+                                                parseInt(current.days[5].regularHours) +
+                                                parseInt(current.days[6].regularHours)}}</td>
+
+                        <td class='number-td money'>{{((parseInt(current.days[0].regularHours) +
+                                                 parseInt(current.days[1].regularHours) +
+                                                 parseInt(current.days[2].regularHours) +
+                                                 parseInt(current.days[3].regularHours) +
+                                                 parseInt(current.days[4].regularHours) +
+                                                 parseInt(current.days[5].regularHours) +
+                                                 parseInt(current.days[6].regularHours) ) * parseFloat(current.employee.title.payrate)) | currency : $}}</td>
+                    </tr>
+                    <tr>
+                        <td>Overtime Hours</td>
+                        <td class='number-td'>{{current.days[0].overtime}}</td>
+                        <td class='number-td'>{{current.days[1].overtime}}</td>
+                        <td class='number-td'>{{current.days[2].overtime}}</td>
+                        <td class='number-td'>{{current.days[3].overtime}}</td>
+                        <td class='number-td'>{{current.days[4].overtime}}</td>
+                        <td class='number-td'>{{current.days[5].overtime}}</td>
+                        <td class='number-td'>{{current.days[6].overtime}}</td>
+                        <td class='number-td'>{{parseInt(current.days[0].overtime) +
+                                                parseInt(current.days[1].overtime) +
+                                                parseInt(current.days[2].overtime) +
+                                                parseInt(current.days[3].overtime) +
+                                                parseInt(current.days[4].overtime) +
+                                                parseInt(current.days[5].overtime) +
+                                                parseInt(current.days[6].overtime)}}</td>
+
+                        <td class='number-td money'>{{((parseInt(current.days[0].overtime) +
+                                                 parseInt(current.days[1].overtime) +
+                                                 parseInt(current.days[2].overtime) +
+                                                 parseInt(current.days[3].overtime) +
+                                                 parseInt(current.days[4].overtime) +
+                                                 parseInt(current.days[5].overtime) +
+                                                 parseInt(current.days[6].overtime) ) * (parseFloat(current.employee.title.payrate)) * 1.5) | currency : $}}</td>
+                    </tr>
+                    <tr>
+                        <td>Diff Hours</td>
+                        <td class='number-td'>{{current.days[0].diffHours}}</td>
+                        <td class='number-td'>{{current.days[1].diffHours}}</td>
+                        <td class='number-td'>{{current.days[2].diffHours}}</td>
+                        <td class='number-td'>{{current.days[3].diffHours}}</td>
+                        <td class='number-td'>{{current.days[4].diffHours}}</td>
+                        <td class='number-td'>{{current.days[5].diffHours}}</td>
+                        <td class='number-td'>{{current.days[6].diffHours}}</td>
+
+                        <td class='number-td'>{{parseInt(current.days[0].diffHours) +
+                                                parseInt(current.days[1].diffHours) +
+                                                parseInt(current.days[2].diffHours) +
+                                                parseInt(current.days[3].diffHours) +
+                                                parseInt(current.days[4].diffHours) +
+                                                parseInt(current.days[5].diffHours) +
+                                                parseInt(current.days[6].diffHours)
+                            }}
+                        </td>
+                        <td class="number-td money"></td>
+                    </tr>
+                    <tr>
+                        <td>Reimbursements/Reg</td>
+                        <td class='number-td'>{{current.days[0].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[1].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[2].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[3].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[4].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[5].regularReimbursement}}</td>
+                        <td class='number-td'>{{current.days[6].regularReimbursement}}</td>
+
+                        <td class='number-td'>{{parseInt(current.days[0].regularReimbursement) +
+                                                parseInt(current.days[1].regularReimbursement) +
+                                                parseInt(current.days[2].regularReimbursement) +
+                                                parseInt(current.days[3].regularReimbursement) +
+                                                parseInt(current.days[4].regularReimbursement) +
+                                                parseInt(current.days[5].regularReimbursement) +
+                                                parseInt(current.days[6].regularReimbursement)
+                            }}
+                        </td>
+                        <td class="number-td money"></td>
+                    </tr>
+                    <tr>
+                        <td>Reimbursements/OT</td>
+                        <td class='number-td'>{{current.days[0].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[1].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[2].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[3].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[4].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[5].overtimeReimbursement}}</td>
+                        <td class='number-td'>{{current.days[6].overtimeReimbursement}}</td>
+
+                        <td class='number-td'>{{parseInt(current.days[0].overtimeReimbursement) +
+                                                parseInt(current.days[1].overtimeReimbursement) +
+                                                parseInt(current.days[2].overtimeReimbursement) +
+                                                parseInt(current.days[3].overtimeReimbursement) +
+                                                parseInt(current.days[4].overtimeReimbursement) +
+                                                parseInt(current.days[5].overtimeReimbursement) +
+                                                parseInt(current.days[6].overtimeReimbursement)
+                            }}
+                        </td>
+                        <td class="number-td money"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
-    <div class="col-md-1"><a class="arrow" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+    <div class="col-md-1"><a class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
 </div>
