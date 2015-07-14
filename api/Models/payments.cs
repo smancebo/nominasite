@@ -7,24 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Collections.Generic;
+
+public partial class payments
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class payments
+    public payments()
     {
-        public payments()
-        {
-            this.payments_details = new HashSet<payments_details>();
-        }
-    
-        public int payment_id { get; set; }
-        public Nullable<System.DateTime> startdate { get; set; }
-        public Nullable<System.DateTime> enddate { get; set; }
-        public string username { get; set; }
-    
-        public virtual ICollection<payments_details> payments_details { get; set; }
-        public virtual users users { get; set; }
+        this.payments_details = new HashSet<payments_details>();
     }
+
+    public int payment_id { get; set; }
+    public Nullable<System.DateTime> startdate { get; set; }
+    public Nullable<System.DateTime> enddate { get; set; }
+    public string username { get; set; }
+
+    public virtual ICollection<payments_details> payments_details { get; set; }
+    public virtual users users { get; set; }
 }

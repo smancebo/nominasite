@@ -7,39 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Collections.Generic;
+
+public partial class staff
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class staff
+    public staff()
     {
-        public staff()
-        {
-            this.payments_details = new HashSet<payments_details>();
-            this.phones = new HashSet<phones>();
-            this.schools = new HashSet<schools>();
-            this.users = new HashSet<users>();
-        }
-    
-        public int id { get; set; }
-        public string employee_code { get; set; }
-        public string name { get; set; }
-        public string middle_name { get; set; }
-        public string last_name { get; set; }
-        public string address { get; set; }
-        public string sex { get; set; }
-        public Nullable<System.DateTime> birthday { get; set; }
-        public string email { get; set; }
-        public Nullable<int> title { get; set; }
-        public Nullable<System.DateTime> hire_date { get; set; }
-        public string status { get; set; }
-        public string supervisor_code { get; set; }
-    
-        public virtual ICollection<payments_details> payments_details { get; set; }
-        public virtual ICollection<phones> phones { get; set; }
-        public virtual ICollection<schools> schools { get; set; }
-        public virtual titles titles { get; set; }
-        public virtual ICollection<users> users { get; set; }
+        this.payments_details = new HashSet<payments_details>();
+        this.phones = new HashSet<phones>();
+        this.schools = new HashSet<schools>();
+        this.users = new HashSet<users>();
     }
+
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public string name { get; set; }
+    public string middle_name { get; set; }
+    public string last_name { get; set; }
+    public string address { get; set; }
+    public string sex { get; set; }
+    public Nullable<System.DateTime> birthday { get; set; }
+    public string email { get; set; }
+    public Nullable<int> title { get; set; }
+    public Nullable<System.DateTime> hire_date { get; set; }
+    public string status { get; set; }
+    public string supervisor_code { get; set; }
+
+    public virtual ICollection<payments_details> payments_details { get; set; }
+    public virtual ICollection<phones> phones { get; set; }
+    public virtual ICollection<schools> schools { get; set; }
+    public virtual titles titles { get; set; }
+    public virtual ICollection<users> users { get; set; }
 }

@@ -12,7 +12,7 @@
             <div class="form-group half49-width">
                 <label>From</label>
                 <div class="input-group" date-picker date-model="payroll.startdate">
-                    <input class="form-control full-width" ng-model="payroll.startdate" />
+                    <input class="form-control full-width"/>
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
@@ -21,7 +21,7 @@
             <div class="form-group half-width">
                 <label>To</label>
                 <div class="input-group" date-picker date-model="payroll.enddate" date-change="calculateDiff()">
-                    <input class="form-control full-width" ng-model="payroll.enddate" />
+                    <input class="form-control full-width" />
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
@@ -32,11 +32,11 @@
 
     <div>
         <label>Employee: </label>
-        <select class="form-control">
+        <select class="form-control" ng-model="payrollform.employee" ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in employees">
             <option value="">Choose...</option>
         </select>
         <label>Regular Rate: </label>
-        <label>25.55</label>
+        <label>{{payrollform.employee}}</label>
     </div>
 
     <div>

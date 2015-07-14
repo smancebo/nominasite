@@ -32,12 +32,11 @@ app.directive('datePicker', function () {
             }).on('dp.change', function (e) {
                 //console.log(e.date._d);
                 if (e.date._d != null) {
-                    
                     scope.$apply(function () {
-                       scope.dateModel = e.date._d.formatDate();
-                        //scope.dateModel = $
-                        console.log(element);
-                        scope.dateChange();
+
+                        scope.dateModel = e.date._d.formatDate();
+                        
+                       // scope.dateChange();
                     });
                 }
             });

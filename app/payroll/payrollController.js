@@ -7,7 +7,7 @@
 
 var app = angular.module('fmpPortal');
 
-app.controller('payrollController', ['$scope', '$routeParams', function ($scope, $routeParams) {
+app.controller('payrollController', ['$scope', '$routeParams', '$staffService', function ($scope, $routeParams, $staffService) {
 
     $scope.payrollform = {};
     $scope.payroll = {
@@ -15,6 +15,17 @@ app.controller('payrollController', ['$scope', '$routeParams', function ($scope,
         enddate: '',
         username:''
     }
+
+    $scope.$watch('payroll.enddate', function (oldValue, newValue) {
+        if (oldValue != newValue) {
+            $scope.calculateDiff()
+        }
+    }, true);
+
+    $staffService.getAll(function (data) {
+        debugger
+        $scope.employees = data;
+    });
     
     $scope.checkOvertime = function(day)
     {

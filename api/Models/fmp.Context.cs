@@ -7,31 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+
+public partial class fmpEntities : DbContext
 {
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
-    public partial class fmpEntities : DbContext
+    public fmpEntities()
+        : base("name=fmpEntities")
     {
-        public fmpEntities()
-            : base("name=fmpEntities")
-        {
-        }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
-        public DbSet<payments> payments { get; set; }
-        public DbSet<payments_details> payments_details { get; set; }
-        public DbSet<phones> phones { get; set; }
-        public DbSet<reimbursement> reimbursement { get; set; }
-        public DbSet<schools> schools { get; set; }
-        public DbSet<staff> staff { get; set; }
-        public DbSet<titles> titles { get; set; }
-        public DbSet<users> users { get; set; }
     }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
+    {
+        throw new UnintentionalCodeFirstException();
+    }
+
+    public DbSet<payments> payments { get; set; }
+    public DbSet<payments_details> payments_details { get; set; }
+    public DbSet<phones> phones { get; set; }
+    public DbSet<reimbursement> reimbursement { get; set; }
+    public DbSet<schools> schools { get; set; }
+    public DbSet<staff> staff { get; set; }
+    public DbSet<titles> titles { get; set; }
+    public DbSet<users> users { get; set; }
 }
