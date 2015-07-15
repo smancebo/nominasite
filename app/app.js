@@ -5,10 +5,10 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap']);
     app.constant('$serverInfo', {
         server: "http://10.172.0.173:85/api"
-    })
+    });
 
 
     app.controller('indexController', ['$scope', function ($scope) {
