@@ -4,15 +4,17 @@ var app = angular.module('fmpPortal');
 
 var indx = 0;
 
-app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance','day', function ($scope, $reimbursementService, $modalInstance, day) {
-    console.log($modalInstance);
-    console.log(day);
+app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', function ($scope, $reimbursementService, $modalInstance, day, employee) {
+    
+    
     $scope.day = day;
-    $scope.reimbursement = {};
+    $scope.employee = employee;
+    //$scope.reimbursement = {;
 
     $scope.reimbursementsTypes = [
        { id: 1, description: 'Regular Hours', payrateMultiply: 1 },
-       { id: 2, description: 'Overtime', payrateMultiply: 1.5 }
+       { id: 2, description: 'Overtime', payrateMultiply: 1.5 },
+       { id: 3, description: 'Nigth Diff', payrateMultiply: 1 }
     ];
 
 
@@ -22,7 +24,7 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
 
 
     $scope.addReimbursement = function () {
-        
+
         if (day.reimbursements == undefined) {
             day.reimbursements = [];
         }
@@ -36,13 +38,47 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
             }
         }
         $scope.reimbursement.index = indx++;
-        day.reimbursements.push(clone($scope.reimbursement));
+       
+        if (day.totalReimbursementRegularHour == undefined) { day.totalReimbursementRegularHour = 0; }
+        if (day.totalReimbursementOvertime == undefined) { day.totalReimbursementOvertime = 0;}
+        if (day.totalReimbursementNigthDiff == undefined) { day.totalReimbursementNigthDiff = 0; }
+
+        $scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate * ($scope.reimbursement.type.payrateMultiply));
+        if ($scope.reimbursement.type.id == 3) //Nigth Diff
+        {
+            $scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate + ($scope.employee.title.nigthdiff));
+        }
+        /*var rateByHour = ($scope.reimbursement.rate * $scope.reimbursement.hours);
+        if ($scope.reimbursement.type.id == 1) //Reg Hours
+        {
+            day.totalReimbursementRegularHour += rateByHour;
+        }
+        else if($scope.reimbursement.type.id == 2) //Overtime
+        {
+            day.totalReimbursementOvertime += rateByHour;
+        }
+        else if ($scope.reimbursement.type.id == 3) //Nigth Diff
+        {
+            $scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate + ($scope.employee.title.nigthdiff));
+            rateByHour = ($scope.reimbursement.rate * $scope.reimbursement.hours);
+            day.totalReimbursementNigthDiff += rateByHour;
+        }*/
+        var re = angular.copy($scope.reimbursement.obj);
+        re.index = $scope.reimbursement.index;
+        re.hours = parseFloat($scope.reimbursement.hours);
+        re.rate = $scope.reimbursement.rate;
+        re.comment = $scope.reimbursement.comment;
+        re.type = angular.copy($scope.reimbursement.type);
+        re.obj = angular.copy($scope.reimbursement.obj);
+
+        day.reimbursements.push(clone(re));
+
         $scope.reimbursement = {};
         $scope.day = day;
     }
 
     $scope.cancelReimbursement = function () {
-        $scope.reimbursement = {};
+        $scope.reimbursement = angular.copy({});
     }
     $scope.editReimbursement = function (index) {
         $scope.reimbursement = clone(day.reimbursements.filter(function (e) {
@@ -51,6 +87,23 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
     }
 
     $scope.removeReimbursement = function (index) {
+        /*var i = angular.copy(day.reimbursements.filter(function (r) {
+            return r.index == index;
+        })[0]);
+
+        if (i.type.id == 1)
+        {
+            day.totalReimbursementRegularHour -= i.rate * i.hours;
+        }
+        else if(i.type.id == 2)
+        {
+            day.totalReimbursementOvertime -= rateByHour;
+        }
+        else if (i.type.id == 3)
+        {
+            day.totalReimbursementNigthDiff -= rateByHour;
+        }*/
+
         day.reimbursements = day.reimbursements.filter(function (r) {
             return r.index != index;
         });
@@ -66,10 +119,13 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
     }
 
     $scope.sumPayrate = function () {
-        debugger
+        
         var total = 0;
-        for (var i = 0; i < day.reimbursements.length - 1; i++) {
-            total += day.reimbursements[i].hours * day.reimbursements[i].payrate
+        if (day.reimbursements != undefined) {
+            
+            for (var i = 0; i <= day.reimbursements.length - 1; i++) {
+               total += (parseFloat(day.reimbursements[i].hours) * parseFloat(day.reimbursements[i].rate))
+            }
         }
         return total;
     }

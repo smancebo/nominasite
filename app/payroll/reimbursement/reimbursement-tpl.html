@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
             <label>Description</label>
-            <select class="form-control" ng-model="reimbursement" ng-options="r.description for r in reimbursements track by r.id">
+            <select class="form-control" ng-model="reimbursement.obj" ng-options="r.description for r in reimbursements track by r.id">
                 <option value=''>Choose...</option>
             </select>
         </div>
@@ -23,12 +23,14 @@
         </div>
         <div class="form-group">
             <label>Payrate: </label>
-            <span class="money">{{reimbursement.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}</span>
+            <span ng-if="reimbursement.type.id != 3" class="money">{{reimbursement.obj.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}</span>
+            <span ng-if="reimbursement.type.id == 3" class="money">{{reimbursement.obj.payrate + ((employee.title.nigthdiff || 0 )) | currency : $}}</span>
         </div>
         <div class="form-group">
             <label>Hours</label>
             <div class="input-group">
-                <input type="hidden" ng-model="reimbursement.payrate" value="{{reimbursement.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}" />
+                <input type="hidden" ng-if="reimbursement.type.id != 3" ng-model="reimbursement.rate" value="{{reimbursement.obj.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}" />
+                <input type="hidden" ng-if="reimbursement.type.id == 3" ng-model="reimbursement.rate" value="{{reimbursement.obj.payrate + ((employee.title.nigthdiff || 0 ))}}" />
                 <input type="text" placeholder="Hours" ng-model="reimbursement.hours" class="form-control" />
                 <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
@@ -53,22 +55,21 @@
             <thead>
                 <tr>
                     <th>Description</th>
-                    <th>Payrate</th>
-                    <th>Hours</th>
+                    <th class="currency-td">Payrate</th>
+                    <th class="number-td">Hours</th>
                     <th>Comment</th>
-                    <th>Gross pay</th>
+                    <th class="currency-td">Gross pay</th>
+                    <th style="width:145px;"></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="r in day.reimbursements" index="{{r.index}}">
                     <td>{{r.description}}</td>
-                    <td>{{r.payrate | currency : $}}</td>
-                    <td>{{r.hours}}</td>
+                    <td class='currency-td'>{{r.rate | currency : $}}</td>
+                    <td class='number-td'>{{r.hours}}</td>
                     <td>{{r.comment}}</td>
-                    <td>{{(r.hours * r.payrate) | currency : $}}
-                        <input type="hidden" ng-model="rPayrate" value="{{(r.hours * r.payrate) | currency : $}}" />
-                    </td>
-                    <td>
+                    <td class="currency-td money">{{(r.hours * r.rate) | currency : $}}</td>
+                    <td class="text-right">
                         <button class="btn btn-warning btn-xs" ng-click="editReimbursement(r.index)"><i class="fa fa-edit"></i> Edit</button>
                         <button class="btn btn-danger btn-xs" ng-click="removeReimbursement(r.index)"><i class="fa fa-remove"></i> Remove</button>
                     </td>
@@ -77,10 +78,10 @@
             <tfoot>
                 <tr>
                     <td></td>
+                    <td class='currency-td'></td>
+                    <td class='currency-td'></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{sumPayrate()}}</td>
+                    <td class="currency-td money"><label>{{sumPayrate() | currency : $}}</label></td>
                     <td></td>
                 </tr>
             </tfoot>

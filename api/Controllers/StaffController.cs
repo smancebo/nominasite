@@ -8,6 +8,7 @@ using System.Web.Http;
 //using api.Models;
 using Newtonsoft.Json;
 using utilities;
+using api.Models;
 
 namespace API.Controllers
 {
@@ -37,7 +38,7 @@ namespace API.Controllers
                             emp.email,
                             emp.employee_code,
                             emp.hire_date,
-                            title = new {emp.titles.id, emp.titles.payrate, emp.titles.description},
+                            title = new {emp.titles.id, emp.titles.payrate, emp.titles.description, emp.titles.nigthdiff},
                             emp.id,
                             emp.middle_name,
                             emp.sex,

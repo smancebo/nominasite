@@ -78,6 +78,7 @@
     <EntitySetMapping Name="titles">
       <EntityTypeMapping TypeName="fmpModel.titles">
         <MappingFragment StoreEntitySet="titles">
+          <ScalarProperty Name="nigthdiff" ColumnName="nigthdiff" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="payrate" ColumnName="payrate" />

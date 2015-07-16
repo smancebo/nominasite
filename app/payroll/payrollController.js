@@ -163,6 +163,43 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
     }
 
 
+    $scope.getReimbursementHours = function(day, type)
+    {
+        var totalHours = 0;
+        if (day != undefined && day.reimbursements != undefined) {
+
+            var rRegular = day.reimbursements.filter(function (r) {
+                return r.type.id == type
+            });
+
+            for (var i = 0; i <= rRegular.length - 1; i++) {
+                totalHours += parseFloat(day.reimbursements[i].hours);
+            }
+        }
+
+        return totalHours;
+    }
+
+    $scope.getReimbursementRate = function (days, type) {
+
+        var totalRate = 0;
+        if (days != undefined) {
+
+            days.forEach(function (day) {
+                if (day != undefined && day.reimbursements != undefined) {
+                    var rRegular = day.reimbursements.filter(function (r) {
+                        return r.type.id == type
+                    });
+
+                    for (var i = 0; i <= rRegular.length - 1; i++) {
+                        totalRate += (parseFloat(day.reimbursements[i].hours) * parseFloat(day.reimbursements[i].rate))
+                    }
+                }
+            })
+        }
+
+        return totalRate;
+    }
 
     /*Reimbursement Methods*/
 
@@ -178,6 +215,9 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
             resolve: {
                 day: function () {
                     return day;
+                },
+                employee: function () {
+                    return $scope.current.employee;
                 }
             }
         });

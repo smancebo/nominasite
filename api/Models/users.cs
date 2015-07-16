@@ -7,21 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class users
+namespace api.Models
 {
-   /* public users()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class users
     {
-        this.payments = new HashSet<payments>();
+        public users()
+        {
+            this.payments = new HashSet<payments>();
+        }
+    
+        public int id { get; set; }
+        public string employee_code { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+    
+        public virtual ICollection<payments> payments { get; set; }
+        public virtual staff staff { get; set; }
     }
-
-    public int id { get; set; }
-    public string employee_code { get; set; }
-    public string username { get; set; }
-    public string password { get; set; }
-
-    public virtual ICollection<payments> payments { get; set; }
-    public virtual staff staff { get; set; }*/
 }

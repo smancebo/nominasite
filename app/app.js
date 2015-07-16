@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap']);
     app.constant('$serverInfo', {
-        server: "http://10.0.0.11:85/api"
+        server: "http://10.172.0.173:85/api"
     });
 
 
@@ -105,12 +105,18 @@
 
         .when('/employees/view/:employeeCode', {
             templateUrl: 'app/mantenimientos/employees/add.html',
-            controller: ['$scope', '$staffService', '$routeParams', function ($scope, $staffService, $routeParams) {
+            controller: ['$scope', '$staffService', '$routeParams', '$titlesService', function ($scope, $staffService, $routeParams, $titlesService) {
                 $scope.viewMode = true;
+                $titlesService.getAll(function (data) {
+                    $scope.titles = data;
 
-                $staffService.get($routeParams.employeeCode, function (data) {
-                    $scope.employee = data;
-                })
+                    $staffService.get($routeParams.employeeCode, function (data) {
+                        $scope.employee = data;
+                    });
+                });
+               
+
+                
             }]
         })
         //</employees>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using api.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,7 +23,8 @@ namespace api.Controllers
             {
                 title.id,
                 title.description,
-                payrate = Convert.ToDecimal(title.payrate).ToString("N2")
+                payrate = Convert.ToDecimal(title.payrate).ToString("N2"),
+                nigthdiff = Convert.ToDecimal(title.nigthdiff).ToString("N2"),
             });
 
             return Ok(t);
@@ -40,7 +42,8 @@ namespace api.Controllers
                             {
                                 t.id,
                                 t.payrate,
-                                t.description
+                                t.description,
+                                t.nigthdiff
                             }).FirstOrDefault();
 
             return Ok(title);
@@ -56,7 +59,8 @@ namespace api.Controllers
                         select new {
                             title.id,
                             title.description,
-                            title.payrate
+                            title.payrate,
+                            title.nigthdiff
                         }).FirstOrDefault();
             return Ok(t);
         }

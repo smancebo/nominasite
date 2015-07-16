@@ -75,6 +75,7 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="100" />
     <Property Name="payrate" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="nigthdiff" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="users">
     <Key>

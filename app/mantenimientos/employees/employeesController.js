@@ -9,6 +9,7 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
     //$scope.dataRows.columns = ['Employee Code', 'Name', 'Email'];
 
     $titlesService.getAll(function (data) {
+        debugger
         $scope.titles = data;
 
         if ($routeParams.employeeCode) {

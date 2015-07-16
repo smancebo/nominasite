@@ -70,6 +70,7 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
+                                            <a ng-if="day.reimbursements.length > 0" class="btn btn-xs btn-info" ng-click="openReimbursement(day)"><i class="fa fa-search"></i> {{day.reimbursements.length}}</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -162,72 +163,72 @@
                                     </tr>
                                     <tr>
                                         <td>Nigth Diff</td>
-                                        <td class='number-td'>{{current.days[0].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[1].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[2].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[3].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[4].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[5].nigthDiff}}</td>
-                                        <td class='number-td'>{{current.days[6].nigthDiff}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[0],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[1],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[2],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[3],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[4],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[5],3)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[6],3)}}</td>
 
                                         <td data-total-nigthdiff-hours class='number-td'>
                                             {{
-                                                    parseInt(current.days[0].nigthDiff) +
-                                                    parseInt(current.days[1].nigthDiff) +
-                                                    parseInt(current.days[2].nigthDiff) +
-                                                    parseInt(current.days[3].nigthDiff) +
-                                                    parseInt(current.days[4].nigthDiff) +
-                                                    parseInt(current.days[5].nigthDiff) +
-                                                    parseInt(current.days[6].nigthDiff)
+                                                    parseInt(getReimbursementHours(current.days[0],3)) +
+                                                    parseInt(getReimbursementHours(current.days[1],3)) +
+                                                    parseInt(getReimbursementHours(current.days[2],3)) +
+                                                    parseInt(getReimbursementHours(current.days[3],3)) +
+                                                    parseInt(getReimbursementHours(current.days[4],3)) +
+                                                    parseInt(getReimbursementHours(current.days[5],3)) +
+                                                    parseInt(getReimbursementHours(current.days[6],3))
 }}
                                         </td>
-                                        <td class="number-td money"></td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,3) | currency : $}}</td>
                                     </tr>
                                     <tr>
                                         <td>Reimbursements/Reg</td>
-                                        <td class='number-td'>{{current.days[0].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[1].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[2].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[3].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[4].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[5].regularReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[6].regularReimbursement}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[0],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[1],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[2],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[3],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[4],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[5],1)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[6],1)}}</td>
 
                                         <td data-total-reimbursement-hours class='number-td'>
                                             {{
-                                                    parseInt(current.days[0].regularReimbursement) +
-                                                    parseInt(current.days[1].regularReimbursement) +
-                                                    parseInt(current.days[2].regularReimbursement) +
-                                                    parseInt(current.days[3].regularReimbursement) +
-                                                    parseInt(current.days[4].regularReimbursement) +
-                                                    parseInt(current.days[5].regularReimbursement) +
-                                                    parseInt(current.days[6].regularReimbursement)
-                                            }}
+                                                    parseFloat(getReimbursementHours(current.days[0],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[1],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[2],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[3],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[4],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[5],1)) +
+                                                    parseFloat(getReimbursementHours(current.days[6],1))
+}}
                                         </td>
-                                        <td class="number-td money"></td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,1) | currency : $}}</td>
                                     </tr>
                                     <tr>
                                         <td>Reimbursements/OT</td>
-                                        <td class='number-td'>{{current.days[0].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[1].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[2].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[3].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[4].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[5].overtimeReimbursement}}</td>
-                                        <td class='number-td'>{{current.days[6].overtimeReimbursement}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[0],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[1],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[2],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[3],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[4],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[5],2)}}</td>
+                                        <td class='number-td'>{{getReimbursementHours(current.days[6],2)}}</td>
 
                                         <td data-total-reimbursement-ot-hours class='number-td'>
                                             {{
-                                                    parseInt(current.days[0].overtimeReimbursement) +
-                                                    parseInt(current.days[1].overtimeReimbursement) +
-                                                    parseInt(current.days[2].overtimeReimbursement) +
-                                                    parseInt(current.days[3].overtimeReimbursement) +
-                                                    parseInt(current.days[4].overtimeReimbursement) +
-                                                    parseInt(current.days[5].overtimeReimbursement) +
-                                                    parseInt(current.days[6].overtimeReimbursement)
-                                            }}
+                                                    parseInt(getReimbursementHours(current.days[0],2)) +
+                                                    parseInt(getReimbursementHours(current.days[1],2)) +
+                                                    parseInt(getReimbursementHours(current.days[2],2)) +
+                                                    parseInt(getReimbursementHours(current.days[3],2)) +
+                                                    parseInt(getReimbursementHours(current.days[4],2)) +
+                                                    parseInt(getReimbursementHours(current.days[5],2)) +
+                                                    parseInt(getReimbursementHours(current.days[6],2))
+}}
                                         </td>
-                                        <td class="number-td money"></td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,2) | currency : $}}</td>
                                     </tr>
                                 </tbody>
                             </table>

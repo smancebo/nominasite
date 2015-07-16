@@ -87,6 +87,7 @@
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="payrate" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="staff" Relationship="Self.FK__staff__title__0519C6AF" FromRole="titles" ToRole="staff" />
+    <Property Name="nigthdiff" Type="Decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="users">
     <Key>
