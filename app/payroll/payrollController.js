@@ -7,9 +7,13 @@
 
 var app = angular.module('fmpPortal');
 
-app.controller('payrollController', ['$scope', '$routeParams', '$staffService', function ($scope, $routeParams, $staffService) {
+app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService) {
 
-    
+
+
+   
+   
+    $scope.day = {};
     $scope.tabs = [{ active: true }, { active: false }];
     $scope.payrollform = {};
     $scope.current = {
@@ -160,20 +164,36 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
 
 
 
+    /*Reimbursement Methods*/
+
+
+    $scope.openReimbursement = function (day) {
+        
+        $scope.day = day;
+        var modalInstance = $modal.open({
+            templateUrl: "/app/payroll/reimbursement/reimbursement-tpl.html",
+            controller: 'modalReimbursementController',
+            size: 'lg',
+            animation:true,
+            resolve: {
+                day: function () {
+                    return day;
+                }
+            }
+        });
+
+        modalInstance.result.then(function () {
+
+        });
+    }
+
+
+
 }]);
 
 
 
-function clone(obj) {
-    if (obj == null || typeof (obj) != 'object')
-        return obj;
 
-    var temp = new obj.constructor();
-    for (var key in obj)
-        temp[key] = clone(obj[key]);
-
-    return temp;
-}
 
 function DateDiff(date1, date2) {
     return date1.getTime() - date2.getTime();

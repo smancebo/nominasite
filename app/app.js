@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap']);
     app.constant('$serverInfo', {
-        server: "http://10.172.0.173:85/api"
+        server: "http://10.0.0.11:85/api"
     });
 
 
@@ -222,6 +222,17 @@
         if (dd < 10) { dd = '0' + dd }
         if (mm < 10) { mm = '0' + mm };
         return (mm + '/' + dd + '/' + yyyy);
+    }
+
+    function clone(obj) {
+        if (obj == null || typeof (obj) != 'object')
+            return obj;
+
+        var temp = new obj.constructor();
+        for (var key in obj)
+            temp[key] = clone(obj[key]);
+
+        return temp;
     }
 
 })();

@@ -1,0 +1,93 @@
+﻿
+
+<div class="modal-header">
+    <h3 class="modal-title">Add Reimbursement</h3>
+</div>
+<div class="modal-body">
+    <div>
+        <div class="form-group">
+            <label>Day </label>
+            <input type="text" class="form-control" value="{{day.day}}" disabled />
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <select class="form-control" ng-model="reimbursement" ng-options="r.description for r in reimbursements track by r.id">
+                <option value=''>Choose...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Reimbursement Type</label>
+            <select ng-model="reimbursement.type" class="form-control" ng-options="r.description for r in reimbursementsTypes track by r.id">
+                <option value=''>Choose...</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Payrate: </label>
+            <span class="money">{{reimbursement.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}</span>
+        </div>
+        <div class="form-group">
+            <label>Hours</label>
+            <div class="input-group">
+                <input type="hidden" ng-model="reimbursement.payrate" value="{{reimbursement.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}" />
+                <input type="text" placeholder="Hours" ng-model="reimbursement.hours" class="form-control" />
+                <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Comment</label> 
+            <textarea ng-model="reimbursement.comment" placeholder="Type a comment" class="form-control comment-text no-resize"></textarea>
+        </div>
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-6 col-xs-12">
+                <button class="btn btn-success col-md-12 col-xs-12 pull-left" ng-click="addReimbursement()"><i class="fa fa-plus"></i> Add</button>
+            </div>
+            <div class="col-md-6 col-xs-12">
+                <button class="btn btn-default col-md-12 col-xs-12 pull-right" ng-click="cancelReimbursement()"><i class="fa fa-remove"></i> Cancel</button>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Payrate</th>
+                    <th>Hours</th>
+                    <th>Comment</th>
+                    <th>Gross pay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="r in day.reimbursements" index="{{r.index}}">
+                    <td>{{r.description}}</td>
+                    <td>{{r.payrate | currency : $}}</td>
+                    <td>{{r.hours}}</td>
+                    <td>{{r.comment}}</td>
+                    <td>{{(r.hours * r.payrate) | currency : $}}
+                        <input type="hidden" ng-model="rPayrate" value="{{(r.hours * r.payrate) | currency : $}}" />
+                    </td>
+                    <td>
+                        <button class="btn btn-warning btn-xs" ng-click="editReimbursement(r.index)"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="btn btn-danger btn-xs" ng-click="removeReimbursement(r.index)"><i class="fa fa-remove"></i> Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{sumPayrate()}}</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">Ok</button>
+    <button class="btn btn-default" ng-click="cancel()">Cancel</button>
+</div>
