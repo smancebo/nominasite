@@ -23,12 +23,17 @@ app.directive('datePicker', function () {
         restrict: 'A',
         scope: {
             dateModel: '=',
-            dateChange: '&'
+            dateChange: '&',
+            daysDisabled: '=?'
         },
         link: function (scope, element, attr) {
-            $(element).datetimepicker({
+            if (!scope.daysDisabled) { scope.daysDisabled = []; }
+
+            var el = $(element).datetimepicker({
                 locale: 'es',
-                format: 'MM/DD/YYYY'
+                format: 'MM/DD/YYYY',
+                useCurrent: false,
+                daysOfWeekDisabled: scope.daysDisabled
             }).on('dp.change', function (e) {
                 //console.log(e.date._d);
                 if (e.date._d != null) {
@@ -40,6 +45,13 @@ app.directive('datePicker', function () {
                     });
                 }
             });
+            /*scope.$watch('dateModel', function (newValue, oldValue) {
+                if (newValue != oldValue) {
+                    var d = new Date(newValue);
+                    el.data('DateTimePicker').date(d);
+                }
+            });*/
+            //console.log(el);
         }
     }
 

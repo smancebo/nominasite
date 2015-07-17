@@ -5,14 +5,12 @@
 
 
 
-var app = angular.module('fmpPortal');
+    var app = angular.module('fmpPortal');
+
 
 app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService) {
-
-
-
    
-   
+    $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
     $scope.day = {};
     $scope.tabs = [{ active: true }, { active: false }];
     $scope.payrollform = {};
@@ -29,15 +27,24 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
 
     $scope.$watch('payroll.startdate', function (newValue, oldValue) {
         if (oldValue != newValue) {
-            $scope.calculateDiff()
+            $scope.calculateEndDate();
+            $scope.calculateDiff();
         }
     }, true);
 
     $scope.$watch('payroll.enddate', function (newValue, oldValue) {
         if (oldValue != newValue) {
-            $scope.calculateDiff()
+            $scope.calculateDiff();
         }
     }, true);
+
+    $scope.calculateEndDate = function () {
+        var date = new Date($scope.payroll.startdate);
+        var dateTo = new Date();
+        dateTo.setDate(date.getDate() + 6);
+        $scope.payroll.enddate = dateTo.formatDate();
+        $('.date-end').val(dateTo.formatDate());
+    }
 
    /* $scope.$watch('current', function (newValue, oldValue) {
         if (oldValue.employee.employee_code != undefined) {
@@ -201,30 +208,40 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
         return totalRate;
     }
 
+    
+
     /*Reimbursement Methods*/
 
 
     $scope.openReimbursement = function (day) {
         
-        $scope.day = day;
-        var modalInstance = $modal.open({
-            templateUrl: "/app/payroll/reimbursement/reimbursement-tpl.html",
-            controller: 'modalReimbursementController',
-            size: 'lg',
-            animation:true,
-            resolve: {
-                day: function () {
-                    return day;
-                },
-                employee: function () {
-                    return $scope.current.employee;
+        if ($scope.current.employee.employee_code != undefined) {
+
+
+            $scope.day = day;
+            var modalInstance = $modal.open({
+                templateUrl: "/app/payroll/reimbursement/reimbursement-tpl.html",
+                controller: 'modalReimbursementController',
+                size: 'lg',
+                animation: true,
+                resolve: {
+                    day: function () {
+                        return day;
+                    },
+                    employee: function () {
+                        return $scope.current.employee;
+                    }
                 }
-            }
-        });
+            });
 
-        modalInstance.result.then(function () {
+            modalInstance.result.then(function () {
 
-        });
+            });
+        }
+        else
+        {
+            alert('Choose an employee first!')
+        }
     }
 
 

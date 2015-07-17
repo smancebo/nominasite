@@ -10,17 +10,17 @@
         <div class="form-inline">
             <div class="form-group half49-width">
                 <label>From</label>
-                <div class="input-group" date-picker date-model="payroll.startdate">
-                    <input class="form-control full-width" />
+                <div class="input-group" date-picker days-disabled="disableDaysFrom" ng-class="{'has-error' : payroll.startdate == ''}" date-model="payroll.startdate">
+                    <input class="form-control full-width" required />
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
                 </div>
             </div>
-            <div class="form-group half-width">
+            <div class="form-group half-width" ng-class="{'has-error' : payroll.enddate == ''}">
                 <label>To</label>
                 <div class="input-group" date-picker date-model="payroll.enddate" date-change="calculateDiff()">
-                    <input class="form-control full-width" />
+                    <input class="form-control full-width date-end" required />
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
@@ -35,7 +35,7 @@
             </tab-heading>
             <div class="section">
                 <div>
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{'has-error' : current.employee.employee_code == undefined}">
                         <label>Employee: </label>
                         <select id="ddlEmployees" class="form-control" ng-model="current.employee" ng-options="(employee.name + ' ' + employee.last_name) for employee in employees track by employee.employee_code">
                             <option value="">Choose...</option>

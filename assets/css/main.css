@@ -145,3 +145,8 @@
 {
     resize:none
 }
+
+.required-field
+{
+    border-color: #D43547 !important;
+}
