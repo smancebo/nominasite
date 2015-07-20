@@ -185,9 +185,12 @@
         })
         //</reimbursement>
 
-
-
         .when('/payroll', {
+            templateUrl: 'app/payroll/view.html',
+            controller: 'payrollController'
+        })
+
+        .when('/payroll/add', {
             templateUrl: 'app/payroll/payroll.html',
             controller:'payrollController'
         })

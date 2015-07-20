@@ -10,6 +10,7 @@
 
 app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService) {
    
+    
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
     $scope.day = {};
     $scope.tabs = [{ active: true }, { active: false }];
@@ -24,6 +25,7 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
         username: '',
         employees: []
     }
+   
 
     $scope.$watch('payroll.startdate', function (newValue, oldValue) {
         if (oldValue != newValue) {
@@ -37,6 +39,21 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
             $scope.calculateDiff();
         }
     }, true);
+
+    $scope.$watch('current.employee', function (newValue, oldValue) {
+        if (newValue != oldValue) {
+            if (newValue != undefined)
+            {
+                debugger
+                var isin = $scope.employeeInPayroll(newValue.employee_code);
+
+                if (isin == true) {
+                    console.log('aqui');
+                    $scope.editEmployee(newValue.employee_code);
+                }
+            }
+        }
+    },true);
 
     $scope.calculateEndDate = function () {
         var date = new Date($scope.payroll.startdate);
@@ -145,11 +162,7 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
         $scope.current.totalNigthDiff = $scope.getField('data-total-nigthdiff-hours');
 
         $scope.payroll.employees.push(clone($scope.current));
-        $scope.current = {
-            employee: {},
-            days: []
-        };
-        $scope.calculateDiff();
+        $scope.cancelEmployee();
         console.log($scope.payroll.employees);
     }
 
@@ -159,14 +172,30 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
         });
     }
 
+    $scope.cancelEmployee = function () {
+
+        $scope.current = {
+            employee: {},
+            days: []
+        };
+        $scope.calculateDiff();
+    }
+
     $scope.editEmployee = function (employee_code) {
        
-        //$scope.payroll.employees.push(clone($scope.current));
-     //   console.log($scope.current);
         $scope.current = $scope.payroll.employees.filter(function (e) {
             return e.employee.employee_code == employee_code;
         })[0];
         $scope.tabs[0].active = true;
+    }
+
+    $scope.employeeInPayroll = function (employee_code) {
+
+        var isin = $scope.payroll.employees.filter(function (e) {
+            return e.employee.employee_code == employee_code;
+        });
+
+        return isin.length == 0 ? false : true;
     }
 
 

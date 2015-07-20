@@ -150,3 +150,8 @@
 {
     border-color: #D43547 !important;
 }
+
+.hide
+{
+    display:none;
+}

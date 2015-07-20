@@ -44,7 +44,7 @@
                     <label>Regular Rate: </label>
                     <label class="money">{{current.employee.title.payrate | currency : $}}</label>
                 </div>
-                <div class="employee-div">
+                <div class="employee-div" ng-hide="current.employee.employee_code == undefined">
                     <div class="col-md-1 vertical-align"><a class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
                     <div class="col-md-10">
                         <div>
@@ -66,7 +66,7 @@
                                             <input type="text" class="form-control" event-handler on-blur="checkOvertime(day)" ng-model="day.regularHours" />
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="day.overtime" disabled/>
+                                            <input type="text" class="form-control" ng-model="day.overtime" disabled />
                                         </td>
                                         <td>
                                             <a class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
@@ -180,7 +180,7 @@
                                                     parseInt(getReimbursementHours(current.days[4],3)) +
                                                     parseInt(getReimbursementHours(current.days[5],3)) +
                                                     parseInt(getReimbursementHours(current.days[6],3))
-}}
+                                            }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,3) | currency : $}}</td>
                                     </tr>
@@ -203,7 +203,7 @@
                                                     parseFloat(getReimbursementHours(current.days[4],1)) +
                                                     parseFloat(getReimbursementHours(current.days[5],1)) +
                                                     parseFloat(getReimbursementHours(current.days[6],1))
-}}
+                                            }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,1) | currency : $}}</td>
                                     </tr>
@@ -226,14 +226,19 @@
                                                     parseInt(getReimbursementHours(current.days[4],2)) +
                                                     parseInt(getReimbursementHours(current.days[5],2)) +
                                                     parseInt(getReimbursementHours(current.days[6],2))
-}}
+                                            }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,2) | currency : $}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <button ng-click="addToPayroll()" class="btn btn-success col-md-12"><i class="fa fa-plus"></i> Add to payroll</button>
+                        <div class="container col-md-6">
+                            <button ng-click="addToPayroll()" class="btn btn-success col-md-12"><i class="fa fa-plus"></i> Add to payroll</button>
+                        </div>
+                        <div class="container col-md-6">
+                            <button ng-click="cancelEmployee()" class="btn btn-danger col-md-12"><i class="fa fa-remove"></i> Cancel</button>
+                        </div>
                     </div>
                     <div class="col-md-1 vertical-align"><a class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
                 </div>
@@ -269,7 +274,12 @@
                         </tbody>
                     </table>
                 </div>
-                <button class="btn btn-success col-md-12"><i class="fa fa-check"></i> Apply payroll</button>
+                <div class="container col-md-6">
+                    <button class="btn btn-info col-md-12"><i class="fa fa-save"></i> Save payroll</button>
+                </div>
+                <div class="container col-md-6">
+                    <button class="btn btn-success col-md-12"><i class="fa fa-check"></i> Apply payroll</button>
+                </div>
             </div>
         </tab>
     </tabset>
