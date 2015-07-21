@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PayrollController.cs" />
     <Compile Include="Controllers\reimbursementController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
@@ -161,6 +162,9 @@
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\payments_details.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\payments_reimbursements.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\phones.cs">

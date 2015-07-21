@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\smancebo\Desktop\proj\nv2\nominasite\api\Models\fmp.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\neogenesis\work\nominasite\api\Models\fmp.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

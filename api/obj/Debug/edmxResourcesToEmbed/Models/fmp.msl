@@ -4,6 +4,8 @@
     <EntitySetMapping Name="payments">
       <EntityTypeMapping TypeName="fmpModel.payments">
         <MappingFragment StoreEntitySet="payments">
+          <ScalarProperty Name="payment_code" ColumnName="payment_code" />
+          <ScalarProperty Name="applied" ColumnName="applied" />
           <ScalarProperty Name="payment_id" ColumnName="payment_id" />
           <ScalarProperty Name="startdate" ColumnName="startdate" />
           <ScalarProperty Name="enddate" ColumnName="enddate" />
@@ -92,6 +94,21 @@
           <ScalarProperty Name="employee_code" ColumnName="employee_code" />
           <ScalarProperty Name="username" ColumnName="username" />
           <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="payments_reimbursements">
+      <EntityTypeMapping TypeName="fmpModel.payments_reimbursements">
+        <MappingFragment StoreEntitySet="payments_reimbursements">
+          <ScalarProperty Name="reimbursement_type" ColumnName="reimbursement_type" />
+          <ScalarProperty Name="comment" ColumnName="comment" />
+          <ScalarProperty Name="rate" ColumnName="rate" />
+          <ScalarProperty Name="hours" ColumnName="hours" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="day" ColumnName="day" />
+          <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+          <ScalarProperty Name="reimbursement_id" ColumnName="reimbursement_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

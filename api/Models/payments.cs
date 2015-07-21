@@ -23,6 +23,8 @@ namespace api.Models
         public Nullable<System.DateTime> startdate { get; set; }
         public Nullable<System.DateTime> enddate { get; set; }
         public string username { get; set; }
+        public Nullable<bool> applied { get; set; }
+        public string payment_code { get; set; }
     
         public virtual ICollection<payments_details> payments_details { get; set; }
         public virtual users users { get; set; }

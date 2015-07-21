@@ -3,6 +3,24 @@ var app = angular.module('fmpPortal');
 
 
 
+app.factory('$payrollService', ['$http', '$serverInfo', function ($http, $serverInfo) {
+
+    var payrollService = {};
+
+    var serviceBaseAddress = $serverInfo.server + '/api/payroll';
+
+    payrollService.save = function (employees, callback) {
+        $http.post(serviceBaseAddress + '/save', employees)
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
+    return payrollService;
+
+
+}]);
+
 app.factory('$titlesService', ['$http', '$serverInfo', function ($http, $serverInfo) {
 
     var titlesService = {};

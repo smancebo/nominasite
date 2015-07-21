@@ -8,7 +8,7 @@
     var app = angular.module('fmpPortal');
 
 
-app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService) {
+    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService) {
    
     
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
@@ -48,7 +48,6 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
                 var isin = $scope.employeeInPayroll(newValue.employee_code);
 
                 if (isin == true) {
-                    console.log('aqui');
                     $scope.editEmployee(newValue.employee_code);
                 }
             }
@@ -238,6 +237,14 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
     }
 
     
+    $scope.savePayroll = function () {
+
+        $payrollService.save($scope.payroll, function (data) {
+            console.log(data);
+        });
+
+        //
+    }
 
     /*Reimbursement Methods*/
 

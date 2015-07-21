@@ -4,15 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="payments">
           <Key>
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="startdate" Type="date" />
-          <Property Name="enddate" Type="date" />
+          <Property Name="startdate" Type="datetime" />
+          <Property Name="enddate" Type="datetime" />
           <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="applied" Type="bit" />
+          <Property Name="payment_code" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="payments_details">
           <Key>
@@ -21,10 +23,24 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="payment_id" Type="int" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="day" Type="date" />
-          <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
-          <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="day" Type="datetime" />
+          <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="payments_reimbursements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="reimbursement_id" Type="int" />
+          <Property Name="payment_id" Type="int" />
+          <Property Name="day" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="hours" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="rate" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="comment" Type="varchar" MaxLength="300" />
+          <Property Name="reimbursement_type" Type="int" />
         </EntityType>
         <EntityType Name="phones">
           <Key>
@@ -32,7 +48,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="employee_code" Type="varchar" MaxLength="100" />
-          <Property Name="number" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="number" Type="decimal" Precision="18" Scale="0" />
           <Property Name="phone_type" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="reimbursement">
@@ -66,10 +82,10 @@
           <Property Name="last_name" Type="varchar" MaxLength="100" />
           <Property Name="address" Type="varchar" MaxLength="200" />
           <Property Name="sex" Type="varchar" MaxLength="1" />
-          <Property Name="birthday" Type="date" />
+          <Property Name="birthday" Type="datetime" />
           <Property Name="email" Type="varchar" MaxLength="200" />
           <Property Name="title" Type="int" />
-          <Property Name="hire_date" Type="date" />
+          <Property Name="hire_date" Type="datetime" />
           <Property Name="status" Type="varchar" MaxLength="1" />
           <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -178,6 +194,7 @@
         <EntityContainer Name="fmpModelStoreContainer">
           <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="payments_details" EntityType="Self.payments_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="payments_reimbursements" EntityType="Self.payments_reimbursements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
@@ -222,11 +239,13 @@
             <PropertyRef Name="payment_id" />
           </Key>
           <Property Name="payment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="startdate" Type="DateTime" Precision="0" />
-          <Property Name="enddate" Type="DateTime" Precision="0" />
+          <Property Name="startdate" Type="DateTime" Precision="3" />
+          <Property Name="enddate" Type="DateTime" Precision="3" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments" ToRole="payments_details" />
           <NavigationProperty Name="users" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="payments" ToRole="users" />
+          <Property Name="applied" Type="Boolean" />
+          <Property Name="payment_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="payments_details">
           <Key>
@@ -235,7 +254,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="payment_id" Type="Int32" />
           <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="day" Type="DateTime" Precision="0" />
+          <Property Name="day" Type="DateTime" Precision="3" />
           <Property Name="required_hours" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="overtime" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
@@ -284,10 +303,10 @@
           <Property Name="last_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="address" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="sex" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="birthday" Type="DateTime" Precision="0" />
+          <Property Name="birthday" Type="DateTime" Precision="3" />
           <Property Name="email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="title" Type="Int32" />
-          <Property Name="hire_date" Type="DateTime" Precision="0" />
+          <Property Name="hire_date" Type="DateTime" Precision="3" />
           <Property Name="status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="supervisor_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments_details" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="staff" ToRole="payments_details" />
@@ -438,7 +457,22 @@
             <End Role="staff" EntitySet="staff" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
+          <EntitySet Name="payments_reimbursements" EntityType="fmpModel.payments_reimbursements" />
         </EntityContainer>
+        <EntityType Name="payments_reimbursements">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="reimbursement_id" Type="Int32" />
+          <Property Name="payment_id" Type="Int32" />
+          <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="hours" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="rate" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="comment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="reimbursement_type" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -448,6 +482,8 @@
           <EntitySetMapping Name="payments">
             <EntityTypeMapping TypeName="fmpModel.payments">
               <MappingFragment StoreEntitySet="payments">
+                <ScalarProperty Name="payment_code" ColumnName="payment_code" />
+                <ScalarProperty Name="applied" ColumnName="applied" />
                 <ScalarProperty Name="payment_id" ColumnName="payment_id" />
                 <ScalarProperty Name="startdate" ColumnName="startdate" />
                 <ScalarProperty Name="enddate" ColumnName="enddate" />
@@ -536,6 +572,21 @@
                 <ScalarProperty Name="employee_code" ColumnName="employee_code" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="payments_reimbursements">
+            <EntityTypeMapping TypeName="fmpModel.payments_reimbursements">
+              <MappingFragment StoreEntitySet="payments_reimbursements">
+                <ScalarProperty Name="reimbursement_type" ColumnName="reimbursement_type" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="day" ColumnName="day" />
+                <ScalarProperty Name="payment_id" ColumnName="payment_id" />
+                <ScalarProperty Name="reimbursement_id" ColumnName="reimbursement_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

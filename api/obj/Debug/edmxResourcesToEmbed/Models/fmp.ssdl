@@ -1,13 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="payments">
     <Key>
       <PropertyRef Name="payment_id" />
     </Key>
     <Property Name="payment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="startdate" Type="date" />
-    <Property Name="enddate" Type="date" />
+    <Property Name="startdate" Type="datetime" />
+    <Property Name="enddate" Type="datetime" />
     <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="applied" Type="bit" />
+    <Property Name="payment_code" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="payments_details">
     <Key>
@@ -16,10 +18,24 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="payment_id" Type="int" />
     <Property Name="employee_code" Type="varchar" MaxLength="100" />
-    <Property Name="day" Type="date" />
-    <Property Name="required_hours" Type="numeric" Precision="18" Scale="0" />
-    <Property Name="overtime" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="day" Type="datetime" />
+    <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="payments_reimbursements">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="reimbursement_id" Type="int" />
+    <Property Name="payment_id" Type="int" />
+    <Property Name="day" Type="varchar" MaxLength="50" />
+    <Property Name="date" Type="date" />
+    <Property Name="hours" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="rate" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="comment" Type="varchar" MaxLength="300" />
+    <Property Name="reimbursement_type" Type="int" />
   </EntityType>
   <EntityType Name="phones">
     <Key>
@@ -27,7 +43,7 @@
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="employee_code" Type="varchar" MaxLength="100" />
-    <Property Name="number" Type="numeric" Precision="18" Scale="0" />
+    <Property Name="number" Type="decimal" Precision="18" Scale="0" />
     <Property Name="phone_type" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="reimbursement">
@@ -61,10 +77,10 @@
     <Property Name="last_name" Type="varchar" MaxLength="100" />
     <Property Name="address" Type="varchar" MaxLength="200" />
     <Property Name="sex" Type="varchar" MaxLength="1" />
-    <Property Name="birthday" Type="date" />
+    <Property Name="birthday" Type="datetime" />
     <Property Name="email" Type="varchar" MaxLength="200" />
     <Property Name="title" Type="int" />
-    <Property Name="hire_date" Type="date" />
+    <Property Name="hire_date" Type="datetime" />
     <Property Name="status" Type="varchar" MaxLength="1" />
     <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
   </EntityType>
@@ -173,6 +189,7 @@
   <EntityContainer Name="fmpModelStoreContainer">
     <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments_details" EntityType="Self.payments_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payments_reimbursements" EntityType="Self.payments_reimbursements" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />

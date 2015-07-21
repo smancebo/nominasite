@@ -27,6 +27,7 @@ namespace api.Controllers
                 nigthdiff = Convert.ToDecimal(title.nigthdiff).ToString("N2"),
             });
 
+           
             return Ok(t);
         }
 
