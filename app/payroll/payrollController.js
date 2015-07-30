@@ -8,7 +8,7 @@
     var app = angular.module('fmpPortal');
 
 
-app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService) {
+    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService','ngToast', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast) {
    
     
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
@@ -48,7 +48,6 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
                 var isin = $scope.employeeInPayroll(newValue.employee_code);
 
                 if (isin == true) {
-                    console.log('aqui');
                     $scope.editEmployee(newValue.employee_code);
                 }
             }
@@ -118,6 +117,7 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
             day.nigthDiff = 0;
             day.regularReimbursement = 0;
             day.overtimeReimbursement = 0;
+            day.date = currentDate.formatDateSql();
             $scope.current.days.push(day);
         }
     }
@@ -238,6 +238,36 @@ app.controller('payrollController', ['$scope', '$routeParams', '$staffService', 
     }
 
     
+    
+
+    $scope.savePayroll = function () {
+
+        $payrollService.save($scope.payroll, function (data) {
+           
+            var className = '';
+            var toast = '';
+
+            if(data == '1')
+            {
+                toast = ngToast.create({
+                    className:'success',
+                    content: 'Payroll Saved Successfully!'
+                });
+            }
+            else
+            {
+                toast = ngToast.danger({
+                    className: 'danger',
+                    content: '<b>Error occurred:</b> ' + data.Message
+                });
+            }
+
+            ngToast.dismiss(toast);
+
+        });
+
+        //
+    }
 
     /*Reimbursement Methods*/
 

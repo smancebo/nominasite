@@ -5,7 +5,7 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap','ngToast']);
     app.constant('$serverInfo', {
         server: "http://10.172.0.173:85/api"
     });
@@ -195,6 +195,12 @@
             controller:'payrollController'
         })
 
+
+        .when('/login', {
+            templateUrl: 'app/login/login.html',
+            controller: 'loginController'
+        })
+
         .otherwise({
             redirectTo: '/'
         });
@@ -231,6 +237,16 @@
         if (dd < 10) { dd = '0' + dd }
         if (mm < 10) { mm = '0' + mm };
         return (mm + '/' + dd + '/' + yyyy);
+    }
+
+    Date.prototype.formatDateSql = function formatDate() {
+        var date = this;
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1;
+        var yyyy = date.getFullYear();
+        if (dd < 10) { dd = '0' + dd }
+        if (mm < 10) { mm = '0' + mm };
+        return (yyyy + '-' + mm + '-' + dd);
     }
 
     function clone(obj) {

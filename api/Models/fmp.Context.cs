@@ -33,5 +33,7 @@ namespace api.Models
         public DbSet<staff> staff { get; set; }
         public DbSet<titles> titles { get; set; }
         public DbSet<users> users { get; set; }
+        public DbSet<payments_reimbursements> payments_reimbursements { get; set; }
+        public DbSet<sys_parameters> sys_parameters { get; set; }
     }
 }

@@ -1,0 +1,33 @@
+﻿
+
+
+<form class="login-form half-width center-block" ng-submit="login(credentials)">
+    <div>
+        <div class="login-head">
+            <h4>Fmp Portal SignOn</h4>
+        </div>
+        <div class="form">
+            <div class="form-group">
+                <label>User Name</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" ng-model="credentials.username" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-key"></i>
+                    </div>
+                    <input class="form-control" ng-model="credentials.password" type="password" />
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary full-width">Login</button>
+            </div>
+        </div>
+    </div>
+</form>

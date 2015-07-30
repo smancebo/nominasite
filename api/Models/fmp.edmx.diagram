@@ -20,6 +20,9 @@
         <AssociationConnector Association="fmpModel.FK__schools__employe__1A14E395" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__staff__title__0519C6AF" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__users__employee___09DE7BCC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="fmpModel.payments_reimbursements" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="fmpModel.FK__payments___emplo__173876EA" />
+        <EntityTypeShape EntityType="fmpModel.sys_parameters" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
