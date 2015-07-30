@@ -27,13 +27,13 @@ namespace api.Models
     
         public DbSet<payments> payments { get; set; }
         public DbSet<payments_details> payments_details { get; set; }
+        public DbSet<payments_reimbursements> payments_reimbursements { get; set; }
         public DbSet<phones> phones { get; set; }
         public DbSet<reimbursement> reimbursement { get; set; }
         public DbSet<schools> schools { get; set; }
         public DbSet<staff> staff { get; set; }
+        public DbSet<sys_parameters> sys_parameters { get; set; }
         public DbSet<titles> titles { get; set; }
         public DbSet<users> users { get; set; }
-        public DbSet<payments_reimbursements> payments_reimbursements { get; set; }
-        public DbSet<sys_parameters> sys_parameters { get; set; }
     }
 }

@@ -21,6 +21,8 @@ namespace api.Models
         public string employee_manager { get; set; }
         public string supervisor { get; set; }
         public string name { get; set; }
+        public Nullable<decimal> budget { get; set; }
+        public Nullable<int> last_payment_code_secuence { get; set; }
     
         public virtual staff staff { get; set; }
     }

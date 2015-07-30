@@ -17,10 +17,10 @@ namespace api.Models
         public staff()
         {
             this.payments_details = new HashSet<payments_details>();
+            this.payments_reimbursements = new HashSet<payments_reimbursements>();
             this.phones = new HashSet<phones>();
             this.schools = new HashSet<schools>();
             this.users = new HashSet<users>();
-            this.payments_reimbursements = new HashSet<payments_reimbursements>();
         }
     
         public int id { get; set; }
@@ -38,10 +38,10 @@ namespace api.Models
         public string supervisor_code { get; set; }
     
         public virtual ICollection<payments_details> payments_details { get; set; }
+        public virtual ICollection<payments_reimbursements> payments_reimbursements { get; set; }
         public virtual ICollection<phones> phones { get; set; }
         public virtual ICollection<schools> schools { get; set; }
         public virtual titles titles { get; set; }
         public virtual ICollection<users> users { get; set; }
-        public virtual ICollection<payments_reimbursements> payments_reimbursements { get; set; }
     }
 }

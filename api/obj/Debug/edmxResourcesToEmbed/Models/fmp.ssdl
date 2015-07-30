@@ -67,6 +67,8 @@
     <Property Name="employee_manager" Type="varchar" MaxLength="100" />
     <Property Name="supervisor" Type="varchar" MaxLength="100" />
     <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="budget" Type="money" />
+    <Property Name="last_payment_code_secuence" Type="int" />
   </EntityType>
   <EntityType Name="staff">
     <Key>

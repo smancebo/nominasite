@@ -197,24 +197,24 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\fmp.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>fmp.edmx</DependentUpon>
-      <LastGenOutput>fmp.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\fmp.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>fmp.edmx</DependentUpon>
-      <LastGenOutput>fmp.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\fmp.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>fmp.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Models\fmp.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>fmp.edmx</DependentUpon>
+      <LastGenOutput>fmp.Context.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\fmp.edmx.diagram">
       <DependentUpon>fmp.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\fmp.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>fmp.edmx</DependentUpon>
+      <LastGenOutput>fmp.cs</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
