@@ -237,12 +237,7 @@
         return totalRate;
     }
 
-    
-<<<<<<< HEAD
-    
 
-=======
->>>>>>> 262f503fffef70615edb6ba77affa8d4770109e6
     $scope.savePayroll = function () {
 
         $payrollService.save($scope.payroll, function (data) {
@@ -252,22 +247,18 @@
 
             if(data == '1')
             {
-<<<<<<< HEAD
+
                 toast = ngToast.create({
                     className:'success',
-=======
-                toast = ngToast.success({
->>>>>>> 262f503fffef70615edb6ba77affa8d4770109e6
                     content: 'Payroll Saved Successfully!'
-                });
+                })
             }
             else
             {
                 toast = ngToast.danger({
-<<<<<<< HEAD
+
                     className: 'danger',
-=======
->>>>>>> 262f503fffef70615edb6ba77affa8d4770109e6
+
                     content: '<b>Error occurred:</b> ' + data.Message
                 });
             }
