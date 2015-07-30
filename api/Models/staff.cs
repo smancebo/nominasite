@@ -20,6 +20,7 @@ namespace api.Models
             this.phones = new HashSet<phones>();
             this.schools = new HashSet<schools>();
             this.users = new HashSet<users>();
+            this.payments_reimbursements = new HashSet<payments_reimbursements>();
         }
     
         public int id { get; set; }
@@ -41,5 +42,6 @@ namespace api.Models
         public virtual ICollection<schools> schools { get; set; }
         public virtual titles titles { get; set; }
         public virtual ICollection<users> users { get; set; }
+        public virtual ICollection<payments_reimbursements> payments_reimbursements { get; set; }
     }
 }

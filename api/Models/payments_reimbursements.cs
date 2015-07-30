@@ -23,5 +23,8 @@ namespace api.Models
         public Nullable<decimal> rate { get; set; }
         public string comment { get; set; }
         public Nullable<int> reimbursement_type { get; set; }
+        public string employee_code { get; set; }
+    
+        public virtual staff staff { get; set; }
     }
 }

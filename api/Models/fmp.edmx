@@ -27,6 +27,7 @@
           <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
           <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
           <Property Name="comments" Type="varchar" MaxLength="200" />
+          <Property Name="payrate" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="payments_reimbursements">
           <Key>
@@ -41,6 +42,7 @@
           <Property Name="rate" Type="decimal" Precision="18" Scale="4" />
           <Property Name="comment" Type="varchar" MaxLength="300" />
           <Property Name="reimbursement_type" Type="int" />
+          <Property Name="employee_code" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="phones">
           <Key>
@@ -115,6 +117,18 @@
               <PropertyRef Name="employee_code" />
             </Principal>
             <Dependent Role="payments_details">
+              <PropertyRef Name="employee_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__payments___emplo__173876EA">
+          <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+          <End Role="payments_reimbursements" Type="Self.payments_reimbursements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="employee_code" />
+            </Principal>
+            <Dependent Role="payments_reimbursements">
               <PropertyRef Name="employee_code" />
             </Dependent>
           </ReferentialConstraint>
@@ -205,6 +219,10 @@
             <End Role="staff" EntitySet="staff" />
             <End Role="payments_details" EntitySet="payments_details" />
           </AssociationSet>
+          <AssociationSet Name="FK__payments___emplo__173876EA" Association="Self.FK__payments___emplo__173876EA">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="payments_reimbursements" EntitySet="payments_reimbursements" />
+          </AssociationSet>
           <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
             <End Role="payments" EntitySet="payments" />
             <End Role="payments_details" EntitySet="payments_details" />
@@ -260,6 +278,7 @@
           <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments_details" ToRole="payments" />
           <NavigationProperty Name="staff" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="payments_details" ToRole="staff" />
+          <Property Name="payrate" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="phones">
           <Key>
@@ -314,6 +333,7 @@
           <NavigationProperty Name="schools" Relationship="Self.FK__schools__employe__1A14E395" FromRole="staff" ToRole="schools" />
           <NavigationProperty Name="titles" Relationship="Self.FK__staff__title__0519C6AF" FromRole="staff" ToRole="titles" />
           <NavigationProperty Name="users" Relationship="Self.FK__users__employee___09DE7BCC" FromRole="staff" ToRole="users" />
+          <NavigationProperty Name="payments_reimbursements" Relationship="fmpModel.FK__payments___emplo__173876EA" FromRole="staff" ToRole="payments_reimbursements" />
         </EntityType>
         <EntityType Name="titles">
           <Key>
@@ -458,6 +478,10 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
           <EntitySet Name="payments_reimbursements" EntityType="fmpModel.payments_reimbursements" />
+          <AssociationSet Name="FK__payments___emplo__173876EA" Association="fmpModel.FK__payments___emplo__173876EA">
+            <End Role="staff" EntitySet="staff" />
+            <End Role="payments_reimbursements" EntitySet="payments_reimbursements" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="payments_reimbursements">
           <Key>
@@ -472,7 +496,21 @@
           <Property Name="rate" Type="Decimal" Precision="18" Scale="4" />
           <Property Name="comment" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="reimbursement_type" Type="Int32" />
+          <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="staff" Relationship="fmpModel.FK__payments___emplo__173876EA" FromRole="payments_reimbursements" ToRole="staff" />
         </EntityType>
+        <Association Name="FK__payments___emplo__173876EA">
+          <End Type="fmpModel.staff" Role="staff" Multiplicity="0..1" />
+          <End Type="fmpModel.payments_reimbursements" Role="payments_reimbursements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="staff">
+              <PropertyRef Name="employee_code" />
+            </Principal>
+            <Dependent Role="payments_reimbursements">
+              <PropertyRef Name="employee_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -494,6 +532,7 @@
           <EntitySetMapping Name="payments_details">
             <EntityTypeMapping TypeName="fmpModel.payments_details">
               <MappingFragment StoreEntitySet="payments_details">
+                <ScalarProperty Name="payrate" ColumnName="payrate" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="payment_id" ColumnName="payment_id" />
                 <ScalarProperty Name="employee_code" ColumnName="employee_code" />
@@ -578,6 +617,7 @@
           <EntitySetMapping Name="payments_reimbursements">
             <EntityTypeMapping TypeName="fmpModel.payments_reimbursements">
               <MappingFragment StoreEntitySet="payments_reimbursements">
+                <ScalarProperty Name="employee_code" ColumnName="employee_code" />
                 <ScalarProperty Name="reimbursement_type" ColumnName="reimbursement_type" />
                 <ScalarProperty Name="comment" ColumnName="comment" />
                 <ScalarProperty Name="rate" ColumnName="rate" />

@@ -16,6 +16,7 @@
     <EntitySetMapping Name="payments_details">
       <EntityTypeMapping TypeName="fmpModel.payments_details">
         <MappingFragment StoreEntitySet="payments_details">
+          <ScalarProperty Name="payrate" ColumnName="payrate" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="payment_id" ColumnName="payment_id" />
           <ScalarProperty Name="employee_code" ColumnName="employee_code" />
@@ -100,6 +101,7 @@
     <EntitySetMapping Name="payments_reimbursements">
       <EntityTypeMapping TypeName="fmpModel.payments_reimbursements">
         <MappingFragment StoreEntitySet="payments_reimbursements">
+          <ScalarProperty Name="employee_code" ColumnName="employee_code" />
           <ScalarProperty Name="reimbursement_type" ColumnName="reimbursement_type" />
           <ScalarProperty Name="comment" ColumnName="comment" />
           <ScalarProperty Name="rate" ColumnName="rate" />

@@ -22,6 +22,7 @@
     <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
     <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
+    <Property Name="payrate" Type="decimal" Precision="18" Scale="2" />
   </EntityType>
   <EntityType Name="payments_reimbursements">
     <Key>
@@ -36,6 +37,7 @@
     <Property Name="rate" Type="decimal" Precision="18" Scale="4" />
     <Property Name="comment" Type="varchar" MaxLength="300" />
     <Property Name="reimbursement_type" Type="int" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="phones">
     <Key>
@@ -110,6 +112,18 @@
         <PropertyRef Name="employee_code" />
       </Principal>
       <Dependent Role="payments_details">
+        <PropertyRef Name="employee_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__payments___emplo__173876EA">
+    <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
+    <End Role="payments_reimbursements" Type="Self.payments_reimbursements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="staff">
+        <PropertyRef Name="employee_code" />
+      </Principal>
+      <Dependent Role="payments_reimbursements">
         <PropertyRef Name="employee_code" />
       </Dependent>
     </ReferentialConstraint>
@@ -199,6 +213,10 @@
     <AssociationSet Name="FK__payments___emplo__145C0A3F" Association="Self.FK__payments___emplo__145C0A3F">
       <End Role="staff" EntitySet="staff" />
       <End Role="payments_details" EntitySet="payments_details" />
+    </AssociationSet>
+    <AssociationSet Name="FK__payments___emplo__173876EA" Association="Self.FK__payments___emplo__173876EA">
+      <End Role="staff" EntitySet="staff" />
+      <End Role="payments_reimbursements" EntitySet="payments_reimbursements" />
     </AssociationSet>
     <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
       <End Role="payments" EntitySet="payments" />

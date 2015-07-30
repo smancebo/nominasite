@@ -8,7 +8,7 @@
     var app = angular.module('fmpPortal');
 
 
-    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService) {
+    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService','ngToast', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast) {
    
     
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
@@ -117,6 +117,7 @@
             day.nigthDiff = 0;
             day.regularReimbursement = 0;
             day.overtimeReimbursement = 0;
+            day.date = currentDate.formatDateSql();
             $scope.current.days.push(day);
         }
     }
@@ -240,7 +241,25 @@
     $scope.savePayroll = function () {
 
         $payrollService.save($scope.payroll, function (data) {
-            console.log(data);
+           
+            var className = '';
+            var toast = '';
+
+            if(data == '1')
+            {
+                toast = ngToast.success({
+                    content: 'Payroll Saved Successfully!'
+                });
+            }
+            else
+            {
+                toast = ngToast.danger({
+                    content: '<b>Error occurred:</b> ' + data.Message
+                });
+            }
+
+            ngToast.dismiss(toast);
+
         });
 
         //

@@ -21,6 +21,7 @@ namespace api.Models
         public Nullable<decimal> required_hours { get; set; }
         public Nullable<decimal> overtime { get; set; }
         public string comments { get; set; }
+        public Nullable<decimal> payrate { get; set; }
     
         public virtual payments payments { get; set; }
         public virtual staff staff { get; set; }

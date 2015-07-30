@@ -21,6 +21,7 @@
         <AssociationConnector Association="fmpModel.FK__staff__title__0519C6AF" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__users__employee___09DE7BCC" ManuallyRouted="false" />
         <EntityTypeShape EntityType="fmpModel.payments_reimbursements" Width="1.5" PointX="3.375" PointY="0.75" />
+        <AssociationConnector Association="fmpModel.FK__payments___emplo__173876EA" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
