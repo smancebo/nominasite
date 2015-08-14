@@ -1,0 +1,7 @@
+C:\Users\neogenesis\work\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\neogenesis\work\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\neogenesis\work\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\neogenesis\work\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
+C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.pdb

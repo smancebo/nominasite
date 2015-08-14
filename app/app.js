@@ -7,7 +7,7 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap','ngToast']);
     app.constant('$serverInfo', {
-        server: "http://10.0.0.6:85/api"
+        server: "http://10.0.0.8:85/api"
     });
 
 
@@ -201,6 +201,18 @@
             controller: 'loginController'
         })
 
+
+
+
+
+
+
+
+        .when('/permits/contractor/add', {
+            templateUrl: 'app/permits/contractor/add.html'
+
+        })
+
         .otherwise({
             redirectTo: '/'
         });
@@ -215,7 +227,14 @@
     var menu = [
         { text: 'Payroll', url: '/payroll', icon: 'fa-money' },
         { text: 'Solicitud Materiales', url: '/', icon: 'fa-cube' },
-        { text: 'Elaboracion Permisos', url: '/', icon: 'fa-calendar' },
+        {
+            text: 'Permits Creation', url: '#', icon: 'fa-calendar', subItems: [
+                {text: 'Contractors', url: '/permits/contractor/add', icon: 'fa-users'},
+                { text: 'Areas', url: '/permits/areas/view', icon: 'fa-users' }
+            ]
+        }
+
+        ,
         {
             text: 'Maintenance', url: '#', icon: 'fa-cogs', subItems: [
                 { text: 'Employees', url: '/employees', icon: '' },
