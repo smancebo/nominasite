@@ -1,0 +1,17 @@
+
+
+<div>
+    <h2>Users</h2>
+    <a class="btn btn-xs btn-success"  href="/users/add"><i class="fa fa-plus"></i>  Add</a>
+    <grid-view gv-rows="dataRows" gv-controller="usersController">
+        <columns>
+            <column header-text="User" data-field="username"></column>
+            <column header-text="School" data-field="school.name"></column>
+            <templateColumn>
+                <a href='users/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='users/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a ng-click="deleteUser({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+            </templateColumn>
+        </columns>
+    </grid-view>
+</div>

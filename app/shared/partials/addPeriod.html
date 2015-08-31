@@ -1,0 +1,216 @@
+﻿<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Contractor Period</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <button type="button" class="btn btn-success btn-sm" ng-click="addContractorPeriod(period)">
+                                    <i class="fa fa-plus-circle"></i>
+                                    <span>Add Period</span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm">
+                                    <i class="fa fa-paint-brush"></i>
+                                    <span>Clear</span>
+                                </button>
+                            </div>
+                            <div class="col-md-7 text-right">
+                                <label>Total Hours: </label>
+                                <span class="badge" ng-model="periodResult.totalHours">0</span>
+                            </div>
+                        </div> <br /><br />
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label>Mark Each Day Registered</label>
+                                <div ng-init="periodDays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">
+                                    <label ng-repeat="day in periodDays" class="checkbox">
+                                        <input type="checkbox" checklist-model="period.days" checklist-value="day"> {{day}}
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <label>Dates of Use</label>
+                                    <div class="round-section">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>From</label><span>(MM/DD/YYYY)</span>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='addPeriodDateFrom'>
+                                                        <input type='text' class="form-control" ng-model="period.dateFrom" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>To</label><span>(MM/DD/YYYY)</span>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='addPeriodDateTo'>
+                                                        <input type='text' class="form-control" ng-model="period.dateTo" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> <br />
+                                <div class="row">
+                                    <label>Times of Use</label>
+                                    <div class="round-section">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>From</label>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='addPeriodTimeFrom'>
+                                                        <input type='text' class="form-control" ng-model="period.timeTo" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>To</label>
+                                                <div class="form-group">
+                                                    <div class='input-group date' id='addPeriodTimeTo'>
+                                                        <input type='text' class="form-control" ng-model="period.timeFrom" />
+                                                        <span class="input-group-addon">
+                                                            <span class="glyphicon glyphicon-time"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Add Period</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="addContractorPeriod(period)">
+                            <i class="fa fa-plus-circle"></i>
+                            <span>Add Period</span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm">
+                            <i class="fa fa-paint-brush"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                    <div class="col-md-8 text-right">
+                        <label>Total Hours: </label>
+                        <span class="badge" ng-model="periodResult.totalHours">0</span>
+                    </div>
+                </div> <br /><br />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Mark Each Day Registered</label>
+                        <div ng-init="periodDays=['Sun','Mon','Tue','Wed','Thu','Fri','Sat']">
+                            <label ng-repeat="day in periodDays" class="checkbox">
+                                <input type="checkbox" checklist-model="period.days" checklist-value="day"> {{day}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <label>Dates of Use</label>
+                            <div class="round-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>From</label><span>(MM/DD/YYYY)</span>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodDateFrom'>
+                                                <input type='text' class="form-control" ng-model="period.dateFrom" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>To</label><span>(MM/DD/YYYY)</span>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodDateTo'>
+                                                <input type='text' class="form-control" ng-model="period.dateTo" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <br />
+                        <div class="row">
+                            <label>Times of Use</label>
+                            <div class="round-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>From</label>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodTimeFrom'>
+                                                <input type='text' class="form-control" ng-model="period.timeTo" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>To</label>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodTimeTo'>
+                                                <input type='text' class="form-control" ng-model="period.timeFrom" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<!--<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addPeriodDateFrom').datetimepicker({ locale: 'en', format: 'L' });
+        $('#addPeriodDateTo').datetimepicker({ locale: 'en', format: 'L' });
+
+        $('#addPeriodTimeFrom').datetimepicker({ locale: 'en', format: 'LT' });
+        $('#addPeriodTimeTo').datetimepicker({ locale: 'en', format: 'LT' });
+    });
+</script>-->
+

@@ -2,7 +2,7 @@
 var app = angular.module('fmpPortal');
 
 
-app.controller('reimbursementController', ['$scope', '$routeParams', '$reimbursementService', function ($scope, $routeParams, $reimbursementService) {
+app.controller('reimbursementController', ['$scope', '$routeParams', '$reimbursementService', '$toast', '$route', '$locationService', function ($scope, $routeParams, $reimbursementService, $toast, $route, $locationService) {
 
     $scope.reimbursements = {};
     
@@ -21,9 +21,27 @@ app.controller('reimbursementController', ['$scope', '$routeParams', '$reimburse
         if ($scope.reimbursement != undefined) {
 
             $reimbursementService.save($scope.reimbursement, function (data) {
-                console.log(data);
+                if (data == 1) {
+                    $toast.create('success', 'Reimbursement added succesfully!');
+                    $locationService.changeLocation('/reimbursements');
+                }
+                else {
+                    $toast.create('danger', '<b>Error:</b> ' + data);
+                }
             });
         }
+    }
+
+    $scope.deleteReimbursement = function (reimbursementId) {
+        $reimbursementService.delete(reimbursementId, function (data) {
+            if (data == 1) {
+                $toast.create('success', 'Reimbursement deleted successfully');
+                $route.reload();
+            }
+            else {
+                $toast.create('danger', '<b>Error: </b>' + data);
+            }
+        })
     }
 
 }]);

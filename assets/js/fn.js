@@ -8,3 +8,18 @@
 
     return temp;
 }
+
+function expirationDate() {
+    var expiration = new Date();
+    expiration.setMinutes(expiration.getMinutes() + 10);
+    return expiration.getTime();
+}
+function isExpirated(user) {
+    var expiration = new Date(user.timeStamp);
+    var now = new Date();
+    var expirated = false;
+    if (now.getTime() > expiration.getTime()) {
+        expirated = true;
+    }
+    return expirated;
+}

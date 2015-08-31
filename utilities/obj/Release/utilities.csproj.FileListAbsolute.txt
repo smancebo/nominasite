@@ -1,0 +1,7 @@
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Release\utilities.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Release\utilities.pdb
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Release\Newtonsoft.Json.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Release\Newtonsoft.Json.xml
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\obj\Release\utilities.csprojResolveAssemblyReference.cache
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\obj\Release\utilities.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\obj\Release\utilities.pdb

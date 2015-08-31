@@ -5,3 +5,29 @@ C:\Users\neogenesis\work\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
 C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
 C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.dll
 C:\Users\neogenesis\work\nominasite\utilities\obj\Debug\utilities.pdb
+C:\projects\ProyectoNominaSite\nominasite\utilities\bin\Debug\utilities.dll
+C:\projects\ProyectoNominaSite\nominasite\utilities\bin\Debug\utilities.pdb
+C:\projects\ProyectoNominaSite\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\projects\ProyectoNominaSite\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\projects\ProyectoNominaSite\nominasite\utilities\obj\Debug\utilities.dll
+C:\projects\ProyectoNominaSite\nominasite\utilities\obj\Debug\utilities.pdb
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\gcordero\Desktop\17--8-2015 Part 2\NominaSite\17-08-2015\ProyectoNominaSite\nominasite\utilities\obj\Debug\utilities.pdb
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\neogenesis\Desktop\nominasite\nominasite\utilities\obj\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv3\nominasite\utilities\obj\Debug\utilities.pdb

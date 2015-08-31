@@ -45,7 +45,7 @@
                     <label class="money">{{current.employee.title.payrate | currency : $}}</label>
                 </div>
                 <div class="employee-div" ng-hide="current.employee.employee_code == undefined">
-                    <div class="col-md-1 vertical-align"><a class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
+                    <div class="col-md-1 vertical-align"><a ng-click="prevEmployee()" class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
                     <div class="col-md-10">
                         <div>
                             <div class="table-responsive">
@@ -63,7 +63,7 @@
                                             <label>{{day.day}}</label>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" event-handler on-blur="checkOvertime(day)" ng-model="day.regularHours" />
+                                            <input type="text" class="form-control"  tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" ng-model="day.overtime" disabled />
@@ -240,7 +240,7 @@
                             <button ng-click="cancelEmployee()" class="btn btn-danger col-md-12"><i class="fa fa-remove"></i> Cancel</button>
                         </div>
                     </div>
-                    <div class="col-md-1 vertical-align"><a class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+                    <div class="col-md-1 vertical-align"><a ng-click="nextEmployee()" class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
                 </div>
             </div>
         </tab>

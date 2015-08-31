@@ -1,9 +1,18 @@
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+﻿<div>
+    <h2>Permits Contractor</h2>
+    <a class="btn btn-xs btn-success" href="/permits/contractor/add"><i class="fa fa-plus"></i> Add</a><br /><br />
+    <grid-view gv-rows="dataRows" gv-controller="employeesController">
+        <columns>
+            <column header-text="#" data-field="id"></column>
+            <column header-text="Number Registed" data-field="number_registered"></column>
+            <column header-text="Start Date" data-field="permit_start_date"></column>
+            <column header-text="End Date" data-field="permit_end_date"></column>
+            <column header-text="Organization Name" text="{organization_name}"></column>
+            <templatecolumn>
+                <a href='permits/contractor/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                <a href='permits/contractor/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                <a href='permits/contractor/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+            </templatecolumn>
+        </columns>
+    </grid-view>
+</div>

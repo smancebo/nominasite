@@ -10,7 +10,7 @@
             <templatecolumn>
                 <a href='reimbursements/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                 <a href='reimbursements/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a href='reimbursements/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                <a ng-click="deleteReimbursement({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templatecolumn>
         </columns>
     </grid-view>

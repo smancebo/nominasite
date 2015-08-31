@@ -5,37 +5,29 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap','ngToast']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage']);
     app.constant('$serverInfo', {
-        server: "http://10.0.0.8:85/api"
+        //server: "http://10.172.0.170:85/api"
+        server: "http://10.0.0.5:85/api"
     });
-
 
     app.controller('indexController', ['$scope', function ($scope) {
         $scope.menu = menu;
         $scope.showHideSubMenu = function (item) {
-            
-            if (item.showMenu)
-            {
-                if(item.showMenu == true)
-                {
+
+            if (item.showMenu) {
+                if (item.showMenu == true) {
                     item.showMenu = false;
                 }
-                else
-                {
+                else {
                     item.showMenu = true;
                 }
 
             }
-            else
-            {
+            else {
                 item.showMenu = true;
             }
         }
-
-
-       
-
     }]);
 
 
@@ -47,15 +39,131 @@
         }
     }
 
-   
+    app.run(['$rootScope', '$location', '$loginModal', '$route', '$timeout', '$userService', function ($rootScope, $location, $loginModal, $route, $timeout, $userService) {
 
-    app.config(['$routeProvider', '$locationProvider', '$controllerProvider', function ($routeProvider, $locationProvider, $controllerProvider) {
+        $rootScope.alerts = [];
+
+        $rootScope.logOff = function () {
+            $userService.logOff();
+            $rootScope.$evalAsync(function () {
+                $location.path('/');
+            });
+        }
+
+        $rootScope.createAlert = function (type, msg) {
+            var alert = new Object();
+            alert.type = type;
+            alert.msg = msg;
+
+            $rootScope.alerts.push(alert);
+        }
+
+        $rootScope.closeAlert = function (index) {
+            $rootScope.alerts.splice(index, 1);
+        }
+
+        $rootScope.ajaxLoading = false;
+         
+        $rootScope.$on('$routeChangeStart', function (event, next) {
+            
+            if (!next.unsecure) {
+
+                if (typeof $rootScope.currentUser === 'undefined') {
+                    event.preventDefault();
+                    $loginModal(function () {
+                        var timer = $timeout(function () {
+
+                            $timeout.cancel(timer);
+                            if (next.$$route.originalPath == '/login') {
+                                defaultPath($rootScope, $location);
+                                return;
+                            }
+
+                            if ($route.current != undefined) {
+
+                                if ($route.current.originalPath == '/') {
+                                    $rootScope.$evalAsync(function () {
+                                        $location.path(next.$$route.originalPath)
+                                    });
+                                } else if ($route.current.originalPath == '/sessionexpired') {
+
+                                    defaultPath($rootScope, $location);
+                                } 
+                                else {
+                                    $route.reload();
+                                }
+                            }
+                            else
+                            {
+                                $route.reload();
+                            }
+                        }, 200);
+                    });
+                } else {
+                    if (!isExpirated($rootScope.currentUser)) {
+                        $rootScope.currentUser.timeStamp = expirationDate();
+                    }
+                    else {
+                        event.preventDefault();
+                        $userService.logOff();
+                        
+                        $rootScope.$evalAsync(function () {
+                            $location.path('/sessionexpired');
+                        });
+                       
+                    }
+                }
+            }
+        })
+
+    }]);
+
+
+    function defaultPath($rootScope, $location)
+    {
+        $rootScope.$evalAsync(function () {
+            $location.path('/');
+        });
+    }
+
+    function login($loginModal, $timeout, $route, $rootScope, $location)
+    {
+        $loginModal(function () {
+            var timer = $timeout(function () {
+                $timeout.cancel(timer);
+                            
+                if ($route.current.originalPath == '/')
+                {
+                    $rootScope.$evalAsync(function () {
+                        console.log(next);
+                        $location.path(next.$$route.originalPath)
+                    });
+                }
+                else
+                {
+                    $route.reload();
+                }
+            }, 200);
+        })
+    }
+
+
+
+    app.config(['$routeProvider', '$locationProvider', '$controllerProvider','$httpProvider', function ($routeProvider, $locationProvider, $controllerProvider,$httpProvider) {
+
+        $httpProvider.interceptors.push('$authorizationInterceptor');
 
         app.controllerProvider = $controllerProvider;
 
         $routeProvider
         .when('/', {
             templateUrl: 'app/shared/default.html',
+            unsecure:true
+        })
+
+        .when('/sessionexpired', {
+            templateUrl: 'app/shared/nologin.html',
+            unsecure:true
         })
 
         //<Titles>
@@ -87,21 +195,50 @@
 
         //</titles>
 
+        //<users>
+         .when('/users', {
+            templateUrl: 'app/mantenimientos/users/view.html',
+            controller: 'usersController',
+        })
+
+        .when('/users/add', {
+            templateUrl: 'app/mantenimientos/users/add.html',
+            controller: 'usersController',
+        })
+
+        .when('/users/edit/:userId', {
+            templateUrl: 'app/mantenimientos/users/add.html',
+            controller: 'usersController'
+        })
+        .when('/users/view/:userId', {
+            templateUrl: 'app/mantenimientos/users/add.html',
+            controller: ['$scope', '$routeParams', '$userService', function ($scope, $routeParams, $userService) {
+                $scope.viewMode = true;
+                $scope.editing = true;
+                $userService.get($routeParams.userId, function (data) {
+                    $scope.user = data;
+                    $scope.txtUsername = data.username;
+                    console.log(data);
+                });
+            }]
+        })
+        //</users>
+
         //<employees>
         .when('/employees', {
             templateUrl: 'app/mantenimientos/employees/view.html',
             controller: 'employeesController',
         })
-        
+
         .when('/employees/add', {
             templateUrl: 'app/mantenimientos/employees/add.html',
             controller: 'employeesController',
         })
-        
+
         .when('/employees/edit/:employeeCode', {
             templateUrl: 'app/mantenimientos/employees/add.html',
             controller: 'employeesController',
-         })
+        })
 
         .when('/employees/view/:employeeCode', {
             templateUrl: 'app/mantenimientos/employees/add.html',
@@ -114,9 +251,9 @@
                         $scope.employee = data;
                     });
                 });
-               
 
-                
+
+
             }]
         })
         //</employees>
@@ -137,9 +274,11 @@
             controller: 'schoolsController'
         })
 
-        .when('/schools/view/:schoolId',{
+        
+
+        .when('/schools/view/:schoolId', {
             templateUrl: 'app/mantenimientos/schools/add.html',
-            controller: ['$scope', '$schoolService', '$routeParams', '$staffService', function ($scope, $schoolService, $routeParams,$staffService) {
+            controller: ['$scope', '$schoolService', '$routeParams', '$staffService', function ($scope, $schoolService, $routeParams, $staffService) {
                 $scope.viewMode = true;
 
                 $staffService.getAll(function (data) {
@@ -192,32 +331,45 @@
 
         .when('/payroll/add', {
             templateUrl: 'app/payroll/payroll.html',
-            controller:'payrollController'
+            controller: 'payrollController'
+        })
+
+        .when('/payroll/edit/:Id', {
+            templateUrl: 'app/payroll/payroll.html',
+            controller: 'payrollController'
         })
 
 
         .when('/login', {
-            templateUrl: 'app/login/login.html',
-            controller: 'loginController'
+            
         })
 
 
-
-
-
-
-
+        //<contractor>
+             .when('/permits/contractor', {
+                 templateUrl: 'app/permits/contractor/view.html',
+                 controller: 'contractorController'
+             })
 
         .when('/permits/contractor/add', {
-            templateUrl: 'app/permits/contractor/add.html'
-
+            templateUrl: 'app/permits/contractor/add.html',
+            controller: 'contractorController'
         })
+
+            .when('/permits/contractor/edit/:id', {
+                templateUrl: 'app/permits/contractor/add.html',
+                controller: 'contractorController'
+            })
+        //</contractor>
+
+
+
 
         .otherwise({
             redirectTo: '/'
         });
-        
-        
+
+
 
         $locationProvider.html5Mode(true);
     }]);
@@ -229,7 +381,7 @@
         { text: 'Solicitud Materiales', url: '/', icon: 'fa-cube' },
         {
             text: 'Permits Creation', url: '#', icon: 'fa-calendar', subItems: [
-                {text: 'Contractors', url: '/permits/contractor/add', icon: 'fa-users'},
+                { text: 'Contractors', url: '/permits/contractor', icon: 'fa-users' },
                 { text: 'Areas', url: '/permits/areas/view', icon: 'fa-users' }
             ]
         }
@@ -241,6 +393,7 @@
                 { text: 'Reimbursement Types', url: '/reimbursements', icon: '' },
                 { text: 'Schools', url: '/schools', icon: '' },
                 { text: 'Titles', url: '/titles', icon: '' },
+                { text: 'Users', url: '/users', icon: '' }
 
             ]
         },
@@ -267,6 +420,9 @@
         if (mm < 10) { mm = '0' + mm };
         return (yyyy + '-' + mm + '-' + dd);
     }
+
+    
+
 
     function clone(obj) {
         if (obj == null || typeof (obj) != 'object')

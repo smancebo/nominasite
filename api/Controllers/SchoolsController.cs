@@ -9,6 +9,7 @@ using System.Web.Http;
 using utilities;
 
 
+
 namespace api.Controllers
 {
     [RoutePrefix("api/schools")]
@@ -45,6 +46,7 @@ namespace api.Controllers
         [Route("get/{schoolId}")]
         public IHttpActionResult get(int schoolId)
         {
+
             var sh = (from s in fmp.schools
                       where s.id == schoolId
                       select new
@@ -55,7 +57,20 @@ namespace api.Controllers
                           s.location,
                           s.name,
                           s.size,
-                          s.supervisor
+                          s.supervisor,
+                          s.budget,
+                          employees = from e in fmp.staff
+                                      from sbs in fmp.staff_by_schools
+                                      where sbs.employee_code == e.employee_code &&
+                                      sbs.school_code == s.code
+                                      select new
+                                      {
+                                          e.employee_code,
+                                          e.name,
+                                          e.middle_name,
+                                          e.last_name
+                                      }
+
                       }).FirstOrDefault();
 
 
@@ -63,27 +78,63 @@ namespace api.Controllers
             return Ok(sh);
         }
 
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult delete([FromBody]int schoolId)
+        {
+
+            var sh = (from s in fmp.schools
+                      where s.id == schoolId
+                      select s).FirstOrDefault();
+            try
+            {
+
+                deleteStaffBySchool(sh);
+                fmp.schools.Remove(sh);
+                fmp.SaveChanges();
+
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+                
+            }
+        }
 
         [HttpPost]
         [Route("save")]
-        public IHttpActionResult saveSchool([FromBody]schools school)
+        public IHttpActionResult saveSchool([FromBody]dynamic school)
         {
             try
             {
+                bool updating = false;
+                string school_code = school.code;
                 schools record = (from s in fmp.schools
-                                  where s.code == school.code
+                                  where s.code == school_code
                                   select s).FirstOrDefault<schools>();
 
-                if (record != null)
+                if (record == null)
                 {
-                    objMapper.Map<schools>(ref record, school);
+                    record = new schools();
                 }
                 else
                 {
-                    schools new_record = new schools();
-                    objMapper.Map<schools>(ref new_record, school);
-                    fmp.schools.Add(new_record);
+                    deleteStaffBySchool(record);
+                    updating = true;
                 }
+
+                record.code = school.code;
+                record.location = school.location;
+                record.size = school.size;
+                record.employee_manager = school.employee_manager;
+                record.supervisor = school.supervisor;
+                record.name = school.name;
+                record.budget = school.budget;
+
+                parseStaffSchool(ref record, school.employees);
+
+                if (!updating) { fmp.schools.Add(record); }
                 fmp.SaveChanges();
                 return Ok(1);
             }
@@ -92,6 +143,28 @@ namespace api.Controllers
                 return InternalServerError(ex);
             }
 
+        }
+
+        public void deleteStaffBySchool(schools record)
+        {
+            var staff = (from e in record.staff_by_schools
+                         where e.school_code == record.code
+                         select e).ToList<staff_by_schools>();
+
+            foreach (staff_by_schools item in staff)
+            {
+                fmp.staff_by_schools.Remove(item);
+            }
+        }
+        public void parseStaffSchool(ref schools school, dynamic employees)
+        {
+            foreach (dynamic item in employees)
+            {
+                staff_by_schools sbs = new staff_by_schools();
+                sbs.school_code = school.code;
+                sbs.employee_code = item.employee_code;
+                school.staff_by_schools.Add(sbs);
+            }
         }
     }
 }

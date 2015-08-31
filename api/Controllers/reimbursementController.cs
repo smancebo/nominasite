@@ -1,11 +1,11 @@
-﻿using api.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using utilities;
+using api.Models;
 
 namespace api.Controllers
 {
@@ -13,7 +13,7 @@ namespace api.Controllers
     [RoutePrefix("api/reimbursement")]
     public class reimbursementController : ApiController
     {
-
+      
         fmpEntities fmp = new fmpEntities();
 
         [HttpGet]
@@ -45,6 +45,27 @@ namespace api.Controllers
                       }).FirstOrDefault();
 
             return Ok(ri);
+        }
+
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult get([FromBody]int Id)
+        {
+            var reimbursement = (from r in fmp.reimbursement
+                         where r.id == Id
+                         select r).FirstOrDefault();
+            try
+            {
+
+                fmp.reimbursement.Remove(reimbursement);
+                fmp.SaveChanges();
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
         }
 
 

@@ -52,6 +52,45 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Route("getBySchool")]
+        public IHttpActionResult getBySchool()
+        {
+            string username = Request.Headers.GetValues("logusr").FirstOrDefault();
+
+            var user = (from u in fmp.users
+                       where u.username == username
+                       select u).FirstOrDefault();
+
+           
+
+            var staff = from emp in fmp.staff
+                        from sbs in fmp.staff_by_schools
+                        where sbs.employee_code == emp.employee_code &&
+                              sbs.school_code == user.school_code
+                        select new
+                        {
+                            emp.name,
+                            emp.last_name,
+                            emp.phones,
+                            emp.address,
+                            emp.birthday,
+                            emp.email,
+                            emp.employee_code,
+                            emp.hire_date,
+                            title = new { emp.titles.id, emp.titles.payrate, emp.titles.description, emp.titles.nigthdiff },
+                            emp.id,
+                            emp.middle_name,
+                            emp.sex,
+                            emp.status,
+                            emp.supervisor_code
+                        };
+
+
+
+            return Ok(staff);
+        }
+
+        [HttpGet]
         [Route("supervisors")]
         public IHttpActionResult getSupervisors()
         {
@@ -111,6 +150,27 @@ namespace API.Controllers
             return Ok(staff);
         }
 
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult delete([FromBody]int employee_code)
+        {
+            var staff = (from e in fmp.staff
+                         where e.id == employee_code
+                         select e).FirstOrDefault();
+            try
+            {
+
+                fmp.staff.Remove(staff);
+                fmp.SaveChanges();
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+
+        }
 
         [Route("save")]
         [HttpPost]

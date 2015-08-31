@@ -66,6 +66,27 @@ namespace api.Controllers
             return Ok(t);
         }
 
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult delete([FromBody]int titleId)
+        {
+            var title = (from t in fmp.titles
+                         where t.id == titleId
+                         select t).FirstOrDefault();
+            try
+            {
+
+                fmp.titles.Remove(title);
+                fmp.SaveChanges();
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
         [Route("save")]
         [HttpPost]
         public IHttpActionResult save([FromBody]titles title)

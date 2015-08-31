@@ -185,3 +185,44 @@
 {
     padding:10px;
 }
+
+.inner-login
+{
+    padding:15px;
+}
+
+
+.form-control-login
+{
+     margin-right:15px;
+}
+
+.label-error
+{
+    color:#843534;
+}
+
+.label-error label
+{
+    color:#843534
+}
+
+.logo
+{
+    width:128px;
+    margin-top:20px
+}
+
+.loading i
+{
+    font-size:2.5em;
+    margin-bottom:10px;
+
+}
+
+.ajax-loader
+{
+    color: white;
+    float: right;
+    font-size: 1.5em;
+}

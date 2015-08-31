@@ -11,8 +11,9 @@
             <templatecolumn>
                 <a href='schools/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                 <a href='schools/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a href='schools/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                <a ng-click="deleteSchool({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templatecolumn>
         </columns>
     </grid-view>
+    
 </div>

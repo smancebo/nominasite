@@ -8,11 +8,11 @@
             <column counter="true" header-text="#" header-align="center" column-align="center"></column>
             <column header-text="Code" data-field="employee_code"></column>
             <column header-text="Name" text="{name} {middle_name} {last_name}"></column>
-            <column header-text="Email" data-field="email" null-text="{last_name} no email address"></column>
+            <column header-text="Email" data-field="email" null-text="No email address"></column>
             <templateColumn>
                 <a href='employees/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                 <a href='employees/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a href='employees/delete/{id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                <a ng-click="deleteEmployee({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templateColumn>
         </columns>
     </grid-view>

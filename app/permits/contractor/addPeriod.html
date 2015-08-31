@@ -1,0 +1,266 @@
+﻿
+<style>
+    .required-field {
+        color: red;
+        font-size: 10px;
+    }
+</style>
+
+<form id="formPeriod" name="formPeriod">
+    <div class="modal-header" ng-controller="contractorController">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Contractor Period</h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success btn-sm" ng-click="addContractorPeriod(period)">
+                            <i class="fa fa-plus-circle"></i>
+                            <span>Add Period</span>
+                        </button>
+                        <button type="button" class="btn btn-default btn-sm" onclick="clearPeriodData()">
+                            <i class="fa fa-paint-brush"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </div> <br />
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Mark Each Day Registered</label>
+                        <div>
+                            <label class="checkbox"><input type="checkbox" value="Sunday" name="chkPeriodDays" />Sunday</label>
+                            <label class="checkbox"><input type="checkbox" value="Monday" name="chkPeriodDays" />Monday</label>
+                            <label class="checkbox"><input type="checkbox" value="Tuesday" name="chkPeriodDays" />Tuesday</label>
+                            <label class="checkbox"><input type="checkbox" value="Wednesday" name="chkPeriodDays" />Wednesday</label>
+                            <label class="checkbox"><input type="checkbox" value="Thursday" name="chkPeriodDays" />Thursday</label>
+                            <label class="checkbox"><input type="checkbox" value="Friday" name="chkPeriodDays" />Friday</label>
+                            <label class="checkbox"><input type="checkbox" value="Saturday" name="chkPeriodDays" />Saturday</label>
+                        </div>
+
+
+                        <!--<div ng-init="periodDays=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']">
+                            <label ng-repeat="day in periodDays" class="checkbox">
+                                <input id="chkPeriodDays" name="chkPeriodDays" type="checkbox" checklist-model="period.days" checklist-value="day"> {{day}}
+                            </label>
+                        </div>-->
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <label>Dates of Use</label>
+                            <div class="round-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>From</label><span>(MM/DD/YYYY)</span>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodDateFrom'>
+                                                <input id="periodDateFrom" type='text' class="form-control" ng-model="period.dateFrom" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>To</label><span>(MM/DD/YYYY)</span>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodDateTo'>
+                                                <input id="periodDateTo" type='text' class="form-control" ng-model="period.dateTo" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <br />
+                        <div class="row">
+                            <label>Times of Use</label>
+                            <div class="round-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>From </label>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodTimeFrom'>
+                                                <input id="periodTimeFrom" name="periodTimeFrom" type='text' class="form-control" ng-model="period.timeTo" required />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>To</label>
+                                        <div class="form-group">
+                                            <div class='input-group date' id='addPeriodTimeTo'>
+                                                <input id="periodTimeTo" type='text' class="form-control" ng-model="period.timeFrom" />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-time"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="round-section">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Days </label><br />
+                                <span id="totalDay" class="badge">0</span>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Hours </label><br />
+                                <span id="totalHour" class="badge">0</span>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Total Hours </label><br />
+                                <span id="resultHours" class="badge">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="../../../assets/js/jquery-1.10.2.min.js"></script>
+<script src="../../../assets/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../../../assets/js/moment.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#addPeriodDateFrom').datetimepicker({ locale: 'en', format: 'L' });
+        $('#addPeriodDateTo').datetimepicker({ locale: 'en', format: 'L' });
+
+        $('#addPeriodTimeFrom').datetimepicker({ locale: 'en', format: 'LT' });
+        $('#addPeriodTimeTo').datetimepicker({ locale: 'en', format: 'LT' });
+
+
+        //OnChange AddPeriodDateFrom
+        $("#addPeriodDateFrom").on("dp.change", function (e) {
+            var fromDate = $("#periodDateFrom").val();
+            var toDate = $("#periodDateTo").val();
+
+            if (fromDate != "" && toDate != "") {
+                var dateB = moment(toDate, "MM/DD/YYYY").add('days', 1);
+                var dateA = moment(fromDate, "MM/DD/YYYY");
+                var totalDay = dateB.diff(dateA, 'days');
+                $("#totalDay").text(totalDay);
+                calculateTotalHour();
+            }
+        });
+
+        //OnChange AddPeriodDateTo
+        $("#addPeriodDateTo").on("dp.change", function (e) {
+            var fromDate = $("#periodDateFrom").val();
+            var toDate = $("#periodDateTo").val();
+
+            if (fromDate != "" && toDate != "") {
+                var dateB = moment(toDate, "MM/DD/YYYY").add('days', 1);
+                var dateA = moment(fromDate, "MM/DD/YYYY");
+                var totalDay = dateB.diff(dateA, 'days');
+                $("#totalDay").text(totalDay);
+                calculateTotalHour();
+            }
+        });
+
+
+        //OnChange AddPeriodTimeFrom
+        $("#addPeriodTimeFrom").on("dp.change", function (e) {
+
+            var timeFrom = $("#periodTimeFrom").val();
+            var timeTo = $("#periodTimeTo").val();
+
+            if (timeFrom != "" && timeTo != "") {
+
+                //Format Time
+                timeFrom = timeFrom.replace("AM", "").trim();
+                timeTo = timeTo.replace("AM", "").trim();
+                timeFrom = timeFrom.replace("PM", "").trim();
+                timeTo = timeTo.replace("PM", "").trim();
+
+                var totalHour = timeDiff(timeFrom, timeTo);
+
+                if (totalHour.indexOf("0-") > -1) {
+                    $("#totalHour").text(totalHour.replace("0-", "").trim());
+                    calculateTotalHour();
+                } else {
+                    $("#totalHour").text(totalHour);
+                    calculateTotalHour();
+                }
+            }
+        });
+
+        //OnChange AddPeriodTimeTo
+        $("#addPeriodTimeTo").on("dp.change", function (e) {
+
+            var timeFrom = $("#periodTimeFrom").val();
+            var timeTo = $("#periodTimeTo").val();
+
+            if (timeFrom != "" && timeTo != "") {
+
+                //Format Time
+                timeFrom = timeFrom.replace("AM", "").trim();
+                timeTo = timeTo.replace("AM", "").trim();
+                timeFrom = timeFrom.replace("PM", "").trim();
+                timeTo = timeTo.replace("PM", "").trim();
+
+                var totalHour = timeDiff(timeFrom, timeTo);
+
+                if (totalHour.indexOf("0-") > -1) {
+                    $("#totalHour").text(parseInt(totalHour.replace("0-", "").trim()));
+                    calculateTotalHour();
+                } else {
+                    $("#totalHour").text(parseInt(totalHour));
+                    calculateTotalHour();
+                }
+            }
+        });
+    });
+
+
+    //Custon Function
+    function clearPeriodData() {
+        $("input[name=chkPeriodDays").prop("checked", false);
+        $("#periodDateTo").val("");
+        $("#periodTimeFrom").val("");
+        $("#periodTimeTo").val("");
+        $("#totalDay").text("0");
+        $("#totalHour").text("0");
+        $("#resultHours").text("0");
+    }
+
+
+    function calculateTotalHour() {
+        var days = parseInt($("#totalDay").text());
+        var hours = parseInt($("#totalHour").text());
+
+        if (days > 0 && hours > 0) {
+            var resultHour = days * hours;
+            $("#resultHours").text(resultHour);
+        }
+    }
+
+
+    function timeDiff(start, end) {
+        start = start.split(":");
+        end = end.split(":");
+        var startDate = new Date(0, 0, 0, start[0], start[1], 0);
+        var endDate = new Date(0, 0, 0, end[0], end[1], 0);
+        var diff = endDate.getTime() - startDate.getTime();
+        var hours = Math.floor(diff / 1000 / 60 / 60);
+        diff -= hours * 1000 * 60 * 60;
+        var minutes = Math.floor(diff / 1000 / 60);
+        return (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes;
+    }
+
+</script>

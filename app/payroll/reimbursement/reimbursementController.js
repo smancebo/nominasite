@@ -6,7 +6,7 @@ var indx = 0;
 
 app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', function ($scope, $reimbursementService, $modalInstance, day, employee) {
     
-    
+    debugger
     $scope.day = day;
     $scope.employee = employee;
     //$scope.reimbursement = {;

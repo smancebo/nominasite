@@ -10,7 +10,7 @@
 
     app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService','ngToast', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast) {
    
-    
+    $scope.employeeIndex = 0;
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
     $scope.day = {};
     $scope.tabs = [{ active: true }, { active: false }];
@@ -25,6 +25,16 @@
         username: '',
         employees: []
     }
+
+    if ($routeParams.Id) {
+        $payrollService.get($routeParams.Id, function (data) {
+            $scope.payroll = data;
+        });
+    }
+
+    $payrollService.getAll(function (data) {
+        $scope.dataRows = data;
+    })
    
 
     $scope.$watch('payroll.startdate', function (newValue, oldValue) {
@@ -74,10 +84,30 @@
         }
     },true)*/
 
-    $staffService.getAll(function (data) {
+    $staffService.getBySchool(function (data) {
         $scope.employees = data;
+        //$scope.payroll.employees = data;
+        console.log($scope.payroll)
     });
     
+
+    $scope.nextEmployee = function () {
+        $scope.employeeIndex++;
+        if ($scope.employeeIndex > $scope.employees.length)
+        {
+            $scope.employeeIndex = $scope.employees.length
+        }
+        $scope.current.employee = $scope.payroll.employees[$scope.employeeIndex];
+    }
+
+    $scope.prevEmployee = function () {
+        $scope.employeeIndex--;
+        if ($scope.employeeIndex < $scope.employees.length) {
+            $scope.employeeIndex = 0;
+        }
+        $scope.current.employee = $scope.payroll.employees[$scope.employeeIndex];
+    }
+
     $scope.checkOvertime = function(day)
     {
        
@@ -244,7 +274,7 @@
            
             var className = '';
             var toast = '';
-
+            debugger
             if(data == '1')
             {
 
@@ -255,7 +285,7 @@
             }
             else
             {
-                toast = ngToast.danger({
+                toast = ngToast.create({
 
                     className: 'danger',
 
@@ -263,7 +293,7 @@
                 });
             }
 
-            ngToast.dismiss(toast);
+            //ngToast.dismiss(toast);
 
         });
 

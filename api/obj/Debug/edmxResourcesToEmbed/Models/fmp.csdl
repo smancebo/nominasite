@@ -1,5 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="contract_permit_periods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="week_days" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="start_date" Type="DateTime" Precision="3" />
+    <Property Name="end_date" Type="DateTime" Precision="3" />
+    <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="end_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="hours" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="contract_permits">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="mailing_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="authorized_organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="permit_start_date" Type="DateTime" Precision="3" />
+    <Property Name="permit_end_date" Type="DateTime" Precision="3" />
+    <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="total_hours" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="3" />
+  </EntityType>
   <EntityType Name="payments">
     <Key>
       <PropertyRef Name="payment_id" />
@@ -20,11 +52,12 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="payment_id" Type="Int32" />
     <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="day" Type="DateTime" Precision="3" />
+    <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="required_hours" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="overtime" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="comments" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="payrate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="date" Type="DateTime" Precision="3" />
     <NavigationProperty Name="payments" Relationship="Self.FK__payments___payme__1367E606" FromRole="payments_details" ToRole="payments" />
     <NavigationProperty Name="staff" Relationship="Self.FK__payments___emplo__145C0A3F" FromRole="payments_details" ToRole="staff" />
   </EntityType>
@@ -64,10 +97,10 @@
   </EntityType>
   <EntityType Name="schools">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="code" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="location" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="size" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="employee_manager" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -76,6 +109,8 @@
     <Property Name="budget" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="last_payment_code_secuence" Type="Int32" />
     <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
+    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___schoo__14270015" FromRole="schools" ToRole="staff_by_schools" />
+    <NavigationProperty Name="users" Relationship="Self.FK_users_schools" FromRole="schools" ToRole="users" />
   </EntityType>
   <EntityType Name="staff">
     <Key>
@@ -99,7 +134,17 @@
     <NavigationProperty Name="phones" Relationship="Self.FK__phones__employee__1ED998B2" FromRole="staff" ToRole="phones" />
     <NavigationProperty Name="schools" Relationship="Self.FK__schools__employe__1A14E395" FromRole="staff" ToRole="schools" />
     <NavigationProperty Name="titles" Relationship="Self.FK__staff__title__0519C6AF" FromRole="staff" ToRole="titles" />
-    <NavigationProperty Name="users" Relationship="Self.FK__users__employee___09DE7BCC" FromRole="staff" ToRole="users" />
+    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___emplo__1332DBDC" FromRole="staff" ToRole="staff_by_schools" />
+  </EntityType>
+  <EntityType Name="staff_by_schools">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="schools" Relationship="Self.FK__staff_by___schoo__14270015" FromRole="staff_by_schools" ToRole="schools" />
+    <NavigationProperty Name="staff" Relationship="Self.FK__staff_by___emplo__1332DBDC" FromRole="staff_by_schools" ToRole="staff" />
   </EntityType>
   <EntityType Name="sys_parameters">
     <Key>
@@ -107,6 +152,16 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="last_payment_code_secuence" Type="Int32" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="titles">
     <Key>
@@ -123,11 +178,11 @@
       <PropertyRef Name="username" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
-    <NavigationProperty Name="staff" Relationship="Self.FK__users__employee___09DE7BCC" FromRole="users" ToRole="staff" />
+    <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
   </EntityType>
   <Association Name="FK__payments___payme__1367E606">
     <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -201,6 +256,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__staff_by___schoo__14270015">
+    <End Role="schools" Type="Self.schools" Multiplicity="0..1" />
+    <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="schools">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="staff_by_schools">
+        <PropertyRef Name="school_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_schools">
+    <End Role="schools" Type="Self.schools" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="schools">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="school_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__staff__title__0519C6AF">
     <End Role="titles" Type="Self.titles" Multiplicity="0..1" />
     <End Role="staff" Type="Self.staff" Multiplicity="*" />
@@ -213,19 +292,21 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__users__employee___09DE7BCC">
+  <Association Name="FK__staff_by___emplo__1332DBDC">
     <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
-    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="staff">
         <PropertyRef Name="employee_code" />
       </Principal>
-      <Dependent Role="users">
+      <Dependent Role="staff_by_schools">
         <PropertyRef Name="employee_code" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="fmpEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="contract_permit_periods" EntityType="Self.contract_permit_periods" />
+    <EntitySet Name="contract_permits" EntityType="Self.contract_permits" />
     <EntitySet Name="payments" EntityType="Self.payments" />
     <EntitySet Name="payments_details" EntityType="Self.payments_details" />
     <EntitySet Name="payments_reimbursements" EntityType="Self.payments_reimbursements" />
@@ -233,7 +314,9 @@
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" />
     <EntitySet Name="schools" EntityType="Self.schools" />
     <EntitySet Name="staff" EntityType="Self.staff" />
+    <EntitySet Name="staff_by_schools" EntityType="Self.staff_by_schools" />
     <EntitySet Name="sys_parameters" EntityType="Self.sys_parameters" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="titles" EntityType="Self.titles" />
     <EntitySet Name="users" EntityType="Self.users" />
     <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
@@ -260,13 +343,21 @@
       <End Role="staff" EntitySet="staff" />
       <End Role="schools" EntitySet="schools" />
     </AssociationSet>
+    <AssociationSet Name="FK__staff_by___schoo__14270015" Association="Self.FK__staff_by___schoo__14270015">
+      <End Role="schools" EntitySet="schools" />
+      <End Role="staff_by_schools" EntitySet="staff_by_schools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_schools" Association="Self.FK_users_schools">
+      <End Role="schools" EntitySet="schools" />
+      <End Role="users" EntitySet="users" />
+    </AssociationSet>
     <AssociationSet Name="FK__staff__title__0519C6AF" Association="Self.FK__staff__title__0519C6AF">
       <End Role="titles" EntitySet="titles" />
       <End Role="staff" EntitySet="staff" />
     </AssociationSet>
-    <AssociationSet Name="FK__users__employee___09DE7BCC" Association="Self.FK__users__employee___09DE7BCC">
+    <AssociationSet Name="FK__staff_by___emplo__1332DBDC" Association="Self.FK__staff_by___emplo__1332DBDC">
       <End Role="staff" EntitySet="staff" />
-      <End Role="users" EntitySet="users" />
+      <End Role="staff_by_schools" EntitySet="staff_by_schools" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

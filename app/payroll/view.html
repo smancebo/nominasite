@@ -2,13 +2,13 @@
 
 <div>
     <h2>Payrolls</h2>
-    <a class="btn btn-xs btn-success" href="payroll/add"><i class="fa fa-plus"></i>  Add</a>
+    <a class="btn btn-xs btn-success" href="payroll/add"><i class="fa fa-plus"></i> Add</a>
     <grid-view gv-rows="dataRows" gv-controller="payrollController">
         <columns>
             <column header-text="Code" data-field="payment_code"></column>
             <column header-text="Start Date" data-field="startdate"></column>
             <column header-text="End Date" data-field="enddate"></column>
-            <column header-text="Applied" data-field="applied"></column>
+            <column header-text="Applied" data-field="applied" null-text="Not Applied"></column>
             <templatecolumn>
                 <a href='payroll/view/{payment_id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                 <a href='payroll/edit/{payment_id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>

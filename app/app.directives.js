@@ -67,7 +67,7 @@ app.directive('eventHandler', function () {
         scope:{
             onBlur: '&'
         },
-        link: function (scope, element, attr) {
+        link: function (scope, element, attrs) {
             $(element).on('focus', function () {
                 $(this).select().mouseup(function (e) {
                     e.preventDefault();
@@ -79,11 +79,48 @@ app.directive('eventHandler', function () {
                     scope.onBlur();
                 });
             });
+
+            $(element).on('keydown', function (event) {
+
+                if (event.which == 13) {
+                    scope.$apply(function () {
+                        debugger
+                        var index = parseInt(attrs.tabIndex);
+                        index++;
+                        if (index == 7) {
+                            index = 0;
+                        }
+                        scope.onBlur();
+                        $('[tab-index=' + index + ']').focus();
+                    })
+                }
+
+            })
+
         }
     };
 
 
     return obj;
+});
+
+
+app.directive('addPeriod', function () {
+    return {
+        restrict: 'EA',
+        templateUrl: "../app/shared/partials/addPeriod.html",
+        controller: 'contractorController',
+        scope: {
+            period:"="
+        },
+        link: function (scope) {
+            $('#addPeriodDateFrom').datetimepicker({ locale: 'en', format: 'L' });
+            $('#addPeriodDateTo').datetimepicker({ locale: 'en', format: 'L' });
+
+            $('#addPeriodTimeFrom').datetimepicker({ locale: 'en', format: 'LT' });
+            $('#addPeriodTimeTo').datetimepicker({ locale: 'en', format: 'LT' });
+        }
+    }
 });
 
 

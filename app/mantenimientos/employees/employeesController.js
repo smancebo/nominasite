@@ -2,14 +2,13 @@
 var app = angular.module('fmpPortal');
 
 
-app.controller('employeesController', ['$scope', '$staffService', '$routeParams', '$titlesService', function ($scope, $staffService, $routeParams, $titlesService) {
+app.controller('employeesController', ['$scope', '$staffService', '$routeParams', '$titlesService', '$toast', '$route', '$locationService', function ($scope, $staffService, $routeParams, $titlesService, $toast, $route, $locationService) {
 
     $scope.dataRows = {};
     $scope.titles = {};
-    //$scope.dataRows.columns = ['Employee Code', 'Name', 'Email'];
 
     $titlesService.getAll(function (data) {
-        debugger
+        
         $scope.titles = data;
 
         if ($routeParams.employeeCode) {
@@ -20,26 +19,37 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
 
     });
 
-
-
     $staffService.getAll(function (data) {
         $scope.dataRows = data;
-    })
+    });
+
     $scope.save = function () {
-        
-        
         if ($scope.employee != undefined) {
-            debugger
+            
             $staffService.save($scope.employee, function (data) {
-                console.log(data);
+                if (data == 1) {
+                    $toast.create('success', 'Employee added succesfully!');
+                    $locationService.changeLocation('/employees');
+                }
+                else {
+                    $toast.create('danger', '<b>Error:</b> ' + data);
+                }
             });
         }
     }
 
-
+    $scope.deleteEmployee = function(employee_id)
+    {
+        $staffService.delete(employee_id, function (data) {
+            if (data == 1) {
+                $toast.create('success', 'Employee deleted successfully');
+                $route.reload();
+            }
+            else
+            {
+                $toast.create('danger', '<b>Error: </b>' + data);
+            }
+        })
+    }
 }]);
 
-
-function pruebamelo() {
-    console.log('probando')
-}

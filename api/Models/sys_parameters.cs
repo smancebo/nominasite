@@ -7,11 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class sys_parameters
+namespace api.Models
 {
-    public int id { get; set; }
-    public Nullable<int> last_payment_code_secuence { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class sys_parameters
+    {
+        public int id { get; set; }
+        public Nullable<int> last_payment_code_secuence { get; set; }
+    }
 }

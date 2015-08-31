@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en"  ng-app="fmpPortal" >
+<html lang="en" ng-app="fmpPortal">
 <head>
     <meta charset="utf-8" />
     <title>FMP Admin</title>
@@ -8,6 +8,7 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/css/animations.css" rel="stylesheet" />
     <link href="/assets/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="/assets/css/bootstrap-dialog.css" rel="stylesheet" />
     <link href="/assets/css/ui-bootstrap-csp.css" rel="stylesheet" />
     <link href="/assets/css/ngToast.min.css" rel="stylesheet" />
     <link href="/assets/css/ngToast-animations.min.css" rel="stylesheet" />
@@ -17,7 +18,28 @@
 <body>
     <toast></toast>
     <div class="navbar navbar-default no-margin fmp-navbar">
-        <div class="navbar-brand"><i class="fa fa-building"></i>FMP PORTAL</div>
+        <div>
+            <div class="col-md-2">
+                <div class="navbar-brand"><i class="fa fa-building"></i>FMP PORTAL</div>
+            </div>
+            <div class="col-md-10">
+                <div class="" style=" padding-top:15px;">
+                    <div>
+                        <div class="dropdown">
+                            <a ng-hide="currentUser" href="/login" style="color:white">Sign In</a>
+                            <a style="color:white" data-toggle="dropdown">
+                                {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a ng-click="logOff()">LogOff</a></li>
+                            </ul>
+                            <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
     <div id="body">
         <div class="container-fluid">
@@ -41,12 +63,13 @@
                     </ul>
                 </div>
                 <div class="col-md-10 content-place-holder container">
+                    <div>
+                        <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</alert>
+                    </div>
                     <div ng-view></div>
                 </div>
             </div>
         </div>
-
-       
     </div>
 
 
@@ -59,10 +82,14 @@
     <script src="/assets/js/ui-bootstrap-tpls.min.js"></script>
     <script src="/assets/js/moment.min.js"></script>
     <script src="/assets/js/moment-with-locales.min.js"></script>
+    <script src="/assets/js/moment-timezone.js"></script>
+    <script src="assets/js/moment-with-locales.min.js"></script>
     <script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="/assets/js/bootstrap-dialog.js"></script>
     <script src="/assets/js/angular-animate.min.js"></script>
     <script src="/assets/js/angular-sanitize.min.js"></script>
     <script src="/assets/js/ngToast.min.js"></script>
+    <script src="/assets/js/ngStorage.min.js"></script>
     <script src="/app/ng-grid-view.js"></script>
     <script src="/app/app.js"></script>
     <script src="/app/app.directives.js"></script>
@@ -72,9 +99,14 @@
     <script src="/app/mantenimientos/reimbursement/reimbursementController.js"></script>
     <script src="/app/mantenimientos/schools/schoolsController.js"></script>
     <script src="/app/mantenimientos/titles/titlesController.js"></script>
+    <script src="/app/mantenimientos/users/usersController.js"></script>
     <script src="/app/login/loginController.js"></script>
     <script src="/app/payroll/payrollController.js"></script>
     <script src="/app/payroll/reimbursement/reimbursementController.js"></script>
+    <script src="/app/shared/components/addEmployees/addEmployeeController.js"></script>
+
+    <script src="/app/permits/contractor/contractorController.js"></script>
+
 </body>
 </html>
 

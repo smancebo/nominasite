@@ -1,5 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="contract_permit_periods">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="number_registered" Type="varchar" MaxLength="50" />
+    <Property Name="week_days" Type="varchar" MaxLength="200" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="start_time" Type="varchar" MaxLength="10" />
+    <Property Name="end_time" Type="varchar" MaxLength="10" />
+    <Property Name="hours" Type="int" />
+    <Property Name="registration_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="contract_permits">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="organization_name" Type="varchar" MaxLength="100" />
+    <Property Name="telephone" Type="varchar" MaxLength="20" />
+    <Property Name="mailing_address" Type="varchar" MaxLength="100" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="state" Type="varchar" MaxLength="100" />
+    <Property Name="zip_code" Type="varchar" MaxLength="20" />
+    <Property Name="authorized_organization_name" Type="varchar" MaxLength="100" />
+    <Property Name="permit_start_date" Type="datetime" />
+    <Property Name="permit_end_date" Type="datetime" />
+    <Property Name="number_registered" Type="varchar" MaxLength="50" />
+    <Property Name="total_hours" Type="int" />
+    <Property Name="registration_date" Type="datetime" />
+  </EntityType>
   <EntityType Name="payments">
     <Key>
       <PropertyRef Name="payment_id" />
@@ -18,11 +50,12 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="payment_id" Type="int" />
     <Property Name="employee_code" Type="varchar" MaxLength="100" />
-    <Property Name="day" Type="datetime" />
+    <Property Name="day" Type="varchar" MaxLength="50" />
     <Property Name="required_hours" Type="decimal" Precision="18" Scale="0" />
     <Property Name="overtime" Type="decimal" Precision="18" Scale="0" />
     <Property Name="comments" Type="varchar" MaxLength="200" />
     <Property Name="payrate" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="date" Type="datetime" />
   </EntityType>
   <EntityType Name="payments_reimbursements">
     <Key>
@@ -58,10 +91,10 @@
   </EntityType>
   <EntityType Name="schools">
     <Key>
-      <PropertyRef Name="id" />
+      <PropertyRef Name="code" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="code" Type="varchar" MaxLength="50" />
+    <Property Name="code" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="location" Type="varchar" MaxLength="200" />
     <Property Name="size" Type="decimal" Precision="18" Scale="2" />
     <Property Name="employee_manager" Type="varchar" MaxLength="100" />
@@ -88,12 +121,30 @@
     <Property Name="status" Type="varchar" MaxLength="1" />
     <Property Name="supervisor_code" Type="varchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="staff_by_schools">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_code" Type="varchar" MaxLength="100" />
+    <Property Name="school_code" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="sys_parameters">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="last_payment_code_secuence" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="titles">
     <Key>
@@ -109,9 +160,9 @@
       <PropertyRef Name="username" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="employee_code" Type="varchar" MaxLength="100" />
     <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="password" Type="varchar" MaxLength="100" />
+    <Property Name="school_code" Type="varchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK__payments___emplo__145C0A3F">
     <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
@@ -197,19 +248,45 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__users__employee___09DE7BCC">
+  <Association Name="FK__staff_by___emplo__1332DBDC">
     <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
-    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="staff">
         <PropertyRef Name="employee_code" />
       </Principal>
-      <Dependent Role="users">
+      <Dependent Role="staff_by_schools">
         <PropertyRef Name="employee_code" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__staff_by___schoo__14270015">
+    <End Role="schools" Type="Self.schools" Multiplicity="0..1" />
+    <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="schools">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="staff_by_schools">
+        <PropertyRef Name="school_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_users_schools">
+    <End Role="schools" Type="Self.schools" Multiplicity="0..1" />
+    <End Role="users" Type="Self.users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="schools">
+        <PropertyRef Name="code" />
+      </Principal>
+      <Dependent Role="users">
+        <PropertyRef Name="school_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="fmpModelStoreContainer">
+    <EntitySet Name="contract_permit_periods" EntityType="Self.contract_permit_periods" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contract_permits" EntityType="Self.contract_permits" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments" EntityType="Self.payments" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments_details" EntityType="Self.payments_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="payments_reimbursements" EntityType="Self.payments_reimbursements" Schema="dbo" store:Type="Tables" />
@@ -217,7 +294,9 @@
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="staff_by_schools" EntityType="Self.staff_by_schools" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sys_parameters" EntityType="Self.sys_parameters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="titles" EntityType="Self.titles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK__payments___emplo__145C0A3F" Association="Self.FK__payments___emplo__145C0A3F">
@@ -248,8 +327,16 @@
       <End Role="titles" EntitySet="titles" />
       <End Role="staff" EntitySet="staff" />
     </AssociationSet>
-    <AssociationSet Name="FK__users__employee___09DE7BCC" Association="Self.FK__users__employee___09DE7BCC">
+    <AssociationSet Name="FK__staff_by___emplo__1332DBDC" Association="Self.FK__staff_by___emplo__1332DBDC">
       <End Role="staff" EntitySet="staff" />
+      <End Role="staff_by_schools" EntitySet="staff_by_schools" />
+    </AssociationSet>
+    <AssociationSet Name="FK__staff_by___schoo__14270015" Association="Self.FK__staff_by___schoo__14270015">
+      <End Role="schools" EntitySet="schools" />
+      <End Role="staff_by_schools" EntitySet="staff_by_schools" />
+    </AssociationSet>
+    <AssociationSet Name="FK_users_schools" Association="Self.FK_users_schools">
+      <End Role="schools" EntitySet="schools" />
       <End Role="users" EntitySet="users" />
     </AssociationSet>
   </EntityContainer>
