@@ -105,6 +105,7 @@ app.directive('eventHandler', function () {
 });
 
 
+
 app.directive('addPeriod', function () {
     return {
         restrict: 'EA',

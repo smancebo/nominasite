@@ -67,6 +67,15 @@ app.factory('$payrollService', ['$http', '$serverInfo', function ($http, $server
         })
     }
 
+    payrollService.delete = function (payroll_id, callback) {
+        if (confirm('Are you sure you want to delete the selected payroll?')) {
+            $http.post(serviceBaseAddress + '/delete', payroll_id)
+            .success(function (data) {
+                callback(data);
+            })
+        }
+    }
+
 
     return payrollService;
 

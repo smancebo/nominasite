@@ -7,8 +7,8 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage']);
     app.constant('$serverInfo', {
-        //server: "http://10.172.0.170:85/api"
-        server: "http://10.0.0.5:85/api"
+        server: "http://10.172.0.170:85/api"
+        //server: "http://10.0.0.5:85/api"
     });
 
     app.controller('indexController', ['$scope', function ($scope) {
@@ -339,6 +339,70 @@
             controller: 'payrollController'
         })
 
+        .when('/payroll/view/:Id', {
+            templateUrl: 'app/payroll/payroll.html',
+            controller: 'payrollController',
+            viewing: true
+        })
+
+         .when('/payroll/print/:Id', {
+             templateUrl: 'app/reports/payroll/rpt-payroll.html',
+             controller: ['$rootScope', '$payrollService', '$routeParams', '$scope', function ($rootScope, $payrollService, $routeParams, $scope) {
+                 $rootScope.reportMode = true;
+                 $scope.parseInt = function (number) {
+                     return parseInt(number);
+                 }
+
+                 $scope.parseFloat = function (number) {
+                     return parseFloat(number);
+                 }
+                 $scope.getReimbursementHours = function (day, type) {
+                     var totalHours = 0;
+                     if (day != undefined && day.reimbursements != undefined) {
+
+                         var rRegular = day.reimbursements.filter(function (r) {
+                             return r.type.id == type
+                         });
+
+                         for (var i = 0; i <= rRegular.length - 1; i++) {
+                             totalHours += parseFloat(day.reimbursements[i].hours);
+                         }
+                     }
+
+                     return totalHours;
+                 }
+                 $scope.getReimbursementRate = function (days, type) {
+
+                     var totalRate = 0;
+                     if (days != undefined) {
+
+                         days.forEach(function (day) {
+                             if (day != undefined && day.reimbursements != undefined) {
+                                 var rRegular = day.reimbursements.filter(function (r) {
+                                     return r.type.id == type
+                                 });
+
+                                 for (var i = 0; i <= rRegular.length - 1; i++) {
+                                     totalRate += (parseFloat(day.reimbursements[i].hours) * parseFloat(day.reimbursements[i].rate))
+                                 }
+                             }
+                         })
+                     }
+
+                     return totalRate;
+                 }
+
+                 if ($routeParams.Id) {
+
+                     $payrollService.get($routeParams.Id, function (data) {
+                         $scope.payroll = data;
+                         console.log(data);
+                     })
+
+                 }
+
+             }]
+         })
 
         .when('/login', {
             

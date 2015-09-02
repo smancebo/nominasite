@@ -2,8 +2,83 @@
 
 <div>
     <h2>Payrolls</h2>
+    <div class="panel panel-default margin-top">
+
+        <div class="panel-heading">
+            <a ng-click="isCollapse = !isCollapse" href="#"><i class="fa fa-search"></i> Filters</a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+            <div>
+
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select class="form-control" ng-model="ddlStatus" ng-options="item.id as item.description for item in payrollStatus">
+                        <option value="">Choose...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Code</label>
+                    <input class="form-control" ng-model="txtCode" />
+                </div>
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <div class="input-group" date-picker date-model="txtStartDate">
+                        <input class="form-control" ng-model="txtStartDate" />
+                        <div class="input-group-addon">
+                            <a><i class="fa fa-calendar"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>End Date</label>
+                    <div class="input-group" date-picker date-model="txtEndDate">
+                        <input class="form-control" ng-model="txtEndDate" />
+                        <div class="input-group-addon">
+                            <a><i class="fa fa-calendar"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
     <a class="btn btn-xs btn-success" href="payroll/add"><i class="fa fa-plus"></i> Add</a>
-    <grid-view gv-rows="dataRows" gv-controller="payrollController">
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-class="{'success' : row.applied == 'Applied'}" ng-repeat="row in dataRows | filter:{b_applied: ddlStatus == undefined ? '' : ddlStatus,
+                                                                                                           payment_code : txtCode || '',
+                                                                                                           startdate : txtStartDate || '',
+                                                                                                           enddate : txtEndDate || '' } | orderBy:'-payment_code'">
+                    <td>{{row.payment_code}}</td>
+                    <td>{{row.startdate}}</td>
+                    <td>{{row.enddate}}</td>
+                    <td>{{row.applied}}</td>
+                    <td>
+                        <a href='payroll/view/{{row.payment_id}}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a ng-click='printPayroll(row.payment_id)' ng-if="row.applied == 'Applied' ? true : false" class='btn btn-xs btn-primary'><i class="fa fa-print"></i> Print</a>
+                        <a href='payroll/edit/{{row.payment_id}}' ng-hide='{{row.applied == "Applied" ? true : false}}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click='deletePayroll(row.payment_id)' ng-hide='{{row.applied == "Applied" ? true : false}}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!--<grid-view gv-rows="dataRows" gv-controller="payrollController">
         <columns>
             <column header-text="Code" data-field="payment_code"></column>
             <column header-text="Start Date" data-field="startdate"></column>
@@ -15,5 +90,5 @@
                 <a href='payroll/delete/{payment_id}' class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templatecolumn>
         </columns>
-    </grid-view>
+    </grid-view>-->
 </div>

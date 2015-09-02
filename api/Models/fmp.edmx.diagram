@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="30920fba4875469cbcfbc56f85b74a60" Name="Diagram1">
+      <Diagram DiagramId="34b47c7df8124bcfad633ca5189396fa" Name="Diagram1">
         <EntityTypeShape EntityType="fmpModel.contract_permit_periods" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.contract_permits" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.payments" Width="1.5" PointX="9.75" PointY="18.125" IsExpanded="true" />
@@ -15,8 +15,8 @@
         <EntityTypeShape EntityType="fmpModel.schools" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.staff" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.staff_by_schools" Width="1.5" PointX="7.5" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.sys_parameters" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.sys_parameters" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.sysdiagrams" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.titles" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.users" Width="1.5" PointX="7.5" PointY="18.375" IsExpanded="true" />
         <AssociationConnector Association="fmpModel.FK__payments___payme__1367E606" ManuallyRouted="false" />

@@ -1,0 +1,231 @@
+﻿
+<button class="btn btn-primary" ng-print print-element-id="printDiv"><i class="fa fa-print"></i> Print</button>
+
+<div id="printDiv">
+
+
+
+    <div class="header text-center payroll_header">
+        <p><label>Payroll:</label> {{payroll.payment_code}}</p>
+        <p><label>Week of:</label> {{payroll.startdate}} - {{payroll.enddate}}</p>
+    </div>
+
+    <div class="panel panel-default" ng-repeat="employee in payroll.employees" style="width:100%; margin:0 auto">
+        <div class="panel-heading">
+            <label>{{employee.employee.name + ' ' + employee.employee.middle_name + ' ' + employee.employee.last_name}}</label>
+        </div>
+
+        <div class="panel-body">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left" style="margin-right:20px"><label>ID:</label> {{employee.employee.employee_code}}</p>
+                    <p class="pull-left"><label>Title:</label> {{employee.employee.title.description}}</p>
+                </div>
+                <div class="row">
+                    <p class="pull-left" style="margin-right:20px"><label>Regular rate:</label> {{employee.employee.title.payrate | currency : $}}</p>
+                    <p class="pull-left"><label>Overtime rate:</label> {{employee.employee.title.payrate * 1.50 | currency : $}}</p>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class='text-center'>MON</th>
+                            <th class='text-center'>TUE</th>
+                            <th class='text-center'>WED</th>
+                            <th class='text-center'>THU</th>
+                            <th class='text-center'>FRI</th>
+                            <th class='text-center'>SAT</th>
+                            <th class='text-center'>SUN</th>
+                            <th class='text-center'>TOTAL HOURS</th>
+                            <th class='text-right'>GROSSPAY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>REGULAR HOURS</td>
+                            <td class='number-td'>{{employee.days[0].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[1].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[2].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[3].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[4].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[5].regularHours}}</td>
+                            <td class='number-td'>{{employee.days[6].regularHours}}</td>
+                            <td class='number-td'>
+
+                                {{
+                                parseInt(employee.days[0].regularHours) +
+                                parseInt(employee.days[1].regularHours) +
+                                parseInt(employee.days[2].regularHours) +
+                                parseInt(employee.days[3].regularHours) +
+                                parseInt(employee.days[4].regularHours) +
+                                parseInt(employee.days[5].regularHours) +
+                                parseInt(employee.days[6].regularHours)
+                                }}
+
+                            </td>
+                            <td class="text-center number-td money">
+
+                                {{
+                                ((parseInt(employee.days[0].regularHours) +
+                                    parseInt(employee.days[1].regularHours) +
+                                    parseInt(employee.days[2].regularHours) +
+                                    parseInt(employee.days[3].regularHours) +
+                                    parseInt(employee.days[4].regularHours) +
+                                    parseInt(employee.days[5].regularHours) +
+                                    parseInt(employee.days[6].regularHours) ) * parseFloat(employee.employee.title.payrate)) | currency : $
+                                }}
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>OVERTIME HOURS</td>
+                            <td class='number-td'>{{employee.days[0].overtime}}</td>
+                            <td class='number-td'>{{employee.days[1].overtime}}</td>
+                            <td class='number-td'>{{employee.days[2].overtime}}</td>
+                            <td class='number-td'>{{employee.days[3].overtime}}</td>
+                            <td class='number-td'>{{employee.days[4].overtime}}</td>
+                            <td class='number-td'>{{employee.days[5].overtime}}</td>
+                            <td class='number-td'>{{employee.days[6].overtime}}</td>
+                            <td class='number-td'>
+                                {{
+                                parseInt(employee.days[0].overtime) +
+                                parseInt(employee.days[1].overtime) +
+                                parseInt(employee.days[2].overtime) +
+                                parseInt(employee.days[3].overtime) +
+                                parseInt(employee.days[4].overtime) +
+                                parseInt(employee.days[5].overtime) +
+                                parseInt(employee.days[6].overtime)
+                                }}
+                            </td>
+                            <td class='text-center number-td money'>
+                                {{
+                                ((parseInt(employee.days[0].overtime) +
+                                    parseInt(employee.days[1].overtime) +
+                                    parseInt(employee.days[2].overtime) +
+                                    parseInt(employee.days[3].overtime) +
+                                    parseInt(employee.days[4].overtime) +
+                                    parseInt(employee.days[5].overtime) +
+                                    parseInt(employee.days[6].overtime) ) * (parseFloat(employee.employee.title.payrate)) * 1.5) | currency : $
+                                }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>NIGHT HOURS</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[0],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[1],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[2],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[3],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[4],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[5],3)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[6],3)}}</td>
+
+                            <td data-total-nigthdiff-hours class='number-td'>
+                                {{
+                                                    parseInt(getReimbursementHours(employee.days[0],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[1],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[2],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[3],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[4],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[5],3)) +
+                                                    parseInt(getReimbursementHours(employee.days[6],3))
+                                }}
+                            </td>
+                            <td class="number-td money">{{getReimbursementRate(employee.days,3) | currency : $}}</td>
+                        </tr>
+                        <tr class="success">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class='number-td money'>{{0 | currency : $}}</td>
+                        </tr>
+                        <tr>
+                            <td>REIMBURSEMENT / REGULAR</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[0],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[1],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[2],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[3],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[4],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[5],1)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[6],1)}}</td>
+
+                            <td data-total-reimbursement-hours class='number-td'>
+                                {{
+                                parseFloat(getReimbursementHours(employee.days[0],1)) +
+                                parseFloat(getReimbursementHours(employee.days[1],1)) +
+                                parseFloat(getReimbursementHours(employee.days[2],1)) +
+                                parseFloat(getReimbursementHours(employee.days[3],1)) +
+                                parseFloat(getReimbursementHours(employee.days[4],1)) +
+                                parseFloat(getReimbursementHours(employee.days[5],1)) +
+                                parseFloat(getReimbursementHours(employee.days[6],1))
+                                }}
+                            </td>
+                            <td class="number-td money">{{getReimbursementRate(employee.days,1) | currency : $}}</td>
+                        </tr>
+                        <tr>
+                            <td>COMMENTS</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>REIMBURSEMENT / OT</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[0],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[1],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[2],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[3],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[4],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[5],2)}}</td>
+                            <td class='number-td'>{{getReimbursementHours(employee.days[6],2)}}</td>
+
+                            <td data-total-reimbursement-ot-hours class='number-td'>
+                                {{
+                                parseInt(getReimbursementHours(employee.days[0],2)) +
+                                parseInt(getReimbursementHours(employee.days[1],2)) +
+                                parseInt(getReimbursementHours(employee.days[2],2)) +
+                                parseInt(getReimbursementHours(employee.days[3],2)) +
+                                parseInt(getReimbursementHours(employee.days[4],2)) +
+                                parseInt(getReimbursementHours(employee.days[5],2)) +
+                                parseInt(getReimbursementHours(employee.days[6],2))
+                                }}
+                            </td>
+                            <td class="number-td money">{{getReimbursementRate(employee.days,2) | currency : $}}</td>
+                        </tr>
+                        <tr>
+                            <td>COMMENTS</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+

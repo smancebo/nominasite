@@ -5,6 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="guid" Type="nvarchar(max)" />
     <Property Name="number_registered" Type="varchar" MaxLength="50" />
     <Property Name="week_days" Type="varchar" MaxLength="200" />
     <Property Name="start_date" Type="datetime" />
@@ -22,14 +23,12 @@
     <Property Name="organization_name" Type="varchar" MaxLength="100" />
     <Property Name="telephone" Type="varchar" MaxLength="20" />
     <Property Name="mailing_address" Type="varchar" MaxLength="100" />
-    <Property Name="city" Type="varchar" MaxLength="50" />
-    <Property Name="state" Type="varchar" MaxLength="100" />
-    <Property Name="zip_code" Type="varchar" MaxLength="20" />
     <Property Name="authorized_organization_name" Type="varchar" MaxLength="100" />
     <Property Name="permit_start_date" Type="datetime" />
     <Property Name="permit_end_date" Type="datetime" />
     <Property Name="number_registered" Type="varchar" MaxLength="50" />
     <Property Name="total_hours" Type="int" />
+    <Property Name="total_hours_worked" Type="int" />
     <Property Name="registration_date" Type="datetime" />
   </EntityType>
   <EntityType Name="payments">

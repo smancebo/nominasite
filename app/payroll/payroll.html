@@ -1,7 +1,7 @@
 ﻿
 <div>
 
-    <p ng-show="editing">
+    <p ng-show="viewMode == true || editing == true">
         <label>Payroll:</label>
         <label style="color: #c10505">{{payroll.payment_code}}</label>
     </p>
@@ -11,7 +11,7 @@
             <div class="form-group half49-width">
                 <label>From</label>
                 <div class="input-group" date-picker days-disabled="disableDaysFrom" ng-class="{'has-error' : payroll.startdate == ''}" date-model="payroll.startdate">
-                    <input class="form-control full-width" ng-model="payroll.startdate" required />
+                    <input class="form-control full-width" ng-model="payroll.startdate" required ng-disabled="viewMode == true || editing == true" />
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
@@ -20,7 +20,7 @@
             <div class="form-group half-width" ng-class="{'has-error' : payroll.enddate == ''}">
                 <label>To</label>
                 <div class="input-group" date-picker date-model="payroll.enddate" date-change="calculateDiff()">
-                    <input class="form-control full-width date-end" required />
+                    <input class="form-control full-width date-end" required ng-disabled="viewMode == true || editing == true" />
                     <div class="input-group-addon">
                         <a href="#"><i class="fa fa-calendar"></i></a>
                     </div>
@@ -63,13 +63,13 @@
                                             <label>{{day.day}}</label>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control"  tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" />
+                                            <input type="text" class="form-control"  tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" ng-disabled="viewMode == true" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" ng-model="day.overtime" disabled />
                                         </td>
                                         <td>
-                                            <a class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
+                                            <a ng-if="viewMode == undefined" class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
                                             <a ng-if="day.reimbursements.length > 0" class="btn btn-xs btn-info" ng-click="openReimbursement(day)"><i class="fa fa-search"></i> {{day.reimbursements.length}}</a>
                                         </td>
                                     </tr>
@@ -233,11 +233,12 @@
                                 </tbody>
                             </table>
                         </div>
+                        
                         <div class="container col-md-6">
-                            <button ng-click="addToPayroll()" class="btn btn-success col-md-12"><i class="fa fa-plus"></i> Add to payroll</button>
+                            <button ng-click="addToPayroll()" ng-if="viewMode == undefined" class="btn btn-success col-md-12"><i class="fa fa-plus"></i> Add to payroll</button>
                         </div>
                         <div class="container col-md-6">
-                            <button ng-click="cancelEmployee()" class="btn btn-danger col-md-12"><i class="fa fa-remove"></i> Cancel</button>
+                            <button ng-click="cancelEmployee()" ng-if="viewMode == undefined" class="btn btn-danger col-md-12"><i class="fa fa-remove"></i> Cancel</button>
                         </div>
                     </div>
                     <div class="col-md-1 vertical-align"><a ng-click="nextEmployee()" class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
@@ -261,23 +262,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in payroll.employees">
+                            <tr ng-repeat="item in payroll.employees" >
                                 <td>{{item.employee.name + ' ' + item.employee.middle_name + ' ' + item.employee.last_name}}</td>
                                 <td class='number-td'>{{item.totalRegHours | currency : $}}</td>
                                 <td class='number-td'>{{item.totalOvertimeHours | currency : $}}</td>
                                 <td class='number-td'>{{item.totalRegHours + item.totalOvertimeHours | currency : $}}</td>
                                 <td>
                                     <button class="btn btn-warning btn-xs" ng-click="editEmployee(item.employee.employee_code)"><i class="fa fa-edit"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
+                                    <button class="btn btn-danger btn-xs" ng-if="viewMode == undefine" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <div class="container col-md-6">
-                    <button class="btn btn-info col-md-12" ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
+                <div class="container col-md-12" ng-if="viewMode == true && payroll.applied == true">
+                    <button ng-click="printPayroll(payroll.payment_id)" class="btn btn-primary col-md-12"><i class="fa fa-print"></i> Print payroll</button>
                 </div>
-                <div class="container col-md-6">
+                <div class="container col-md-6" ng-if="viewMode == undefined">
+                    <button class="btn btn-info col-md-12"  ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
+                </div>
+                <div class="container col-md-6" ng-if="viewMode == undefined">
                     <button class="btn btn-success col-md-12" ng-click="applyPayroll()"><i class="fa fa-check"></i> Apply payroll</button>
                 </div>
             </div>

@@ -4,12 +4,15 @@ var app = angular.module('fmpPortal');
 
 var indx = 0;
 
-app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', function ($scope, $reimbursementService, $modalInstance, day, employee) {
+app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', 'viewing', function ($scope, $reimbursementService, $modalInstance, day, employee, viewing) {
     
-    debugger
+    
     $scope.day = day;
     $scope.employee = employee;
     //$scope.reimbursement = {;
+    if (viewing) {
+        $scope.viewMode = true;
+    }
 
     $scope.reimbursementsTypes = [
        { id: 1, description: 'Regular Hours', payrateMultiply: 1 },

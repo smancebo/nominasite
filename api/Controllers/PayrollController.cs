@@ -30,6 +30,7 @@ namespace api.Controllers
                                enddate	= ((DateTime)(p.enddate)).ToString("MM/dd/yyyy"),
                                username	 = p.username,
                                applied	= (p.applied == true) ? "Applied" : "Not Applied",
+                               b_applied = p.applied == null ? false : p.applied,
                                payment_code = p.payment_code
                            });
 
@@ -58,6 +59,30 @@ namespace api.Controllers
             }
         }
 
+
+        [HttpPost]
+        [Route("delete")]
+        public IHttpActionResult delete([FromBody]int payment_id)
+        {
+            try
+            {
+                var payment = (from p in fmp.payments
+                               where p.payment_id == payment_id
+                               select p).FirstOrDefault();
+
+                deletePayrollData(payment);
+                fmp.payments.Remove(payment);
+                fmp.SaveChanges();
+
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpGet]
         [Route("get/{payment_id}")]
         public IHttpActionResult get(int payment_id)
@@ -76,6 +101,7 @@ namespace api.Controllers
             payroll.enddate = ((DateTime)payment.enddate).ToString("MM/dd/yyyy");
             payroll.username = payment.username;
             payroll.payment_code = payment.payment_code;
+            payroll.applied = payment.applied == null ? false : payment.applied;
             /*payroll.employees = from pd in fmp.payments_details
                                 from emp in fmp.staff
                                 where pd.payment_id == payment_id &&

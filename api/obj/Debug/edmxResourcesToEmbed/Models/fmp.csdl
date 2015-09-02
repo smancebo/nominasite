@@ -5,6 +5,7 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="week_days" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="start_date" Type="DateTime" Precision="3" />
@@ -22,14 +23,12 @@
     <Property Name="organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="mailing_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="authorized_organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="permit_start_date" Type="DateTime" Precision="3" />
     <Property Name="permit_end_date" Type="DateTime" Precision="3" />
     <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="total_hours" Type="Int32" />
+    <Property Name="total_hours_worked" Type="Int32" />
     <Property Name="registration_date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="payments">

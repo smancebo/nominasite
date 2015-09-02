@@ -8,7 +8,28 @@
     var app = angular.module('fmpPortal');
 
 
-    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService', 'ngToast', '$toast', '$locationService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast, $toast, $locationService) {
+    app.controller('payrollController', ['$scope',
+        '$routeParams',
+        '$staffService',
+        '$modal',
+        '$reimbursementService',
+        '$payrollService',
+        'ngToast',
+        '$toast',
+        '$locationService',
+        '$route',
+        '$window',
+        function ($scope,
+            $routeParams,
+            $staffService,
+            $modal,
+            $reimbursementService,
+            $payrollService,
+            ngToast,
+            $toast,
+            $locationService,
+            $route,
+            $window) {
    
     $scope.employeeIndex = 0;
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
@@ -26,12 +47,23 @@
         employees: []
     }
 
+    $scope.payrollStatus = [{ id: true, description: 'Applied' }, { id: false, description: 'Not Applied' }];
+    $scope.isCollapse = true;
+   
+
+    if ($route.current.$$route.viewing)
+    {
+        $scope.viewMode = true;
+    }
+
     if ($routeParams.Id) {
         $payrollService.get($routeParams.Id, function (data) {
             $scope.payroll = data;
             $scope.current.employee = angular.copy($scope.employees[0]);
-            $scope.editing = true;
-            console.log($scope.payroll)
+            if (!$scope.viewMode) {
+                $scope.editing = true;
+            }
+            console.log(data);
         });
     }
 
@@ -331,8 +363,27 @@
         //
     }
 
-    /*Reimbursement Methods*/
+            /*Reimbursement Methods*/
 
+
+    $scope.deletePayroll = function (payment_id) {
+        $payrollService.delete(payment_id, function (data) {
+            if (data == 1) {
+                $toast.create('success', 'Payroll deleted successfully');
+                $route.reload();
+            }
+            else {
+                $toast.create('danger', '<b>Error: </b>' + data);
+            }
+        });
+    }
+
+
+    $scope.printPayroll = function (payment_id) {
+
+        $window.open('/payroll/print/' + payment_id);
+
+    }
 
     $scope.openReimbursement = function (day) {
         
@@ -351,6 +402,9 @@
                     },
                     employee: function () {
                         return $scope.current.employee;
+                    },
+                    viewing: function () {
+                        return $scope.viewMode
                     }
                 }
             });

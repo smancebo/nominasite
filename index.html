@@ -17,7 +17,7 @@
 </head>
 <body>
     <toast></toast>
-    <div class="navbar navbar-default no-margin fmp-navbar">
+    <div class="navbar navbar-default no-margin fmp-navbar" ng-if="!reportMode">
         <div>
             <div class="col-md-2">
                 <div class="navbar-brand"><i class="fa fa-building"></i>FMP PORTAL</div>
@@ -26,7 +26,11 @@
                 <div class="" style=" padding-top:15px;">
                     <div>
                         <div class="dropdown">
-                            <a ng-hide="currentUser" href="/login" style="color:white">Sign In</a>
+                            <span ng-if="currentUser">
+                                <a class="btn btn-xs btn-info" href="#" back-btn><i class="fa fa-chevron-circle-left"></i> Back</a>
+                                <label style="color:white">|</label>
+                            </span>
+                            <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
                             <a style="color:white" data-toggle="dropdown">
                                 {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
                             </a>
@@ -44,7 +48,7 @@
     <div id="body">
         <div class="container-fluid">
             <div class="row main">
-                <div ng-controller="indexController" class="col-md-2 max-height" style="padding:0">
+                <div ng-controller="indexController" class="col-md-2 max-height" style="padding:0" ng-if="!reportMode">
                     <ul class="menu list-unstyled">
                         <li ng-repeat="item in menu">
                             <div class="li-bound">
@@ -61,8 +65,10 @@
                             </div>
                         </li>
                     </ul>
+
                 </div>
-                <div class="col-md-10 content-place-holder container">
+                <div class="content-place-holder container" ng-class="{'col-md-12' : reportMode == true, 'col-md-10' : reportMode == undefined}">
+
                     <div>
                         <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</alert>
                     </div>
@@ -83,7 +89,7 @@
     <script src="/assets/js/moment.min.js"></script>
     <script src="/assets/js/moment-with-locales.min.js"></script>
     <script src="/assets/js/moment-timezone.js"></script>
-    <script src="assets/js/moment-with-locales.min.js"></script>
+    <script src="/assets/js/moment-with-locales.min.js"></script>
     <script src="/assets/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/assets/js/bootstrap-dialog.js"></script>
     <script src="/assets/js/angular-animate.min.js"></script>
@@ -94,6 +100,7 @@
     <script src="/app/app.js"></script>
     <script src="/app/app.directives.js"></script>
     <script src="/app/app.service.js"></script>
+    <script src="/app/print.js"></script>
     <script src="/app/ngDatePicker.js"></script>
     <script src="/app/mantenimientos/employees/employeesController.js"></script>
     <script src="/app/mantenimientos/reimbursement/reimbursementController.js"></script>
