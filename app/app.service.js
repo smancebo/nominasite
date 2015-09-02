@@ -57,7 +57,16 @@ app.factory('$payrollService', ['$http', '$serverInfo', function ($http, $server
         .success(function (data) {
             callback(data);
         });
+
     }
+
+    payrollService.apply = function (payroll_id, callback) {
+        $http.post(serviceBaseAddress + '/apply', payroll_id)
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
 
     return payrollService;
 

@@ -8,7 +8,7 @@
     var app = angular.module('fmpPortal');
 
 
-    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService','ngToast', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast) {
+    app.controller('payrollController', ['$scope', '$routeParams', '$staffService', '$modal', '$reimbursementService', '$payrollService', 'ngToast', '$toast', '$locationService', function ($scope, $routeParams, $staffService, $modal, $reimbursementService, $payrollService, ngToast, $toast, $locationService) {
    
     $scope.employeeIndex = 0;
     $scope.disableDaysFrom = [0, 2, 3, 4, 5, 6];
@@ -29,6 +29,9 @@
     if ($routeParams.Id) {
         $payrollService.get($routeParams.Id, function (data) {
             $scope.payroll = data;
+            $scope.current.employee = angular.copy($scope.employees[0]);
+            $scope.editing = true;
+            console.log($scope.payroll)
         });
     }
 
@@ -60,6 +63,10 @@
                 if (isin == true) {
                     $scope.editEmployee(newValue.employee_code);
                 }
+                else
+                {
+                    $scope.calculateDiff();
+                }
             }
         }
     },true);
@@ -86,26 +93,33 @@
 
     $staffService.getBySchool(function (data) {
         $scope.employees = data;
+        if (!$routeParams.Id) {
+            $scope.current.employee = angular.copy(data[0]);
+
+        }
+
         //$scope.payroll.employees = data;
-        console.log($scope.payroll)
+        //console.log($scope.payroll)
     });
     
 
     $scope.nextEmployee = function () {
         $scope.employeeIndex++;
-        if ($scope.employeeIndex > $scope.employees.length)
+        debugger
+        if ($scope.employeeIndex >= $scope.employees.length)
         {
-            $scope.employeeIndex = $scope.employees.length
+            $scope.employeeIndex = 0;
         }
-        $scope.current.employee = $scope.payroll.employees[$scope.employeeIndex];
+        $scope.current.employee = angular.copy($scope.employees[$scope.employeeIndex]);
     }
 
     $scope.prevEmployee = function () {
+        debugger
         $scope.employeeIndex--;
-        if ($scope.employeeIndex < $scope.employees.length) {
+        if ($scope.employeeIndex < 0) {
             $scope.employeeIndex = 0;
         }
-        $scope.current.employee = $scope.payroll.employees[$scope.employeeIndex];
+        $scope.current.employee = angular.copy($scope.employees[$scope.employeeIndex]);
     }
 
     $scope.checkOvertime = function(day)
@@ -191,8 +205,10 @@
         $scope.current.totalOvertimeHours = $scope.getField('data-total-overtime-hours');
         $scope.current.totalNigthDiff = $scope.getField('data-total-nigthdiff-hours');
 
-        $scope.payroll.employees.push(clone($scope.current));
+        $scope.payroll.employees.push(angular.copy($scope.current));
         $scope.cancelEmployee();
+        $scope.nextEmployee();
+        $toast.create('success','Employee added to payroll')
         console.log($scope.payroll.employees);
     }
 
@@ -213,9 +229,9 @@
 
     $scope.editEmployee = function (employee_code) {
        
-        $scope.current = $scope.payroll.employees.filter(function (e) {
+        $scope.current = angular.copy($scope.payroll.employees.filter(function (e) {
             return e.employee.employee_code == employee_code;
-        })[0];
+        })[0]);
         $scope.tabs[0].active = true;
     }
 
@@ -267,6 +283,21 @@
         return totalRate;
     }
 
+
+    $scope.applyPayroll = function () {
+        if(confirm('Once you apply the payroll you will not be able to modify it, want to proceed?'))
+        {
+            $payrollService.apply($scope.payroll.payment_id, function (data) {
+                if (data == 1) {
+                    $toast.create('success', 'Payroll applied succesfully!');
+                    $locationService.changeLocation('/payroll');
+                }
+                else {
+                    $toast.create('danger', '<b>Error:</b> ' + data);
+                }
+            })
+        }
+    }
 
     $scope.savePayroll = function () {
 
