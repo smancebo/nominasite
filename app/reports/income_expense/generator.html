@@ -1,0 +1,34 @@
+﻿
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <i class="fa fa-clipboard"> Income and Expense Report</i>
+    </div>
+    <div class="panel-body">
+        <div class="form-group">
+            <label>Start Date</label>
+            <div class="input-group" date-picker date-model="form.startdate">
+                <input type="text" class="form-control" ng-model="form.startdate" />
+                <div class="input-group-addon">
+                    <a><i class="fa fa-calendar"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>End Date</label>
+            <div class="input-group" date-picker date-model="form.enddate">
+                <input type="text" class="form-control" ng-model="form.enddate" />
+                <div class="input-group-addon">
+                    <a><i class="fa fa-calendar"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary"><i class="fa fa-clipboard"></i> Generate</button>
+        </div>
+
+    </div>
+
+</div>

@@ -260,3 +260,8 @@
     margin-bottom: 10px;
     padding-top:10px
 }
+
+.table>thead>tr>th
+{
+    font-size:9pt !important
+}

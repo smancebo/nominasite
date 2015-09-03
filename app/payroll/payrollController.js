@@ -277,6 +277,30 @@
     }
 
 
+    $scope.getRegularRate = function (employee) {
+        var rate = ((parseInt(employee.days[0].regularHours) +
+                     parseInt(employee.days[1].regularHours) +
+                     parseInt(employee.days[2].regularHours) +
+                     parseInt(employee.days[3].regularHours) +
+                     parseInt(employee.days[4].regularHours) +
+                     parseInt(employee.days[5].regularHours) +
+                     parseInt(employee.days[6].regularHours)) * (parseFloat(employee.employee.title.payrate)));
+
+        return rate;
+    }
+
+    $scope.getOvertimeRate = function (employee) {
+        var rate = ((parseInt(employee.days[0].overtime) +
+                     parseInt(employee.days[1].overtime) +
+                     parseInt(employee.days[2].overtime) +
+                     parseInt(employee.days[3].overtime) +
+                     parseInt(employee.days[4].overtime) +
+                     parseInt(employee.days[5].overtime) +
+                     parseInt(employee.days[6].overtime)) * (parseFloat(employee.employee.title.payrate)) * 1.5);
+
+        return rate;
+    }
+
     $scope.getReimbursementHours = function(day, type)
     {
         var totalHours = 0;
@@ -381,7 +405,7 @@
 
     $scope.printPayroll = function (payment_id) {
 
-        $window.open('/payroll/print/' + payment_id);
+        $locationService.changeLocation('/payroll/print/' + payment_id);
 
     }
 

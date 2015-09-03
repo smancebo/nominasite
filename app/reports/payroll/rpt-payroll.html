@@ -10,13 +10,13 @@
         <p><label>Week of:</label> {{payroll.startdate}} - {{payroll.enddate}}</p>
     </div>
 
-    <div class="panel panel-default" ng-repeat="employee in payroll.employees" style="width:100%; margin:0 auto">
+    <div class="panel panel-default" ng-repeat="employee in payroll.employees" style="width:100%; margin:0 auto; margin-bottom:10px">
         <div class="panel-heading">
             <label>{{employee.employee.name + ' ' + employee.employee.middle_name + ' ' + employee.employee.last_name}}</label>
         </div>
 
         <div class="panel-body">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <p class="pull-left" style="margin-right:20px"><label>ID:</label> {{employee.employee.employee_code}}</p>
                     <p class="pull-left"><label>Title:</label> {{employee.employee.title.description}}</p>
@@ -68,15 +68,7 @@
                             </td>
                             <td class="text-center number-td money">
 
-                                {{
-                                ((parseInt(employee.days[0].regularHours) +
-                                    parseInt(employee.days[1].regularHours) +
-                                    parseInt(employee.days[2].regularHours) +
-                                    parseInt(employee.days[3].regularHours) +
-                                    parseInt(employee.days[4].regularHours) +
-                                    parseInt(employee.days[5].regularHours) +
-                                    parseInt(employee.days[6].regularHours) ) * parseFloat(employee.employee.title.payrate)) | currency : $
-                                }}
+                                {{getRegularRate(employee) | currency : $}}
 
                             </td>
                         </tr>
@@ -101,15 +93,7 @@
                                 }}
                             </td>
                             <td class='text-center number-td money'>
-                                {{
-                                ((parseInt(employee.days[0].overtime) +
-                                    parseInt(employee.days[1].overtime) +
-                                    parseInt(employee.days[2].overtime) +
-                                    parseInt(employee.days[3].overtime) +
-                                    parseInt(employee.days[4].overtime) +
-                                    parseInt(employee.days[5].overtime) +
-                                    parseInt(employee.days[6].overtime) ) * (parseFloat(employee.employee.title.payrate)) * 1.5) | currency : $
-                                }}
+                                {{getOvertimeRate(employee) | currency : $}}
                             </td>
                         </tr>
                         <tr>
@@ -135,18 +119,7 @@
                             </td>
                             <td class="number-td money">{{getReimbursementRate(employee.days,3) | currency : $}}</td>
                         </tr>
-                        <tr class="success">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td class='number-td money'>{{0 | currency : $}}</td>
-                        </tr>
+                       
                         <tr>
                             <td>REIMBURSEMENT / REGULAR</td>
                             <td class='number-td'>{{getReimbursementHours(employee.days[0],1)}}</td>
@@ -170,17 +143,18 @@
                             </td>
                             <td class="number-td money">{{getReimbursementRate(employee.days,1) | currency : $}}</td>
                         </tr>
-                        <tr>
+                        <tr class="warning">
                             <td>COMMENTS</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[0],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[1],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[2],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[3],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[4],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[5],1)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[6],1)}}</td>
+
+                            <td class="active"></td>
+                            <td class="active"></td>
                         </tr>
                         <tr>
                             <td>REIMBURSEMENT / OT</td>
@@ -205,8 +179,20 @@
                             </td>
                             <td class="number-td money">{{getReimbursementRate(employee.days,2) | currency : $}}</td>
                         </tr>
-                        <tr>
+                        <tr class="warning">
                             <td>COMMENTS</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[0],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[1],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[2],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[3],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[4],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[5],2)}}</td>
+                            <td class='number-td'>{{getReimbursementComments(employee.days[6],2)}}</td>
+                            <td class=""></td>
+                            <td class=""></td>
+                        </tr>
+                        <tr class="success">
+                            <td>TOTAL</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -215,7 +201,16 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td></td>
+                            <td class="number-td money">
+                                {{
+                                    (getRegularRate(employee) +
+                                    getOvertimeRate(employee) +
+                                    getReimbursementRate(employee.days,3) +
+                                    getReimbursementRate(employee.days,1) +
+                                    getReimbursementRate(employee.days,2) ) | currency : $
+                                }}
+
+                            </td>
                         </tr>
                     </tbody>
                 </table>
