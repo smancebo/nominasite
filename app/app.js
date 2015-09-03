@@ -7,8 +7,8 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage']);
     app.constant('$serverInfo', {
-        //server: "http://10.172.0.170:85/api"
-        server: "http://10.0.0.5:85/api"
+        server: "http://10.172.0.170:85/api"
+        //server: "http://10.0.0.5:85/api"
     });
 
     app.controller('indexController', ['$scope', function ($scope) {
@@ -149,9 +149,10 @@
 
 
 
-    app.config(['$routeProvider', '$locationProvider', '$controllerProvider','$httpProvider', function ($routeProvider, $locationProvider, $controllerProvider,$httpProvider) {
+    app.config(['$routeProvider', '$locationProvider', '$controllerProvider', '$httpProvider', '$tooltipProvider', function ($routeProvider, $locationProvider, $controllerProvider, $httpProvider, $tooltipProvider) {
 
         $httpProvider.interceptors.push('$authorizationInterceptor');
+       
 
         app.controllerProvider = $controllerProvider;
 

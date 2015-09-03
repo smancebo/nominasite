@@ -1,0 +1,33 @@
+﻿
+
+
+<div class="form-group">
+    <label>Phones</label>
+    <div>
+        <button ng-click="add()" class="btn btn-success btn-xs add-btn" style="margin-bottom:5px"><i class="fa fa-plus"></i> Add</button>
+    </div>
+    <div class="input-group" ng-repeat="phone in phones" style="margin-bottom:5px">
+        <div class="input-group-addon">
+            <a btn-index="{{$index}}" ng-click="openPopOver($index)" popover-template="dPopover.templateUrl" popover-title="{{dPopover.title}}" popover-placement="{{dPopover.placement}}" >
+                <i class="fa {{phone.phone_type}}"></i>
+            </a>
+        </div>
+        <input type="text" class='form-control' ng-model='phone.number' />
+        <div class="input-group-addon">
+            <a href="#" ng-click="remove($index)"><i class="fa fa-remove" style="color:#D2322D"></i></a>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="phoneTypes.html">
+
+   
+
+        <div class="form-group"  ng-repeat="type in phoneTypes">
+            
+            <input name="phoneTypeList" ng-click="onPhoneTypeSelected(type.icon)" type="radio" /> <i class="fa {{type.icon}}"></i> {{type.description}}
+        </div>
+
+        <!--<select class="form-control" multiple ng-model="ddlPhoneType" ng-change="onPhoneTypeSelected()" ng-options="type.icon as type.description for type in phoneTypes"></select>-->
+   
+</script>

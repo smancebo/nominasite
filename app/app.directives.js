@@ -145,3 +145,73 @@ app.directive('backBtn', function () {
 
     return obj;
 });
+
+app.directive('phoneNumbers', function () {
+
+    var obj = {
+        restrict: 'E',
+        scope: {
+            phones: '='
+        },
+        controller: ['$scope', function ($scope) {
+
+            $scope.currentPhone;
+            $scope.isPopOpen = false;
+
+            $scope.dPopover = {
+                templateUrl: 'phoneTypes.html',
+                title: 'Select Phone type',
+                placement:'right'
+            };
+
+            $scope.phoneTypes = [
+                { description: 'Phone', icon: 'fa-phone' },
+                { description: 'Home', icon: 'fa-home' },
+                { description: 'Mobile', icon: 'fa-mobile-phone' },
+                { description: 'Android', icon: 'fa-android' },
+                { description: 'iPhone', icon: 'fa-apple' },
+                { description: 'Whatsapp', icon: 'fa-whatsapp' },
+                { description: 'Work', icon: 'fa-building' },
+                { description: 'Fax', icon: 'fa-fax' }
+
+            ];
+
+            $scope.ddlPhoneType = $scope.phoneTypes[0];
+
+            $scope.remove = function (index) {
+                $scope.phones.splice(index, 1);
+            };
+
+            $scope.add = function () {
+                if (!$scope.phones instanceof Array || $scope.phones == undefined) {
+                    $scope.phones = [];
+                }
+                $scope.phones.push({ number: null });
+            };
+
+            $scope.openPopOver = function (index) {
+                $scope.currentPhone = $scope.phones[index];
+                $scope.currentPhone.index = index;
+            };
+
+            $scope.closePopOver = function () {
+                $scope.isPopOpen = false;
+            }
+
+            $scope.onPhoneTypeSelected = function (icon) {
+                $scope.currentPhone.phone_type = icon;
+                //debugger;
+                //var control = $('[btn-index=' + $scope.currentPhone.index + ']');
+                //control.click();
+
+            }
+
+
+
+        }],
+        templateUrl: '/app/shared/partials/phones.html'
+       
+    }
+    return obj;
+
+});

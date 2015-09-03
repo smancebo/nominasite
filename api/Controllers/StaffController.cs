@@ -16,7 +16,7 @@ namespace API.Controllers
     {
         public string employee_code { get; set; }
     }
-    
+
     [RoutePrefix("api/staff")]
     public class StaffController : ApiController
     {
@@ -32,46 +32,12 @@ namespace API.Controllers
                         {
                             emp.name,
                             emp.last_name,
-                            emp.phones,
-                            emp.address,
-                            emp.birthday,
-                            emp.email,
-                            emp.employee_code,
-                            emp.hire_date,
-                            title = new {emp.titles.id, emp.titles.payrate, emp.titles.description, emp.titles.nigthdiff},
-                            emp.id,
-                            emp.middle_name,
-                            emp.sex,
-                            emp.status,
-                            emp.supervisor_code
-                        };
-
-            
-
-            return Ok(staff);
-        }
-
-        [HttpGet]
-        [Route("getBySchool")]
-        public IHttpActionResult getBySchool()
-        {
-            string username = Request.Headers.GetValues("logusr").FirstOrDefault();
-
-            var user = (from u in fmp.users
-                       where u.username == username
-                       select u).FirstOrDefault();
-
-           
-
-            var staff = from emp in fmp.staff
-                        from sbs in fmp.staff_by_schools
-                        where sbs.employee_code == emp.employee_code &&
-                              sbs.school_code == user.school_code
-                        select new
-                        {
-                            emp.name,
-                            emp.last_name,
-                            emp.phones,
+                            phones = emp.phones.Select(x => new
+                            {
+                                x.employee_code,
+                                number = x.number,
+                                phone_type = (x.phone_type == null ? "fa-phone" : x.phone_type)
+                            }),
                             emp.address,
                             emp.birthday,
                             emp.email,
@@ -85,7 +51,45 @@ namespace API.Controllers
                             emp.supervisor_code
                         };
 
+            return Ok(staff);
+        }
 
+        [HttpGet]
+        [Route("getBySchool")]
+        public IHttpActionResult getBySchool()
+        {
+            string username = Request.Headers.GetValues("logusr").FirstOrDefault();
+
+            var user = (from u in fmp.users
+                        where u.username == username
+                        select u).FirstOrDefault();
+
+            var staff = from emp in fmp.staff
+                        from sbs in fmp.staff_by_schools
+                        where sbs.employee_code == emp.employee_code &&
+                              sbs.school_code == user.school_code
+                        select new
+                        {
+                            emp.name,
+                            emp.last_name,
+                            phones = emp.phones.Select(x => new
+                            {
+                                x.employee_code,
+                                number = x.number,
+                                phone_type = (x.phone_type == null ? "fa-phone" : x.phone_type)
+                            }),
+                            emp.address,
+                            emp.birthday,
+                            emp.email,
+                            emp.employee_code,
+                            emp.hire_date,
+                            title = new { emp.titles.id, emp.titles.payrate, emp.titles.description, emp.titles.nigthdiff },
+                            emp.id,
+                            emp.middle_name,
+                            emp.sex,
+                            emp.status,
+                            emp.supervisor_code
+                        };
 
             return Ok(staff);
         }
@@ -100,7 +104,12 @@ namespace API.Controllers
                         {
                             emp.name,
                             emp.last_name,
-                            emp.phones,
+                            phones = emp.phones.Select(x => new
+                            {
+                                x.employee_code,
+                                number = x.number,
+                                phone_type = (x.phone_type == null ? "fa-phone" : x.phone_type)
+                            }),
                             emp.address,
                             emp.birthday,
                             emp.email,
@@ -114,24 +123,25 @@ namespace API.Controllers
                             emp.supervisor_code
                         };
 
-            
-
             return Ok(staff);
         }
-
-        
 
         [HttpGet]
         [Route("get/{employee_code}")]
         public IHttpActionResult get(int employee_code)
         {
             var staff = (from emp in fmp.staff
-                        where emp.id == employee_code
+                         where emp.id == employee_code
                          select new
                          {
                              emp.name,
                              emp.last_name,
-                             emp.phones,
+                             phones = emp.phones.Select(x => new
+                             {
+                                 x.employee_code,
+                                 number = x.number,
+                                 phone_type = (x.phone_type == null ? "fa-phone" : x.phone_type)
+                             }),
                              emp.address,
                              emp.birthday,
                              emp.email,
@@ -144,8 +154,6 @@ namespace API.Controllers
                              emp.status,
                              emp.supervisor_code
                          }).FirstOrDefault();
-
-
 
             return Ok(staff);
         }
@@ -169,7 +177,6 @@ namespace API.Controllers
 
                 return InternalServerError(ex);
             }
-
         }
 
         [Route("save")]
@@ -178,37 +185,58 @@ namespace API.Controllers
         {
             try
             {
-                //Models.staff employee = JsonConvert.DeserializeObject<Models.staff>(employee_obj);
-                //Models.staff employee = employee_obj;
                 string employee_code = (string)employee_obj.employee_code;
 
                 staff record = (from e in fmp.staff
-                                       where e.employee_code == employee_code
-                                       select e).SingleOrDefault<staff>();
+                                where e.employee_code == employee_code
+                                select e).SingleOrDefault<staff>();
 
+                
                 if (record != null)
                 {
+                    deletePhones(record);
                     objMapper.Map<staff>(ref record, employee_obj);
-                    //fmp.staff.Add(record);
                 }
                 else
                 {
-                   
                     fmp.staff.Add(employee_obj);
                 }
                 fmp.SaveChanges();
+
                 string a = employee_obj.employee_code;
-               
+
                 return Ok("1");
             }
             catch (Exception ex)
             {
-
                 return InternalServerError(ex);
             }
         }
 
-        
+        public int deletePhones(staff employee)
+        {
+            try
+            {
+                var phones = employee.phones.ToList();
+                foreach (phones item in phones)
+                {
+                    fmp.phones.Remove(item);
+                }
+                return 1;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
 
     }
+
+
+
 }
+
+    
+
+
+

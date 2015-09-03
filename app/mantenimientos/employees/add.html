@@ -42,15 +42,18 @@
         </div>
     </div>
 
-    <div class="form-group">
+
+    <phone-numbers phones="employee.phones"></phone-numbers>
+
+    <!--<div class="form-group">
         <label>Phone</label>
-        <div class="input-group">
+        <div class="input-group" phone-numbers>
             <div class="input-group-addon"><i class="fa fa-phone"></i></div>
             <input type="text" class='form-control' ng-model='employee.phones' />
-            <div class="input-group-addon"><a href="#"><i class="fa fa-plus"></i></a></div>
+            <div class="input-group-addon"><a class="add-phone" href="#"><i class="fa fa-plus"></i></a></div>
         </div>
-    </div>
-    
+    </div>-->
+
     <div class="form-group">
         <label>Email</label>
         <div class="input-group">
@@ -58,19 +61,19 @@
             <input type="text" class='form-control' ng-model='employee.email'/>
         </div>
     </div>
-    
+
     <div class="form-group">
         <label>Address</label>
         <input type="text" class="form-control" ng-model='employee.address'/>
     </div>
-    
+
      <div class="form-group">
         <label>Title</label>
         <select class="form-control" ng-model='employee.title' ng-options="title.id as title.description for title in titles">
             <option value="">Choose...</option>
         </select>
     </div>
-    
+
      <div class="form-group">
         <label>Hire date</label>
          <div class="input-group" date-picker date-model="employee.hire_date">
@@ -89,7 +92,7 @@
             </label>
         </div>
     </div>
-    
+
     <div>
         <div class='col-md-12 container' ng-hide="viewMode">
             <div class="col-md-6 col-xs-6">
@@ -98,10 +101,10 @@
             <div class="col-md-6 col-xs-6">
                 <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
             </div>
-            
-            
+
+
         </div>
     </div>
-    
+
 </div>
 

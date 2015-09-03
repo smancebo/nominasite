@@ -5,6 +5,7 @@
       <EntityTypeMapping TypeName="fmpModel.contract_permit_periods">
         <MappingFragment StoreEntitySet="contract_permit_periods">
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
           <ScalarProperty Name="number_registered" ColumnName="number_registered" />
           <ScalarProperty Name="week_days" ColumnName="week_days" />
           <ScalarProperty Name="start_date" ColumnName="start_date" />
@@ -23,14 +24,12 @@
           <ScalarProperty Name="organization_name" ColumnName="organization_name" />
           <ScalarProperty Name="telephone" ColumnName="telephone" />
           <ScalarProperty Name="mailing_address" ColumnName="mailing_address" />
-          <ScalarProperty Name="city" ColumnName="city" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="zip_code" ColumnName="zip_code" />
           <ScalarProperty Name="authorized_organization_name" ColumnName="authorized_organization_name" />
           <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
           <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
           <ScalarProperty Name="number_registered" ColumnName="number_registered" />
           <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+          <ScalarProperty Name="total_hours_worked" ColumnName="total_hours_worked" />
           <ScalarProperty Name="registration_date" ColumnName="registration_date" />
         </MappingFragment>
       </EntityTypeMapping>

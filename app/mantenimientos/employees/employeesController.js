@@ -14,6 +14,7 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
         if ($routeParams.employeeCode) {
             $staffService.get($routeParams.employeeCode, function (data) {
                 $scope.employee = data;
+                console.log($scope.employee);
             });
         }
 

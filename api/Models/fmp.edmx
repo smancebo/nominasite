@@ -4,12 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="contract_permit_periods">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="nvarchar(max)" />
           <Property Name="number_registered" Type="varchar" MaxLength="50" />
           <Property Name="week_days" Type="varchar" MaxLength="200" />
           <Property Name="start_date" Type="datetime" />
@@ -27,14 +28,12 @@
           <Property Name="organization_name" Type="varchar" MaxLength="100" />
           <Property Name="telephone" Type="varchar" MaxLength="20" />
           <Property Name="mailing_address" Type="varchar" MaxLength="100" />
-          <Property Name="city" Type="varchar" MaxLength="50" />
-          <Property Name="state" Type="varchar" MaxLength="100" />
-          <Property Name="zip_code" Type="varchar" MaxLength="20" />
           <Property Name="authorized_organization_name" Type="varchar" MaxLength="100" />
           <Property Name="permit_start_date" Type="datetime" />
           <Property Name="permit_end_date" Type="datetime" />
           <Property Name="number_registered" Type="varchar" MaxLength="50" />
           <Property Name="total_hours" Type="int" />
+          <Property Name="total_hours_worked" Type="int" />
           <Property Name="registration_date" Type="datetime" />
         </EntityType>
         <EntityType Name="payments">
@@ -105,7 +104,7 @@
           <Property Name="employee_manager" Type="varchar" MaxLength="100" />
           <Property Name="supervisor" Type="varchar" MaxLength="100" />
           <Property Name="name" Type="varchar" MaxLength="100" />
-          <Property Name="budget" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="budget" Type="money" />
           <Property Name="last_payment_code_secuence" Type="int" />
         </EntityType>
         <EntityType Name="staff">
@@ -349,12 +348,13 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="contract_permit_periods">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="week_days" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="start_date" Type="DateTime" Precision="3" />
@@ -372,14 +372,12 @@
           <Property Name="organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="mailing_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="authorized_organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="permit_start_date" Type="DateTime" Precision="3" />
           <Property Name="permit_end_date" Type="DateTime" Precision="3" />
           <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="total_hours" Type="Int32" />
+          <Property Name="total_hours_worked" Type="Int32" />
           <Property Name="registration_date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="payments">
@@ -720,6 +718,7 @@
             <EntityTypeMapping TypeName="fmpModel.contract_permit_periods">
               <MappingFragment StoreEntitySet="contract_permit_periods">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
                 <ScalarProperty Name="number_registered" ColumnName="number_registered" />
                 <ScalarProperty Name="week_days" ColumnName="week_days" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
@@ -738,14 +737,12 @@
                 <ScalarProperty Name="organization_name" ColumnName="organization_name" />
                 <ScalarProperty Name="telephone" ColumnName="telephone" />
                 <ScalarProperty Name="mailing_address" ColumnName="mailing_address" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
                 <ScalarProperty Name="authorized_organization_name" ColumnName="authorized_organization_name" />
                 <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
                 <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
                 <ScalarProperty Name="number_registered" ColumnName="number_registered" />
                 <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+                <ScalarProperty Name="total_hours_worked" ColumnName="total_hours_worked" />
                 <ScalarProperty Name="registration_date" ColumnName="registration_date" />
               </MappingFragment>
             </EntityTypeMapping>
