@@ -5,7 +5,7 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle']);
     app.constant('$serverInfo', {
         server: "http://10.172.0.170:85/api"
         //server: "http://10.0.0.5:85/api"

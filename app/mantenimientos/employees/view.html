@@ -2,7 +2,57 @@
 
 <div>
     <h2>Employees</h2>
+
+
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <a href="#" ng-click="isCollapse = !isCollapse" ng-init="isCollapse = true">
+                <i class="fa fa-search"> Filters</i> 
+            </a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+
+            <div class="form-group">
+                <label>Code</label>
+                <input type="text" class="form-control" ng-model="txtCode" />
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-model="txtName" />
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" ng-model="txtEmail" />
+            </div>
+           
+        </div>
+    </div>
+
+
+
+
     <a class="btn btn-xs btn-success" href="/employees/add"><i class="fa fa-plus"></i>  Add</a>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="employee in dataRows">
+                    <td>{{employee.employee_code}}</td>
+                    <td>{{employee.name + ' ' + (employee.middle_name == null ? '' : employee.middle_name) + ' ' + employee.last_name}}</td>
+                    <td>{{empo}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <grid-view gv-rows="dataRows" gv-controller="employeesController">
         <columns>
             <column counter="true" header-text="#" header-align="center" column-align="center"></column>

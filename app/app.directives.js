@@ -151,7 +151,8 @@ app.directive('phoneNumbers', function () {
     var obj = {
         restrict: 'E',
         scope: {
-            phones: '='
+            phones: '=',
+            readOnly: '='
         },
         controller: ['$scope', function ($scope) {
 
@@ -176,8 +177,6 @@ app.directive('phoneNumbers', function () {
 
             ];
 
-            $scope.ddlPhoneType = $scope.phoneTypes[0];
-
             $scope.remove = function (index) {
                 $scope.phones.splice(index, 1);
             };
@@ -186,28 +185,26 @@ app.directive('phoneNumbers', function () {
                 if (!$scope.phones instanceof Array || $scope.phones == undefined) {
                     $scope.phones = [];
                 }
-                $scope.phones.push({ number: null });
+                $scope.phones.push({ number: null, phone_type: 'fa-phone', isOpen:false });
             };
 
             $scope.openPopOver = function (index) {
-                $scope.currentPhone = $scope.phones[index];
-                $scope.currentPhone.index = index;
+                if (!$scope.readOnly) {
+
+                    $scope.currentPhone = $scope.phones[index];
+                    $scope.currentPhone.isOpen = !$scope.currentPhone.isOpen;
+                }
             };
 
             $scope.closePopOver = function () {
-                $scope.isPopOpen = false;
+                $scope.currentPhone.isOpen  = false;
             }
 
             $scope.onPhoneTypeSelected = function (icon) {
                 $scope.currentPhone.phone_type = icon;
-                //debugger;
-                //var control = $('[btn-index=' + $scope.currentPhone.index + ']');
-                //control.click();
+                $scope.closePopOver();
 
             }
-
-
-
         }],
         templateUrl: '/app/shared/partials/phones.html'
        
