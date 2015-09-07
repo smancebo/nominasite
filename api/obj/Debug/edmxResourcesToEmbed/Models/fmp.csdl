@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="contract_permit_periods">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="week_days" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="start_date" Type="DateTime" Precision="3" />
@@ -12,6 +13,17 @@
     <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="end_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="hours" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="contract_permit_periods_hours_worked">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="contract_permit_periods_guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="start_date" Type="DateTime" Precision="3" />
+    <Property Name="end_date" Type="DateTime" Precision="3" />
+    <Property Name="total_hours_worked" Type="Int32" />
     <Property Name="registration_date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="contract_permits">
@@ -22,14 +34,12 @@
     <Property Name="organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="mailing_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Name="authorized_organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="permit_start_date" Type="DateTime" Precision="3" />
     <Property Name="permit_end_date" Type="DateTime" Precision="3" />
     <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="total_hours" Type="Int32" />
+    <Property Name="total_hours_worked" Type="Int32" />
     <Property Name="registration_date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="payments">
@@ -112,6 +122,39 @@
     <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___schoo__14270015" FromRole="schools" ToRole="staff_by_schools" />
     <NavigationProperty Name="users" Relationship="Self.FK_users_schools" FromRole="schools" ToRole="users" />
   </EntityType>
+  <EntityType Name="security_groups">
+    <Key>
+      <PropertyRef Name="group_code" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_groups" ToRole="security_permits" />
+  </EntityType>
+  <EntityType Name="security_permits">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="group" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="screen_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_permits" ToRole="security_groups" />
+    <NavigationProperty Name="security_screens" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_permits" ToRole="security_screens" />
+    <NavigationProperty Name="users" Relationship="Self.FK__security___usern__51300E55" FromRole="security_permits" ToRole="users" />
+  </EntityType>
+  <EntityType Name="security_screens">
+    <Key>
+      <PropertyRef Name="screen_code" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="screen_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="text" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="parent" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_screens" ToRole="security_permits" />
+  </EntityType>
   <EntityType Name="staff">
     <Key>
       <PropertyRef Name="employee_code" />
@@ -183,6 +226,7 @@
     <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
     <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__51300E55" FromRole="users" ToRole="security_permits" />
   </EntityType>
   <Association Name="FK__payments___payme__1367E606">
     <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -280,6 +324,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__security___group__4F47C5E3">
+    <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
+    <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="security_groups">
+        <PropertyRef Name="group_code" />
+      </Principal>
+      <Dependent Role="security_permits">
+        <PropertyRef Name="group" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___scree__503BEA1C">
+    <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
+    <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="security_screens">
+        <PropertyRef Name="screen_code" />
+      </Principal>
+      <Dependent Role="security_permits">
+        <PropertyRef Name="screen_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___usern__51300E55">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="security_permits">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__staff__title__0519C6AF">
     <End Role="titles" Type="Self.titles" Multiplicity="0..1" />
     <End Role="staff" Type="Self.staff" Multiplicity="*" />
@@ -306,6 +386,7 @@
   </Association>
   <EntityContainer Name="fmpEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="contract_permit_periods" EntityType="Self.contract_permit_periods" />
+    <EntitySet Name="contract_permit_periods_hours_worked" EntityType="Self.contract_permit_periods_hours_worked" />
     <EntitySet Name="contract_permits" EntityType="Self.contract_permits" />
     <EntitySet Name="payments" EntityType="Self.payments" />
     <EntitySet Name="payments_details" EntityType="Self.payments_details" />
@@ -313,6 +394,9 @@
     <EntitySet Name="phones" EntityType="Self.phones" />
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" />
     <EntitySet Name="schools" EntityType="Self.schools" />
+    <EntitySet Name="security_groups" EntityType="Self.security_groups" />
+    <EntitySet Name="security_permits" EntityType="Self.security_permits" />
+    <EntitySet Name="security_screens" EntityType="Self.security_screens" />
     <EntitySet Name="staff" EntityType="Self.staff" />
     <EntitySet Name="staff_by_schools" EntityType="Self.staff_by_schools" />
     <EntitySet Name="sys_parameters" EntityType="Self.sys_parameters" />
@@ -350,6 +434,18 @@
     <AssociationSet Name="FK_users_schools" Association="Self.FK_users_schools">
       <End Role="schools" EntitySet="schools" />
       <End Role="users" EntitySet="users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___group__4F47C5E3" Association="Self.FK__security___group__4F47C5E3">
+      <End Role="security_groups" EntitySet="security_groups" />
+      <End Role="security_permits" EntitySet="security_permits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
+      <End Role="security_screens" EntitySet="security_screens" />
+      <End Role="security_permits" EntitySet="security_permits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
+      <End Role="users" EntitySet="users" />
+      <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
     <AssociationSet Name="FK__staff__title__0519C6AF" Association="Self.FK__staff__title__0519C6AF">
       <End Role="titles" EntitySet="titles" />

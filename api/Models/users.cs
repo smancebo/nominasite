@@ -17,6 +17,7 @@ namespace api.Models
         public users()
         {
             this.payments = new HashSet<payments>();
+            this.security_permits = new HashSet<security_permits>();
         }
     
         public int id { get; set; }
@@ -26,5 +27,6 @@ namespace api.Models
     
         public virtual ICollection<payments> payments { get; set; }
         public virtual schools schools { get; set; }
+        public virtual ICollection<security_permits> security_permits { get; set; }
     }
 }

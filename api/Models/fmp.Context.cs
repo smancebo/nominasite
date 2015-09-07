@@ -26,6 +26,7 @@ namespace api.Models
         }
     
         public DbSet<contract_permit_periods> contract_permit_periods { get; set; }
+        public DbSet<contract_permit_periods_hours_worked> contract_permit_periods_hours_worked { get; set; }
         public DbSet<contract_permits> contract_permits { get; set; }
         public DbSet<payments> payments { get; set; }
         public DbSet<payments_details> payments_details { get; set; }
@@ -33,6 +34,9 @@ namespace api.Models
         public DbSet<phones> phones { get; set; }
         public DbSet<reimbursement> reimbursement { get; set; }
         public DbSet<schools> schools { get; set; }
+        public DbSet<security_groups> security_groups { get; set; }
+        public DbSet<security_permits> security_permits { get; set; }
+        public DbSet<security_screens> security_screens { get; set; }
         public DbSet<staff> staff { get; set; }
         public DbSet<staff_by_schools> staff_by_schools { get; set; }
         public DbSet<sys_parameters> sys_parameters { get; set; }

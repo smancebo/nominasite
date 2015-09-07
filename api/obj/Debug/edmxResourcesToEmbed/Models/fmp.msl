@@ -5,6 +5,7 @@
       <EntityTypeMapping TypeName="fmpModel.contract_permit_periods">
         <MappingFragment StoreEntitySet="contract_permit_periods">
           <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="guid" ColumnName="guid" />
           <ScalarProperty Name="number_registered" ColumnName="number_registered" />
           <ScalarProperty Name="week_days" ColumnName="week_days" />
           <ScalarProperty Name="start_date" ColumnName="start_date" />
@@ -16,6 +17,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="contract_permit_periods_hours_worked">
+      <EntityTypeMapping TypeName="fmpModel.contract_permit_periods_hours_worked">
+        <MappingFragment StoreEntitySet="contract_permit_periods_hours_worked">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="contract_permit_periods_guid" ColumnName="contract_permit_periods_guid" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="total_hours_worked" ColumnName="total_hours_worked" />
+          <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="contract_permits">
       <EntityTypeMapping TypeName="fmpModel.contract_permits">
         <MappingFragment StoreEntitySet="contract_permits">
@@ -23,14 +36,12 @@
           <ScalarProperty Name="organization_name" ColumnName="organization_name" />
           <ScalarProperty Name="telephone" ColumnName="telephone" />
           <ScalarProperty Name="mailing_address" ColumnName="mailing_address" />
-          <ScalarProperty Name="city" ColumnName="city" />
-          <ScalarProperty Name="state" ColumnName="state" />
-          <ScalarProperty Name="zip_code" ColumnName="zip_code" />
           <ScalarProperty Name="authorized_organization_name" ColumnName="authorized_organization_name" />
           <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
           <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
           <ScalarProperty Name="number_registered" ColumnName="number_registered" />
           <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+          <ScalarProperty Name="total_hours_worked" ColumnName="total_hours_worked" />
           <ScalarProperty Name="registration_date" ColumnName="registration_date" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -109,6 +120,37 @@
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="budget" ColumnName="budget" />
           <ScalarProperty Name="last_payment_code_secuence" ColumnName="last_payment_code_secuence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_groups">
+      <EntityTypeMapping TypeName="fmpModel.security_groups">
+        <MappingFragment StoreEntitySet="security_groups">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="group_code" ColumnName="group_code" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_permits">
+      <EntityTypeMapping TypeName="fmpModel.security_permits">
+        <MappingFragment StoreEntitySet="security_permits">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="group" ColumnName="group" />
+          <ScalarProperty Name="screen_code" ColumnName="screen_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="security_screens">
+      <EntityTypeMapping TypeName="fmpModel.security_screens">
+        <MappingFragment StoreEntitySet="security_screens">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="screen_code" ColumnName="screen_code" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="icon" ColumnName="icon" />
+          <ScalarProperty Name="parent" ColumnName="parent" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

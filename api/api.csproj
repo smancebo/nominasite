@@ -161,6 +161,9 @@
     <Compile Include="Models\contract_permit_periods.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\contract_permit_periods_hours_worked.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\fmp.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,6 +195,15 @@
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\schools.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\security_groups.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\security_permits.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\security_screens.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\staff.cs">

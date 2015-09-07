@@ -7,12 +7,20 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle']);
     app.constant('$serverInfo', {
-        //server: "http://10.172.0.170:85/api"
-        server: "http://10.0.0.5:85/api"
+        server: "http://10.172.0.170:85/api"
+        //server: "http://10.0.0.5:85/api"
     });
 
-    app.controller('indexController', ['$scope', function ($scope) {
-        $scope.menu = menu;
+    app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', function ($scope, $sessionStorage, $rootScope) {
+        //$scope.menu = menu;
+
+        if ($sessionStorage.menu != undefined) {
+            $rootScope.menu = $sessionStorage.menu
+        }
+        if ($sessionStorage.currentUser != undefined) {
+            $rootScope.currentUser = JSON.parse($sessionStorage.currentUser);
+        }
+
         $scope.showHideSubMenu = function (item) {
 
             if (item.showMenu) {

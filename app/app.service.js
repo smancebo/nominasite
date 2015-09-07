@@ -351,11 +351,14 @@ app.factory('$userService', ['$http', '$serverInfo', '$window', '$sessionStorage
             {
                 user.timeStamp = expirationDate();
                 $sessionStorage.currentUser = JSON.stringify(user);
+                $sessionStorage.menu = user.screens
+                $rootScope.menu = user.screens;
                 callback(user);
             }
             else
             {
                 $sessionStorage.currentUser = undefined;
+                $sessionStorage.menu = undefined;
                 callback(undefined);
             }
         });
@@ -364,6 +367,7 @@ app.factory('$userService', ['$http', '$serverInfo', '$window', '$sessionStorage
     userService.logOff = function (callback) {
         $sessionStorage.currentUser = undefined;
         $rootScope.currentUser = undefined;
+        $rootScope.menu = undefined
     }
 
 

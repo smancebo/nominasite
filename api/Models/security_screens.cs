@@ -12,17 +12,20 @@ namespace api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class contract_permit_periods
+    public partial class security_screens
     {
+        public security_screens()
+        {
+            this.security_permits = new HashSet<security_permits>();
+        }
+    
         public int id { get; set; }
-        public string guid { get; set; }
-        public string number_registered { get; set; }
-        public string week_days { get; set; }
-        public Nullable<System.DateTime> start_date { get; set; }
-        public Nullable<System.DateTime> end_date { get; set; }
-        public string start_time { get; set; }
-        public string end_time { get; set; }
-        public Nullable<int> hours { get; set; }
-        public Nullable<System.DateTime> registration_date { get; set; }
+        public string screen_code { get; set; }
+        public string text { get; set; }
+        public string url { get; set; }
+        public string icon { get; set; }
+        public string parent { get; set; }
+    
+        public virtual ICollection<security_permits> security_permits { get; set; }
     }
 }

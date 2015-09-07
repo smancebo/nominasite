@@ -146,26 +146,61 @@ namespace api.Controllers
                              where u.username == username
                              select u).FirstOrDefault<users>();
                  token = utilities.Security.createToken(username, password);
-                 return Ok(new
+                 try
                  {
-                     username = username,
-                     token = token,
-                     school = new
+                     return Ok(new
                      {
-                         user.schools.name,
-                         user.schools.code,
-                         user.schools.id,
-                         user.schools.location
-                     }
-                 });
+                         username = username,
+                         token = token,
+                         school = new
+                         {
+                             user.schools.name,
+                             user.schools.code,
+                             user.schools.id,
+                             user.schools.location
+                         },
+                         screens = from s in fmp.security_screens
+                                   join sp in fmp.security_permits
+                                   on s.screen_code equals sp.screen_code
+                                   where sp.username == username &&
+                                   (s.parent == null || s.parent == "")
+                                   orderby s.id ascending
+                                   select new
+                                   {
+                                       s.text,
+                                       s.url,
+                                       s.icon,
+                                       subItems = (from sub in fmp.security_screens
+                                                   join subsp in fmp.security_permits
+                                                   on sub.screen_code equals subsp.screen_code
+                                                   where subsp.username == username &&
+                                                   sub.parent == s.screen_code
+                                                   select new
+                                                   {
+                                                       sub.text,
+                                                       sub.url,
+                                                       sub.icon
+                                                   }
+)
+                                   }
+
+                     });
+                 }
+                 catch (Exception ex)
+                 {
+                     
+                     return InternalServerError(ex);
+                 }
+                
              }
              else
              {
                  return StatusCode(HttpStatusCode.NoContent);
              }
-
-
          }
+
+
+
 
 
 
