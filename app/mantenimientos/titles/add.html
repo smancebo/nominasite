@@ -12,14 +12,14 @@
         <label>Payrate</label>
         <div class="input-group">
             <div class="input-group-addon">$</div>
-            <input type="number" class="form-control" ng-model='title.payrate' value="title.payrate|currency:$"/>
+            <input type="text" format="currency" class="form-control" ng-model='title.payrate' value="title.payrate|currency:$"/>
         </div>
     </div>
     <div class="form-group">
         <label>NigthDiff</label>
         <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-money"></i></div>
-            <input type="number" class="form-control" ng-model="title.nigthdiff" value="title.payrate|currency:$" />
+            <input type="text" format="currency" class="form-control" ng-model="title.nigthdiff" value="title.payrate|currency:$" />
         </div>
     </div>
     

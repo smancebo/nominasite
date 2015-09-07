@@ -7,6 +7,18 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
     $scope.dataRows = {};
     $scope.titles = {};
 
+    $scope.nameFilter = function(employee)
+    {
+        var name = employee.name + ' ' + (employee.middle_name ==  null ? '' : employee.middle_name) + ' ' + employee.last_name;
+        if (name.toLocaleLowerCase().indexOf($scope.txtName.toLocaleLowerCase()) != -1)
+        {
+            return true;
+        }
+        else {
+            return false
+        }
+    }
+
     $titlesService.getAll(function (data) {
         
         $scope.titles = data;

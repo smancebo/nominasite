@@ -2,18 +2,58 @@
 
 <div>
     <h2>Schools</h2>
+
+
+    <div class="panel panel-default" >
+        <div class="panel-heading">
+            <a href="#" ng-init="isCollapse = true" ng-click="isCollapse = !isCollapse"><i class="fa fa-search"> Filters</i></a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" ng-model="txtName" class="form-control" ng-init="txtName = ''" />
+            </div>
+            <div class="form-group">
+                <label>Manager</label>
+                <input type="text" ng-model="txtManager" class="form-control" ng-init="txtManager = ''" />
+            </div>
+            <div class="form-group">
+                <label>Supervisor</label>
+                <input type="text" ng-model="txtSupervisor" class="form-control" ng-init="txtSupervisor = ''" />
+            </div>
+        </div>
+    </div>
+
+
+
     <a class="btn btn-xs btn-success" href="/schools/add"><i class="fa fa-plus"></i>  Add</a>
-    <grid-view gv-rows="schools" gv-controller="schoolsController">
-        <columns>
-            <column header-text="Name" data-field="name"></column>
-            <column header-text="Manager" data-field="employee_manager.name"></column>
-            <column header-text="Supervisor" data-field="supervisor.name"></column>
-            <templatecolumn>
-                <a href='schools/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
-                <a href='schools/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a ng-click="deleteSchool({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
-            </templatecolumn>
-        </columns>
-    </grid-view>
-    
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Manager</th>
+                    <th>Supervisor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in schools | filter:{name : txtName || ''} | filter:managerFilter | filter:supervisorFilter ">
+                    <td>{{row.name}}</td>
+                    <td>{{row.employee_manager.name}}</td>
+                    <td>{{row.supervisor.name}}</td>
+                    <td>
+                        <a href='{{ "schools/view/" + row.id }}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href='{{ "schools/edit/" + row.id }}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteSchool(row.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+   
 </div>

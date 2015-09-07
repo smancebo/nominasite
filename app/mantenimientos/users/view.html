@@ -2,16 +2,45 @@
 
 <div>
     <h2>Users</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="#" ng-init="isCollapse = true" ng-click="isCollapse = !isCollapse"><i class="fa fa-search"> Filters</i></a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" ng-model="txtUsername" ng-init="txtUsername = ''" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>School</label>
+                <input type="text" ng-model="txtSchool" ng-init="txtSchool = ''" class="form-control" />
+            </div>
+        </div>
+    </div>
+    
     <a class="btn btn-xs btn-success"  href="/users/add"><i class="fa fa-plus"></i>  Add</a>
-    <grid-view gv-rows="dataRows" gv-controller="usersController">
-        <columns>
-            <column header-text="User" data-field="username"></column>
-            <column header-text="School" data-field="school.name"></column>
-            <templateColumn>
-                <a href='users/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
-                <a href='users/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a ng-click="deleteUser({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
-            </templateColumn>
-        </columns>
-    </grid-view>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>School</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in dataRows | filter:{username : txtUsername || ''} | filter:filterSchool">
+                    <td>{{row.username}}</td>
+                    <td>{{row.school.name}}</td>
+                    <td>
+                        <a href="{{'users/view/' + row.id}}" class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href="{{'users/edit/' + row.id}}" class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteUser(row.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
 </div>

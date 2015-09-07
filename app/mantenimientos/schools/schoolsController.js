@@ -10,8 +10,30 @@ app.controller('schoolsController', ['$scope', '$schoolService', '$routeParams',
     $scope.charges = {};
     $scope.supervisors = {};
     $scope.school.employees = [];
-    
+ 
 
+    $scope.managerFilter = function (item) {
+
+        var employee_manager = item.employee_manager.name;
+        
+        if (employee_manager.toLocaleLowerCase().indexOf($scope.txtManager.toLocaleLowerCase()) != -1) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    $scope.supervisorFilter = function (item) {
+        if (item.supervisor.name.toLocaleLowerCase().indexOf($scope.txtSupervisor.toLocaleLowerCase()) != -1) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
     if ($routeParams.schoolId) {

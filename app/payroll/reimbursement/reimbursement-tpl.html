@@ -14,7 +14,7 @@
     
 </div>
 <div class="modal-body">
-    <div ng-if="viewMode == false">
+    <div ng-if="!viewMode">
         <div class="form-group">
             <label>Day </label>
             <input type="text" class="form-control" value="{{day.day}}" disabled />
@@ -80,8 +80,8 @@
                     <td>{{r.comment}}</td>
                     <td class="currency-td money">{{(r.hours * r.rate) | currency : $}}</td>
                     <td class="text-right">
-                        <button class="btn btn-warning btn-xs" ng-hide="viewMode" ng-click="editReimbursement(r.index)"><i class="fa fa-edit"></i> Edit</button>
-                        <button class="btn btn-danger btn-xs" ng-hide="viewMode" ng-click="removeReimbursement(r.index)"><i class="fa fa-remove"></i> Remove</button>
+                        <button class="btn btn-warning btn-xs" ng-if="!viewMode" ng-click="editReimbursement(r.index)"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="btn btn-danger btn-xs" ng-if="!viewMode" ng-click="removeReimbursement(r.index)"><i class="fa fa-remove"></i> Remove</button>
                     </td>
                 </tr>
             </tbody>

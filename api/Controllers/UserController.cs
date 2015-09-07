@@ -142,8 +142,22 @@ namespace api.Controllers
              string token = "";
              if(usrpass == password)
              {
+                 var user = (from u in fmp.users
+                             where u.username == username
+                             select u).FirstOrDefault<users>();
                  token = utilities.Security.createToken(username, password);
-                 return Ok(new { username = username, token = token });
+                 return Ok(new
+                 {
+                     username = username,
+                     token = token,
+                     school = new
+                     {
+                         user.schools.name,
+                         user.schools.code,
+                         user.schools.id,
+                         user.schools.location
+                     }
+                 });
              }
              else
              {

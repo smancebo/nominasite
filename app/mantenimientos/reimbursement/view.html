@@ -2,16 +2,50 @@
 
 <div>
     <h2>Reimbursements</h2>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="#" ng-init="isCollapse = true" ng-click="isCollapse = !isCollapse"><i class="fa fa-search"> Filters</i></a>
+        </div>
+        <div class="panel-body"collapse="isCollapse">
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" ng-model="txtDescription" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Payrate</label>
+                <input type="text" ng-model="txtPayrate" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+
     <a class="btn btn-xs btn-success" href="/reimbursements/add"><i class="fa fa-plus"></i>  Add</a>
-    <grid-view gv-rows="reimbursements" gv-controller="reimbursementController">
-        <columns>
-            <column header-text="Description" data-field="description"></column>
-            <column header-text="Payrate" data-field="payrate"></column>
-            <templatecolumn>
-                <a href='reimbursements/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
-                <a href='reimbursements/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a ng-click="deleteReimbursement({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
-            </templatecolumn>
-        </columns>
-    </grid-view>
+
+
+    <div class="table-responsive">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Payrate</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in reimbursements | filter:{ description: txtDescription || '', payrate: txtPayrate || ''}">
+                    <td>{{row.description}}</td>
+                    <td>{{row.payrate | currency : $}}</td>
+                    <td>
+                        <a href='{{ "reimbursements/view/" + row.id }}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href='{{ "reimbursements/edit/" + row.id }}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteReimbursement(row.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

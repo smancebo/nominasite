@@ -156,7 +156,12 @@ namespace api.Controllers
                               {
                                   emp_o.name,
                                   emp_o.last_name,
-                                  emp_o.phones,
+                                  phones = emp_o.phones.Select(x => new
+                                  {
+                                      x.employee_code,
+                                      number = x.number,
+                                      phone_type = (x.phone_type == null ? "fa-phone" : x.phone_type)
+                                  }),
                                   emp_o.address,
                                   emp_o.birthday,
                                   emp_o.email,

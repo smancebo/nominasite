@@ -10,6 +10,20 @@ app.controller('usersController', ['$scope', '$userService', '$routeParams', '$t
     $scope.txtConfirmPassword = "";
     $scope.txtUsername = "";
     $scope.editing = false;
+
+    $scope.filterSchool = function (item) {
+
+        var school_name = item.school.name;
+
+        if (school_name.toLowerCase().indexOf($scope.txtSchool.toLowerCase() != -1)) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
     
     $schoolService.getAll(function (data) {
         $scope.schools = data;

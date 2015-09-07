@@ -15,15 +15,15 @@
 
             <div class="form-group">
                 <label>Code</label>
-                <input type="text" class="form-control" ng-model="txtCode" />
+                <input type="text" class="form-control" ng-model="txtCode" ng-init="txtCode = ''"/>
             </div>
             <div class="form-group">
                 <label>Name</label>
-                <input type="text" class="form-control" ng-model="txtName" />
+                <input type="text" class="form-control" ng-model="txtName" ng-init="txtName = ''" />
             </div>
             <div class="form-group">
                 <label>Email</label>
-                <input type="text" class="form-control" ng-model="txtEmail" />
+                <input type="text" class="form-control" ng-model="txtEmail" ng-init="txtEmail = ''" />
             </div>
            
         </div>
@@ -41,19 +41,26 @@
                     <th>Code</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="employee in dataRows">
+                <tr ng-repeat="employee in dataRows | filter:{employee_code : txtCode || '',
+                                                              email : txtEmail || ''} | filter:nameFilter">
                     <td>{{employee.employee_code}}</td>
                     <td>{{employee.name + ' ' + (employee.middle_name == null ? '' : employee.middle_name) + ' ' + employee.last_name}}</td>
-                    <td>{{empo}}</td>
+                    <td>{{employee.email == null ? 'No email address' : employee.email }}</td>
+                    <td>
+                        <a href="{{'employees/view/' + employee.id}}" class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href="{{'employees/edit/' + employee.id}}"class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteEmployee(employee.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <grid-view gv-rows="dataRows" gv-controller="employeesController">
+    <!--<grid-view gv-rows="dataRows" gv-controller="employeesController">
         <columns>
             <column counter="true" header-text="#" header-align="center" column-align="center"></column>
             <column header-text="Code" data-field="employee_code"></column>
@@ -65,5 +72,5 @@
                 <a ng-click="deleteEmployee({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
             </templateColumn>
         </columns>
-    </grid-view>
+    </grid-view>-->
 </div>

@@ -2,17 +2,46 @@
 
 <div>
     <h2>Titles</h2>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="#" ng-init="isCollapse = true" ng-click="isCollapse = !isCollapse"><i class="fa fa-search"> Filters</i></a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" ng-model="txtDescription" class="form-control" ng-init="txtDescription = ''"/>
+            </div>
+        </div>
+    </div>
+
+
+
     <a class="btn btn-xs btn-success" href="/titles/add"><i class="fa fa-plus"></i>  Add</a>
-    <grid-view gv-rows="dataRows" gv-controller="titlesController">
-        <columns>
-            <column header-text="Description" data-field="description"></column>
-            <column header-text="Payrate" data-field="payrate"></column>
-            <column header-text="NigthDiff" data-field="nigthdiff"></column>
-            <templateColumn>
-                <a href='titles/view/{id}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
-                <a href='titles/edit/{id}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
-                <a ng-click="deleteTitle({id})" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
-            </templateColumn>
-        </columns>
-    </grid-view>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Payrate</th>
+                    <th>Night Diff</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in dataRows | filter:{description:txtDescription || ''}">
+                    <td>{{row.description}}</td>
+                    <td>{{row.payrate}}</td>
+                    <td>{{row.nigthdiff}}</td>
+                    <td>
+                        <a href="{{'titles/view/' + row.id }}" class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href="{{'titles/edit/' + row.id }}" class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteTitle(row.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

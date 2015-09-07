@@ -106,6 +106,20 @@ app.directive('eventHandler', function () {
 
 
 
+app.directive('format', ['$filter', function ($filter) {
+
+    return {
+        restrict:'A',
+        require: 'ngModel',
+        link: function (scope, element, attrs, ctrl) {
+            ctrl.$formatters.push(function toView() {
+                return $filter(attrs.format)(ctrl.$modelValue,'');
+            })
+        }
+    }
+
+}])
+
 app.directive('addPeriod', function () {
     return {
         restrict: 'EA',
