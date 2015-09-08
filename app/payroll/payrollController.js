@@ -89,7 +89,7 @@
         if (newValue != oldValue) {
             if (newValue != undefined)
             {
-                debugger
+                
                 var isin = $scope.employeeInPayroll(newValue.employee_code);
 
                 if (isin == true) {
@@ -137,7 +137,7 @@
 
     $scope.nextEmployee = function () {
         $scope.employeeIndex++;
-        debugger
+        
         if ($scope.employeeIndex >= $scope.employees.length)
         {
             $scope.employeeIndex = 0;
@@ -146,7 +146,7 @@
     }
 
     $scope.prevEmployee = function () {
-        debugger
+        
         $scope.employeeIndex--;
         if ($scope.employeeIndex < 0) {
             $scope.employeeIndex = 0;
@@ -361,7 +361,7 @@
            
             var className = '';
             var toast = '';
-            debugger
+            
             if(data == '1')
             {
 

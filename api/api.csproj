@@ -147,6 +147,7 @@
     <Compile Include="Controllers\PayrollController.cs" />
     <Compile Include="Controllers\reimbursementController.cs" />
     <Compile Include="Controllers\SchoolsController.cs" />
+    <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\TitleController.cs" />
     <Compile Include="Controllers\UserController.cs" />

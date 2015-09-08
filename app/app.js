@@ -5,13 +5,13 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia']);
     app.constant('$serverInfo', {
         server: "http://10.172.0.170:85/api"
         //server: "http://10.0.0.5:85/api"
     });
 
-    app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', function ($scope, $sessionStorage, $rootScope) {
+    app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', 'screenSize', function ($scope, $sessionStorage, $rootScope, screenSize) {
         //$scope.menu = menu;
 
         if ($sessionStorage.menu != undefined) {
@@ -19,6 +19,48 @@
         }
         if ($sessionStorage.currentUser != undefined) {
             $rootScope.currentUser = JSON.parse($sessionStorage.currentUser);
+        }
+
+
+        screenSize.on('xs, sm', function () {
+            
+            $scope.mobile = true;
+            $scope.menuClosed = true;
+        });
+
+        $scope.menuClosed = false;
+        $scope.mobile = false;
+        $scope.container = 'col-md-10';
+
+        
+        screenSize.when('xs, sm', function () {
+            $scope.mobile = true;
+            $scope.menuClosed = true;
+        });
+        screenSize.when('md, lg', function () {
+            $scope.mobile = false;
+            $scope.menuClosed = false;
+        });
+
+
+
+        $scope.toggleMenu = function () {
+
+            $scope.menuClosed = !$scope.menuClosed;
+        }
+
+        $scope.isopen = function () {
+            return $scope.menuClosed;
+        }
+
+        $scope.containerWidth = function () {
+            if ($scope.menuClosed) {
+                return 'col-md-12';
+            }
+            else
+            {
+                return 'col-md-10';
+            }
         }
 
         $scope.showHideSubMenu = function (item) {
@@ -389,6 +431,16 @@
         })
 
         //</reports>
+
+        //<security>
+
+        .when('/security/screens', {
+            templateUrl: 'app/security/permits/permits.html',
+            controller:'securityPermitsController'
+        })
+
+
+        //</security>
 
 
 

@@ -432,9 +432,31 @@ app.service('$loginModal', ['$modal', '$rootScope', '$window', '$sessionStorage'
 
 }]);
 
+
+app.factory('$screensService', ['$http', '$serverInfo', function ($http, $serverInfo) {
+
+    var screensService = {};
+    var serviceBaseAddress = $serverInfo.server + '/api/security';
+
+    screensService.getAllScreens = function (callback) {
+        $http.get(serviceBaseAddress + '/getAllScreens')
+        .success(function (data) {
+            callback(data);
+        })
+    };
+
+    screensService.save = function (screens) {
+
+    }
+
+    return screensService;
+
+}]);
+
 //Contract Permit
 app.factory('$permitService', ['$http', '$serverInfo', function ($http, $serverInfo) {
     var permitService = {};
+
 
     permitService.getAll = function (callback) {
         $http.get($serverInfo.server + '/api/permit/get')

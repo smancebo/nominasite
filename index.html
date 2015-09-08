@@ -15,30 +15,30 @@
     <meta name="viewport" content="width=device-width" />
     <base href="/" />
 </head>
-<body>
+<body ng-controller="indexController">
     <toast></toast>
     <div class="navbar navbar-default no-margin fmp-navbar" ng-if="!reportMode">
         <div>
             <div class="col-md-2">
-                <div class="navbar-brand"><i class="fa fa-building"></i>FMP PORTAL</div>
+                <div class="navbar-brand"><a class="hidden-md hidden-lg"  href="#" ng-click="toggleMenu()"><i class="fa fa-bars"></i></a> FMP PORTAL</div>
             </div>
             <div class="col-md-10">
                 <div class="" style=" padding-top:15px;">
                     <div>
+                        <span ng-if="currentUser">
+                            <a class="btn btn-xs btn-info" href="#" back-btn><i class="fa fa-chevron-circle-left"></i> Back</a>
+                            <label style="color:white">|</label>
+                        </span>
+                        <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
+                        <a style="color:white" data-toggle="dropdown">
+                            {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
+                        </a>
+                        <label class="pull-right" style="color:white; margin-left:5px">{{currentUser.school.name}}</label>
+                        <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
                         <div class="dropdown">
-                            <span ng-if="currentUser">
-                                <a class="btn btn-xs btn-info" href="#" back-btn><i class="fa fa-chevron-circle-left"></i> Back</a>
-                                <label style="color:white">|</label>
-                            </span>
-                            <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
-                            <a style="color:white" data-toggle="dropdown">
-                                {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
-                            </a>
                             <ul class="dropdown-menu">
                                 <li><a ng-click="logOff()">LogOff</a></li>
                             </ul>
-                            <label class="pull-right" style="color:white; margin-left:5px">{{currentUser.school.name}}</label>
-                            <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,8 @@
     <div id="body">
         <div class="container-fluid">
             <div class="row main">
-                <div ng-controller="indexController" class="col-md-2 max-height" style="padding:0" ng-if="!reportMode">
+                <div style="padding:0" class="col-md-2 max-height main-menu" ng-class="{'close-menu' : menuClosed == true}">
+
                     <ul class="menu list-unstyled">
                         <li ng-repeat="item in menu">
                             <div class="li-bound">
@@ -68,7 +69,7 @@
                     </ul>
 
                 </div>
-                <div class="content-place-holder container" ng-class="{'col-md-12' : reportMode == true, 'col-md-10' : reportMode == undefined}">
+                <div class="content-place-holder container col-xs-12" ng-class="{'col-md-12' : menuClosed == true, 'col-md-10' : menuClosed == false}">
 
                     <div>
                         <alert ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="5000" close="closeAlert($index)">{{alert.msg}}</alert>
@@ -97,6 +98,7 @@
     <script src="/assets/js/angular-sanitize.min.js"></script>
     <script src="/assets/js/ngToast.min.js"></script>
     <script src="/assets/js/ngStorage.min.js"></script>
+    <script src="/assets/js/match-media.js"></script>
     <script src="/app/ng-grid-view.js"></script>
     <script src="/app/app.js"></script>
     <script src="/app/app.directives.js"></script>
@@ -109,6 +111,7 @@
     <script src="/app/mantenimientos/schools/schoolsController.js"></script>
     <script src="/app/mantenimientos/titles/titlesController.js"></script>
     <script src="/app/mantenimientos/users/usersController.js"></script>
+    <script src="/app/security/permits/securityPermitsController.js"></script>
     <script src="/app/reports/payroll/payrollPrintController.js"></script>
     <script src="/app/login/loginController.js"></script>
     <script src="/app/payroll/payrollController.js"></script>
