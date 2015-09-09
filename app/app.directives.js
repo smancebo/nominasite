@@ -226,3 +226,74 @@ app.directive('phoneNumbers', function () {
     return obj;
 
 });
+
+app.directive('timePicker', function () {
+
+    var d = {
+        restrict: 'A',
+        scope: {
+            dateModel: '=',
+            dateChange: '&',
+            daysDisabled: '=?'
+        },
+        link: function (scope, element, attr) {
+            var el = $(element).datetimepicker({
+                locale: 'en',
+                format: 'LT',
+            }).on('dp.change', function (e) {
+                if (e.date._d != null) {
+                    scope.$apply(function () {
+                        var ele = element.find("input[type=text]").val();
+                        scope.dateModel = ele;
+                    });
+                }
+            });
+        }
+    }
+
+
+    return d;
+
+});
+
+app.directive('hoursWorked', function () {
+    return {
+        restrict: 'EA',
+        replace: true,
+        controller: ['$scope', '$rootScope', function ($scope, $rootScope) {
+            var item = $scope.$parent.item;
+
+            if (item.hw != undefined) {
+                $scope.hwModel = item.hw;
+            } else {
+                $scope.$parent.item.hw = {
+                    start_date: undefined,
+                    end_date: undefined,
+                    total_hours_worked: undefined
+                };
+                $scope.hwModel = item.hw;
+            }
+
+            $scope.$watch("hwModel.start_date", function (newValue, oldValue) {
+                if (newValue != oldValue) {
+                    $scope.$parent.item.hw.start_date = newValue;
+                }
+            });
+
+            $scope.$watch("hwModel.end_date", function (newValue, oldValue) {
+                if (newValue != oldValue) {
+                    $scope.$parent.item.hw.end_date = newValue;
+                }
+            });
+
+            $scope.$watch("hwModel.total_hours_worked", function (newValue, oldValue) {
+                if (newValue != oldValue) {
+                    $scope.$parent.item.hw.total_hours_worked = newValue;
+                }
+            });
+
+
+
+        }]
+    }
+});
