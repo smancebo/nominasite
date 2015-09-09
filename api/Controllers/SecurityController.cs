@@ -16,6 +16,18 @@ namespace api.Controllers
         fmpEntities fmp = new fmpEntities();
 
         [HttpGet]
+        [Route("loadUserGroup")]
+        public IHttpActionResult loadUserGroup()
+        {
+
+            var queryString = ActionContext.Request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
+
+            //var found = from 
+
+            return Ok();
+        }
+
+        [HttpGet]
         [Route("getAllScreens")]
         public IHttpActionResult getAllScreens()
         {
@@ -29,13 +41,17 @@ namespace api.Controllers
                                   s.text,
                                   s.url,
                                   s.icon,
+                                  s.screen_code,
+                                  s.parent,
                                   subItems = (from sub in fmp.security_screens
                                               where sub.parent == s.screen_code
                                               select new
                                               {
                                                   sub.text,
                                                   sub.url,
-                                                  sub.icon
+                                                  sub.icon,
+                                                  sub.parent,
+                                                  sub.screen_code
                                               })
                               };
 

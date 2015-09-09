@@ -2,6 +2,7 @@
 <html lang="en" ng-app="fmpPortal">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=no">
     <title>FMP Admin</title>
     <link href="/assets/css/font-awesome.css" rel="stylesheet" />
     <link href="/assets/css/main.css" rel="stylesheet" type="text/css" />
@@ -12,36 +13,41 @@
     <link href="/assets/css/ui-bootstrap-csp.css" rel="stylesheet" />
     <link href="/assets/css/ngToast.min.css" rel="stylesheet" />
     <link href="/assets/css/ngToast-animations.min.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width" />
+    
     <base href="/" />
 </head>
-<body ng-controller="indexController">
+<body ng-controller="indexController" >
     <toast></toast>
     <div class="navbar navbar-default no-margin fmp-navbar" ng-if="!reportMode">
-        <div>
-            <div class="col-md-2">
-                <div class="navbar-brand"><a class="hidden-md hidden-lg"  href="#" ng-click="toggleMenu()"><i class="fa fa-bars"></i></a> FMP PORTAL</div>
+        <div class="row">
+            <div class="col-md-2 col-xs-2">
+                <div class="brand">
+                    <a class="hidden-md hidden-lg pull-left hamburguer" href="#" ng-click="toggleMenu()"><i class="fa fa-bars hamburger-icon" ng-class="{'hamburger-icon-pressed' : menuClosed == false}" ></i></a>
+                    <div class="pull-left brand-name hidden-xs"><i class="fa fa-building hidden-xs hidden-sm"></i> FMP PORTAL</div>
+                </div>
             </div>
-            <div class="col-md-10">
-                <div class="" style=" padding-top:15px;">
-                    <div>
+            <div class="col-md-10 col-xs-10">
+                <div class="" style=" padding-top:22px;">
+                   
                         <span ng-if="currentUser">
-                            <a class="btn btn-xs btn-info" href="#" back-btn><i class="fa fa-chevron-circle-left"></i> Back</a>
-                            <label style="color:white">|</label>
+                            <a class="btn btn-xs btn-info pull-left" href="#" back-btn><i class="fa fa-chevron-circle-left"></i> Back</a>
+                            <label class="pull-left" style="color:white; margin-left:5px; margin-right:5px;">|</label>
                         </span>
-                        <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
-                        <a style="color:white" data-toggle="dropdown">
-                            {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
-                        </a>
-                        <label class="pull-right" style="color:white; margin-left:5px">{{currentUser.school.name}}</label>
-                        <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
-                        <div class="dropdown">
-                            <ul class="dropdown-menu">
-                                <li><a ng-click="logOff()">LogOff</a></li>
+                        
+                        <div class="pull-left">
+                            <a href="#" id="lnkUser" style="color:white" class="dropdown-toggle" data-toggle="dropdown">
+                                {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="lnkUser">
+                                <li><a href="#" ng-click="logOff()">LogOff</a></li>
                             </ul>
                         </div>
+
+                        <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
+                        <label class="pull-right" style="color: white; margin-right: 15px; margin-left: 5px">{{currentUser.school.name}}</label>
+                        <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
                     </div>
-                </div>
+                
             </div>
         </div>
 

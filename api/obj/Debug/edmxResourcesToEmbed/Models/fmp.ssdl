@@ -1,11 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="contract_permit_periods">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="guid" Type="nvarchar(max)" />
     <Property Name="number_registered" Type="varchar" MaxLength="50" />
     <Property Name="week_days" Type="varchar" MaxLength="200" />
     <Property Name="start_date" Type="datetime" />
@@ -14,6 +13,7 @@
     <Property Name="end_time" Type="varchar" MaxLength="10" />
     <Property Name="hours" Type="int" />
     <Property Name="registration_date" Type="datetime" />
+    <Property Name="guid" Type="varchar" MaxLength="200" />
   </EntityType>
   <EntityType Name="contract_permit_periods_hours_worked">
     <Key>
@@ -24,7 +24,6 @@
     <Property Name="start_date" Type="datetime" />
     <Property Name="end_date" Type="datetime" />
     <Property Name="total_hours_worked" Type="int" />
-    <Property Name="registration_date" Type="datetime" />
   </EntityType>
   <EntityType Name="contract_permits">
     <Key>
@@ -34,12 +33,14 @@
     <Property Name="organization_name" Type="varchar" MaxLength="100" />
     <Property Name="telephone" Type="varchar" MaxLength="20" />
     <Property Name="mailing_address" Type="varchar" MaxLength="100" />
+    <Property Name="city" Type="varchar" MaxLength="50" />
+    <Property Name="state" Type="varchar" MaxLength="100" />
+    <Property Name="zip_code" Type="varchar" MaxLength="20" />
     <Property Name="authorized_organization_name" Type="varchar" MaxLength="100" />
     <Property Name="permit_start_date" Type="datetime" />
     <Property Name="permit_end_date" Type="datetime" />
     <Property Name="number_registered" Type="varchar" MaxLength="50" />
     <Property Name="total_hours" Type="int" />
-    <Property Name="total_hours_worked" Type="int" />
     <Property Name="registration_date" Type="datetime" />
   </EntityType>
   <EntityType Name="payments">
@@ -110,7 +111,7 @@
     <Property Name="employee_manager" Type="varchar" MaxLength="100" />
     <Property Name="supervisor" Type="varchar" MaxLength="100" />
     <Property Name="name" Type="varchar" MaxLength="100" />
-    <Property Name="budget" Type="money" />
+    <Property Name="budget" Type="decimal" Precision="19" Scale="4" />
     <Property Name="last_payment_code_secuence" Type="int" />
   </EntityType>
   <EntityType Name="security_groups">
@@ -274,7 +275,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___group__4F47C5E3">
+  <Association Name="FK__security___group__3A81B327">
     <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -286,7 +287,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___scree__503BEA1C">
+  <Association Name="FK__security___scree__3B75D760">
     <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -298,7 +299,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___usern__51300E55">
+  <Association Name="FK__security___usern__398D8EEE">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -401,15 +402,15 @@
       <End Role="staff" EntitySet="staff" />
       <End Role="schools" EntitySet="schools" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___group__4F47C5E3" Association="Self.FK__security___group__4F47C5E3">
+    <AssociationSet Name="FK__security___group__3A81B327" Association="Self.FK__security___group__3A81B327">
       <End Role="security_groups" EntitySet="security_groups" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
+    <AssociationSet Name="FK__security___scree__3B75D760" Association="Self.FK__security___scree__3B75D760">
       <End Role="security_screens" EntitySet="security_screens" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
+    <AssociationSet Name="FK__security___usern__398D8EEE" Association="Self.FK__security___usern__398D8EEE">
       <End Role="users" EntitySet="users" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>

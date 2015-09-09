@@ -496,3 +496,88 @@ app.factory('$permitService', ['$http', '$serverInfo', function ($http, $serverI
     return permitService;
 
 }]);
+
+//Contract Permit
+app.factory('$permitService', ['$http', '$serverInfo', function ($http, $serverInfo) {
+    var permitService = {};
+
+    permitService.getAll = function (callback) {
+        $http.get($serverInfo.server + '/api/permit/get')
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.getById = function (code, callback) {
+        $http.get($serverInfo.server + '/api/permit/get/' + code)
+        .success(function (data) {
+            callback(data[0]);
+        });
+    };
+
+    permitService.getByNumberRegistered = function (code, callback) {
+        $http.get($serverInfo.server + '/api/permit/getByNumberRegistered/' + code)
+        .success(function (data) {
+            callback(data[0]);
+        });
+    };
+
+    permitService.getPeriodsById = function (code, callback) {
+        $http.get($serverInfo.server + '/api/permit/getPeriodsById/' + code)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.savePermit = function (permit, callback) {
+        $http.post($serverInfo.server + '/api/permit/savePermit', permit)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.savePermitPeriods = function (code, permit, callback) {
+        $http.post($serverInfo.server + '/api/permit/savePermitPeriods/'+code, permit)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.deleteContractPermit = function (code, callback) {
+        $http.post($serverInfo.server + '/api/permit/contractpermits/delete/' + code)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.deleteContractPermitPeriods = function (code, callback) {
+        $http.post($serverInfo.server + '/api/permit/permitperiods/delete/' + code)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.updatePermit = function (code, permit, callback) {
+        $http.post($serverInfo.server + '/api/permit/updatePermit/' + code, permit)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.updatePermitPeriodsHoursWorked = function (code, permit, callback) {
+        $http.post($serverInfo.server + '/api/permit/updatePermitPeriodsHoursWorked/' + code, permit)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    permitService.updatePermitPeriods = function (code, permit, callback) {
+        $http.post($serverInfo.server + '/api/permit/updatePermitPeriods/' + code, permit)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    return permitService;
+
+}]);

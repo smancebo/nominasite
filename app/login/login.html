@@ -1,51 +1,51 @@
 ﻿
 
 
-<form class="" >
+<form class="">
     <div class="">
         <div class="login-head">
             <h4>Fmp Portal SignOn</h4>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <img class="logo" src="../../assets/img/logo.jpg" />
-            </div>
-            <div class="col-md-9 inner-login">
-                <div class="form-group form-control-login" ng-class="{'has-error' : credentials.username == undefined || credentials.username == ''}">
-                    <label>User Name</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-user"></i>
+            <div class="col-md-12 col-xs-12 col-sm-12" style="padding-bottom:10px">
+                <div class="inner-login">
+
+                    <div class="form-group" ng-class="{'has-error' : credentials.username == undefined || credentials.username == ''}">
+                        <label>User Name</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <input type="text" ng-model="credentials.username" class="form-control" />
                         </div>
-                        <input type="text" ng-model="credentials.username" class="form-control" />
                     </div>
-                </div>
-                <div class="form-group form-control-login" ng-class="{'has-error' : credentials.password == undefined || credentials.password == ''}">
-                    <label>Password</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-key"></i>
+                    <div class="form-group" ng-class="{'has-error' : credentials.password == undefined || credentials.password == ''}">
+                        <label>Password</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </div>
+                            <input class="form-control" ng-model="credentials.password" type="password" />
                         </div>
-                        <input class="form-control" ng-model="credentials.password" type="password" />
                     </div>
-                </div>
-                <div ng-show="loading == true" class="text-center loading">
-                    <i class="fa fa-refresh fa-spin"></i>
-                </div>
-                <div class="form-group  form-control-login" ng-hide="msgLabel == '' && loading == true">
-                    <label class="label-error">{{msgLabel}}</label>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-primary full-width" ng-click="submit(credentials)">Login</button>
+                    <div ng-show="loading == true" class="text-center loading">
+                        <i class="fa fa-refresh fa-spin"></i>
                     </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-default full-width" ng-click="cancel()">Cancel</button>
+                    <div class="form-group  form-control-login" ng-hide="msgLabel == '' && loading == true">
+                        <label class="label-error">{{msgLabel}}</label>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                            <button type="submit" class="btn btn-primary full-width" ng-click="submit(credentials)" style="margin-bottom:5px">Login</button>
+                        </div>
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                            <button type="submit" class="btn btn-default full-width" ng-click="cancel()">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
-           
-            
+
+
         </div>
     </div>
 </form>

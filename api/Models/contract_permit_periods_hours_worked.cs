@@ -19,6 +19,5 @@ namespace api.Models
         public Nullable<System.DateTime> start_date { get; set; }
         public Nullable<System.DateTime> end_date { get; set; }
         public Nullable<int> total_hours_worked { get; set; }
-        public Nullable<System.DateTime> registration_date { get; set; }
     }
 }

@@ -15,7 +15,6 @@ namespace api.Models
     public partial class contract_permit_periods
     {
         public int id { get; set; }
-        public string guid { get; set; }
         public string number_registered { get; set; }
         public string week_days { get; set; }
         public Nullable<System.DateTime> start_date { get; set; }
@@ -24,5 +23,6 @@ namespace api.Models
         public string end_time { get; set; }
         public Nullable<int> hours { get; set; }
         public Nullable<System.DateTime> registration_date { get; set; }
+        public string guid { get; set; }
     }
 }

@@ -1,161 +1,156 @@
-﻿<div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <label>Add Contractor permit</label>
+﻿<h2>{{mode}} Permits Contractor</h2>
+<div class="panel panel-{{modeColor}}">
+    <div class="panel-heading">
+        <label>Contractor permit Details</label>
+    </div>
+    <div class="panel-body">
+        <toast></toast>
+        <div ng-if="modeAdd">
+            <button type="button" class="btn btn-success" ng-click="savePermit(permit)" ng-disabled="!permit.number_registered">
+                <i class="fa fa-save"></i>
+                <span>Add Data</span>
+            </button>
+            <a href="/permits/contractor/" class='btn btn-default'><i class="fa fa-sign-out"></i> Go Back</a>
         </div>
-        <div class="panel-body">
-            <toast></toast>
-            <button type="button" class="btn btn-success btn-sm" ng-click="savePermit(permit)" ng-disabled="!permit.number_registered">
+        <div ng-if="modeView">
+            <a href="/permits/contractor/" class='btn btn-default'><i class="fa fa-sign-out"></i> Go Back</a>
+        </div>
+        <div ng-if="modeEdit">
+            <button type="button" class="btn btn-success" ng-click="updatePermit()" ng-disabled="!permit.number_registered">
                 <i class="fa fa-save"></i>
                 <span>Save Data</span>
             </button>
-            <button type="button" class="btn btn-default btn-sm">
-                <i class="fa fa-paint-brush"></i>
-                <span>Clear</span>
-            </button> <br /><br />
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Name Of Applicant Organization</label>
-                        <input type="text" class="form-control" ng-model="permit.organization_name" />
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Telephone</label>
-                        <input type="tel" class="form-control" ng-model="permit.telephone" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Mailing Address</label>
-                        <input type="text" class="form-control" ng-model="permit.mailing_address" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>City</label>
-                        <input type="text" class="form-control" ng-model="permit.city" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>State</label>
-                        <input type="text" class="form-control" ng-model="permit.state" />
-                    </div>
-                </div>
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Zip Code</label>
-                        <input type="text" class="form-control" ng-model="permit.zip_code" />
-                    </div>
+            <a href="/permits/contractor/" class='btn btn-default'><i class="fa fa-sign-out"></i> Go Back</a>
+        </div>
+        <div ng-if="modeDelete">
+            <button type="button" class="btn btn-danger" ng-click="deleteContractPermit()">
+                <i class="fa fa-trash"></i>
+                <span>Delete</span>
+            </button>
+            <a href="/permits/contractor/" class='btn btn-default'><i class="fa fa-sign-out"></i> Go Back</a>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name Of Applicant Organization</label>
+                    <input type="text" class="form-control" ng-model="permit.organization_name" ng-disabled="modeView || modeDelete" />
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label>Name and Title of Authorized Representative of Organization</label>
-                        <input type="text" class="form-control" ng-model="permit.authorized_organization_name" />
-                    </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Telephone</label>
+                    <input type="tel" class="form-control" ng-model="permit.telephone" ng-disabled="modeView || modeDelete" />
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <label>Permit Period</label>
-                    <div class="round-section">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>From</label><span>(MM/DD/YYYY)</span>
-                                    <div class="input-group" date-picker date-model="permit.permit_start_date">
-                                        <input class="form-control full-width date-end" required />
-                                        <div class="input-group-addon">
-                                            <a href="#"><i class="fa fa-calendar"></i></a>
-                                        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Mailing Address</label>
+                    <input type="text" class="form-control" ng-model="permit.mailing_address" ng-disabled="modeView || modeDelete" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Name and Title of Authorized Representative of Organization</label>
+                    <input type="text" class="form-control" ng-model="permit.authorized_organization_name" ng-disabled="modeView || modeDelete" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>Permit Period</label>
+                <div class="round-section">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>From</label><span>(MM/DD/YYYY)</span>
+                                <div class="input-group" date-picker date-model="permit.permit_start_date">
+                                    <input type="text" class="form-control" ng-model='permit.permit_start_date' ng-disabled="modeView || modeDelete" />
+                                    <div class='input-group-addon'>
+                                        <a href="#"><i class="fa fa-calendar"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <label>To</label><span>(MM/DD/YYYY)</span>
-                                    <div class="input-group" date-picker date-model="permit.permit_end_date">
-                                        <input class="form-control full-width date-end" required />
-                                        <div class="input-group-addon">
-                                            <a href="#"><i class="fa fa-calendar"></i></a>
-                                        </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>To</label><span>(MM/DD/YYYY)</span>
+                                <div class="input-group" date-picker date-model="permit.permit_end_date">
+                                    <input type="text" class="form-control" ng-model='permit.permit_end_date' ng-disabled="modeView || modeDelete" />
+                                    <div class='input-group-addon'>
+                                        <a href="#"><i class="fa fa-calendar"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Number Registered</label>
-                                    <input id="number_registered" type="text" class="form-control" ng-model="permit.number_registered" />
-                                </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Number Registered</label>
+                                <input id="number_registered" type="text" class="form-control" ng-model="permit.number_registered" ng-disabled="modeView || modeDelete || modeEdit" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <label>Weeks Days</label>
-                    <div class="round-section">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary btn-sm" ng-click="openAddPeriod(period)" ng-disabled="!permit.number_registered">
-                                    <i class="fa fa-plus-circle"></i>
-                                    <span>Add Period</span>
-                                </button> <br /><br />
-                                <div class="table-responsive">
-                                    <table id="tblContractorPeriod" class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <td class="text-center"><b>#</b></td>
-                                                <td class="text-center"><b>Days of Week</b></td>
-                                                <td class="text-center"><b>From Date</b> </td>
-                                                <td class="text-center"><b>To Date</b></td>
-                                                <td class="text-center"><b>From Time</b></td>
-                                                <td class="text-center"><b>To Time</b></td>
-                                                <td class="text-center"><b>Hours</b></td>
-                                                <td class="text-center"><b>Actions</b></td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr ng-repeat="item in contractorPeriodData">
-                                                <td class="text-center">{{item.id}}</td>
-                                                <td>{{item.week_days}}</td>
-                                                <td class="text-center">{{item.start_date | date: "MM/dd/yyyy"}}</td>
-                                                <td class="text-center">{{item.end_date | date: "MM/dd/yyyy"}}</td>
-                                                <td class="text-center">{{item.start_time}}</td>
-                                                <td class="text-center">{{item.end_time}}</td>
-                                                <td class="text-center">{{item.hours}}</td>
-                                                <td style="font-size:20px; cursor:pointer" class="text-center">
-                                                    <a><i class="fa fa-edit" ng-click="contractorPeriodEdit({{item.id}})"></i> </a>
-                                                    <a><i class="fa fa-times-circle" ng-click="contractorPeriodDelete({{item.id}})"></i> </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td class="text-left"><label>Total Hours: </label> <span class="badge">{{total.totalHour}}</span> </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+        <div class="row">
+            <div class="col-md-12">
+                <br />
+                <label>Weeks Days</label>
+                <div class="round-section">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-7">
+                                <div ng-if="modeAdd || modeEdit">
+                                    <button type="button" class="btn btn-primary btn-sm" ng-click="openAddPeriod(period)" ng-disabled="!permit.number_registered">
+                                        <i class="fa fa-plus-circle"></i>
+                                        <span>Add Period</span>
+                                    </button>
                                 </div>
+                            </div>
+
+                            <div class="col-md-5 text-right">
+                                <label>Total Hours: </label> <label class="badge">{{permit.total_hours}}</label><br />
+                                <label>Total Hours Worked: </label> <label class="badge">{{permit.total_hours_worked}}</label>
+                            </div> <br /><br />
+
+                            <div class="table-responsive">
+                                <table id="tblContractorPeriod" class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <!--<td class="text-center"><b>#</b></td>-->
+                                            <td class="text-center"><b>Days of Week</b></td>
+                                            <td class="text-center"><b>From Date</b> </td>
+                                            <td class="text-center"><b>To Date</b></td>
+                                            <td class="text-center"><b>From Time</b></td>
+                                            <td class="text-center"><b>To Time</b></td>
+                                            <td class="text-center"><b>Hours</b></td>
+                                            <td class="text-center"><b>Hours Worked</b></td>
+                                            <td class="text-center"><b>Actions</b></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in contractorPeriodData">
+                                            <!--<td class="text-center">{{item.id}}</td>-->
+                                            <td>{{item.week_days}}</td>
+                                            <td class="text-center">{{item.start_date | date: "MM/dd/yyyy"}}</td>
+                                            <td class="text-center">{{item.end_date | date: "MM/dd/yyyy"}}</td>
+                                            <td class="text-center">{{item.start_time}}</td>
+                                            <td class="text-center">{{item.end_time}}</td>
+                                            <td class="text-center">{{item.hours}}</td>
+                                            <td class="text-center">{{item.hw.total_hours_worked}}</td>
+                                            <td style="cursor:pointer" class="text-center">
+                                                <a class='btn btn-sm btn-success' popover-template="hoursWorkedPopover.templateUrl" popover-title="{{hoursWorkedPopover.title}}"><i class="fa fa-save"></i> Apply Hours</a>
+                                                <a ng-click="openAddPeriod(item.guid)" class='btn btn-sm btn-warning' ng-hide="modeView || modeDelete"><i class="fa fa-edit"></i> Edit</a>
+                                                <a ng-click="contractorPeriodDelete(item.guid)" class='btn btn-sm btn-danger' ng-hide="modeView || modeDelete"><i class="fa fa-trash" ng-click="contractorPeriodDelete(item.id)"></i> Delete </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -164,9 +159,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 <script>
     $(function () {
@@ -182,14 +174,35 @@
         $('#addPeriodTimeFrom').datetimepicker({ locale: 'en', format: 'LT' });
         $('#addPeriodTimeTo').datetimepicker({ locale: 'en', format: 'LT' });
 
-
-
-        //OnChange PermitStartDate
-        //$("#permitPeriodDateTimeFrom").on("dp.change", function (e) {
-        //    var periodDateTimeFrom = $("#PermitStartDate").val();
-        //    $("#hiddenPermitStartDate").val(periodDateTimeFrom);
-        //});
-
-
     });
 </script>
+
+
+<script type="text/ng-template" id="apply_hours_worked.html">
+    <div class="form-inline" hours-worked>
+        <div class="form-group">
+            <label>From</label>
+            <div class="input-group" date-picker date-model="hwModel.start_date">
+                <input class="form-control" ng-model='hwModel.start_date' ng-disabled="modeView || modeDelete" />
+                <div class="input-group-addon">
+                    <a href="#"><i class="fa fa-calendar"></i></a>
+                </div>
+            </div>
+        </div><br /><br />
+        <div class="form-group">
+            <label>To</label>
+            <div class="input-group" date-picker date-model="hwModel.end_date">
+                <input class="form-control" ng-model='hwModel.end_date' ng-disabled="modeView || modeDelete" />
+                <div class="input-group-addon">
+                    <a href="#"><i class="fa fa-calendar"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <label>Hours Worked: </label>
+    <input type="text" class="form-control" ng-model="hwModel.total_hours_worked" ng-disabled="modeView || modeDelete" />
+    <div>
+    </div>
+</script>
+

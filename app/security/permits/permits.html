@@ -27,14 +27,14 @@
                     <div ng-repeat="screen in screens">
 
                         <div ng-if="screen.subItems.length==0">
-                            <span><input type="checkbox" /> {{screen.text}}</span>
+                            <span><input type="checkbox" ng-click="toggleScreen(screen)" /> {{screen.text}}</span>
                         </div>
 
                         <div ng-if="!screen.subItems.length==0" class="">
-                            <span><input type="checkbox" /> {{screen.text}}</span>
+                            <span><input type="checkbox" ng-disabled="true" ng-model="screen.chkParent" ng-init="screen.chkParent = false" /> {{screen.text}}</span>
                             <ul class="ul-permits">
                                 <li ng-repeat="item in screen.subItems">
-                                    <span><input type="checkbox" /> {{item.text}}</span>
+                                    <span><input type="checkbox" ng-click="toggleScreen(item, screen)" /> {{item.text}}</span>
                                 </li>
                             </ul>
                         </div>

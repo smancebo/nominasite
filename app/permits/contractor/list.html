@@ -1,0 +1,20 @@
+﻿<h2>Permits Contractor</h2>
+<a class="btn btn-xs btn-success" href="/permits/contractor/add"><i class="fa fa-plus"></i> Add New Permit</a><br /><br />
+
+<grid-view gv-rows="dataRows" gv-controller="contractorController">
+    <columns>
+        <column header-text="#" data-field="id"></column>
+        <column header-text="Number Registed" data-field="number_registered"></column>
+        <column header-text="Organization Name" data-field="organization_name"></column>
+        <column header-text="Telephone" data-field="telephone"></column>
+        <column header-text="Permit Start Date" data-field="permit_start_date"></column>
+        <column header-text="Permit End Date" data-field="permit_end_date"></column>
+        <column header-text="Total Hours" data-field="total_hours"></column>
+        <column header-text="Total Hours Worked" data-field="total_hours_worked"></column>
+        <templatecolumn>
+            <a href='permits/contractor/view/{number_registered}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+            <a href='permits/contractor/edit/{number_registered}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+            <a href='permits/contractor/delete/{number_registered}' class='btn btn-xs btn-danger'><i class="fa fa-trash"></i> Delete</a>
+        </templatecolumn>
+    </columns>
+</grid-view>

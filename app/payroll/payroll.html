@@ -8,7 +8,7 @@
     <label>Pay Period</label>
     <div class="round-section">
         <div class="form-inline">
-            <div class="form-group half49-width">
+            <div class="form-group">
                 <label>From</label>
                 <div class="input-group" date-picker days-disabled="disableDaysFrom" ng-class="{'has-error' : payroll.startdate == ''}" date-model="payroll.startdate">
                     <input class="form-control full-width" ng-model="payroll.startdate" required ng-disabled="viewMode == true || editing == true" />
@@ -17,7 +17,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group half-width" ng-class="{'has-error' : payroll.enddate == ''}">
+            <div class="form-group" ng-class="{'has-error' : payroll.enddate == ''}">
                 <label>To</label>
                 <div class="input-group" date-picker date-model="payroll.enddate" date-change="calculateDiff()">
                     <input class="form-control full-width date-end" required ng-disabled="viewMode == true || editing == true" />
@@ -45,8 +45,8 @@
                     <label class="money">{{current.employee.title.payrate | currency : $}}</label>
                 </div>
                 <div class="employee-div" ng-hide="current.employee.employee_code == undefined">
-                    <div class="col-md-1 vertical-align"><a ng-click="prevEmployee()" class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
-                    <div class="col-md-10">
+                    <div class="col-md-1 hidden-sm hidden-xs vertical-align"><a ng-click="prevEmployee()" class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
+                    <div class="col-md-10 col-xs-12 col-sm-12">
                         <div>
                             <div class="table-responsive">
                                 <table class="table fi table-striped">
@@ -63,7 +63,7 @@
                                             <label>{{day.day}}</label>
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control"  tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" ng-disabled="viewMode == true" />
+                                            <input type="text" class="form-control" tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" ng-disabled="viewMode == true" />
                                         </td>
                                         <td>
                                             <input type="text" class="form-control" ng-model="day.overtime" disabled />
@@ -106,25 +106,25 @@
 
                                         <td class='number-td'>
                                             {{
-                                                    parseInt(current.days[0].regularHours) +
-                                                    parseInt(current.days[1].regularHours) +
-                                                    parseInt(current.days[2].regularHours) +
-                                                    parseInt(current.days[3].regularHours) +
-                                                    parseInt(current.days[4].regularHours) +
-                                                    parseInt(current.days[5].regularHours) +
-                                                    parseInt(current.days[6].regularHours)
+                                            parseInt(current.days[0].regularHours) +
+                                            parseInt(current.days[1].regularHours) +
+                                            parseInt(current.days[2].regularHours) +
+                                            parseInt(current.days[3].regularHours) +
+                                            parseInt(current.days[4].regularHours) +
+                                            parseInt(current.days[5].regularHours) +
+                                            parseInt(current.days[6].regularHours)
                                             }}
                                         </td>
 
                                         <td data-total-reg-hours class='number-td money'>
                                             {{
-                                                    ((parseInt(current.days[0].regularHours) +
-                                                     parseInt(current.days[1].regularHours) +
-                                                     parseInt(current.days[2].regularHours) +
-                                                     parseInt(current.days[3].regularHours) +
-                                                     parseInt(current.days[4].regularHours) +
-                                                     parseInt(current.days[5].regularHours) +
-                                                     parseInt(current.days[6].regularHours) ) * parseFloat(current.employee.title.payrate)) | currency : $
+                                            ((parseInt(current.days[0].regularHours) +
+                                            parseInt(current.days[1].regularHours) +
+                                            parseInt(current.days[2].regularHours) +
+                                            parseInt(current.days[3].regularHours) +
+                                            parseInt(current.days[4].regularHours) +
+                                            parseInt(current.days[5].regularHours) +
+                                            parseInt(current.days[6].regularHours) ) * parseFloat(current.employee.title.payrate)) | currency : $
                                             }}
                                         </td>
                                     </tr>
@@ -139,25 +139,25 @@
                                         <td class='number-td'>{{current.days[6].overtime}}</td>
                                         <td class='number-td'>
                                             {{
-                                                    parseInt(current.days[0].overtime) +
-                                                    parseInt(current.days[1].overtime) +
-                                                    parseInt(current.days[2].overtime) +
-                                                    parseInt(current.days[3].overtime) +
-                                                    parseInt(current.days[4].overtime) +
-                                                    parseInt(current.days[5].overtime) +
-                                                    parseInt(current.days[6].overtime)
+                                            parseInt(current.days[0].overtime) +
+                                            parseInt(current.days[1].overtime) +
+                                            parseInt(current.days[2].overtime) +
+                                            parseInt(current.days[3].overtime) +
+                                            parseInt(current.days[4].overtime) +
+                                            parseInt(current.days[5].overtime) +
+                                            parseInt(current.days[6].overtime)
                                             }}
                                         </td>
 
                                         <td data-total-overtime-hours class='number-td money'>
                                             {{
-                                                    ((parseInt(current.days[0].overtime) +
-                                                     parseInt(current.days[1].overtime) +
-                                                     parseInt(current.days[2].overtime) +
-                                                     parseInt(current.days[3].overtime) +
-                                                     parseInt(current.days[4].overtime) +
-                                                     parseInt(current.days[5].overtime) +
-                                                     parseInt(current.days[6].overtime) ) * (parseFloat(current.employee.title.payrate)) * 1.5) | currency : $
+                                            ((parseInt(current.days[0].overtime) +
+                                            parseInt(current.days[1].overtime) +
+                                            parseInt(current.days[2].overtime) +
+                                            parseInt(current.days[3].overtime) +
+                                            parseInt(current.days[4].overtime) +
+                                            parseInt(current.days[5].overtime) +
+                                            parseInt(current.days[6].overtime) ) * (parseFloat(current.employee.title.payrate)) * 1.5) | currency : $
                                             }}
                                         </td>
                                     </tr>
@@ -173,13 +173,13 @@
 
                                         <td data-total-nigthdiff-hours class='number-td'>
                                             {{
-                                                    parseInt(getReimbursementHours(current.days[0],3)) +
-                                                    parseInt(getReimbursementHours(current.days[1],3)) +
-                                                    parseInt(getReimbursementHours(current.days[2],3)) +
-                                                    parseInt(getReimbursementHours(current.days[3],3)) +
-                                                    parseInt(getReimbursementHours(current.days[4],3)) +
-                                                    parseInt(getReimbursementHours(current.days[5],3)) +
-                                                    parseInt(getReimbursementHours(current.days[6],3))
+                                            parseInt(getReimbursementHours(current.days[0],3)) +
+                                            parseInt(getReimbursementHours(current.days[1],3)) +
+                                            parseInt(getReimbursementHours(current.days[2],3)) +
+                                            parseInt(getReimbursementHours(current.days[3],3)) +
+                                            parseInt(getReimbursementHours(current.days[4],3)) +
+                                            parseInt(getReimbursementHours(current.days[5],3)) +
+                                            parseInt(getReimbursementHours(current.days[6],3))
                                             }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,3) | currency : $}}</td>
@@ -196,13 +196,13 @@
 
                                         <td data-total-reimbursement-hours class='number-td'>
                                             {{
-                                                    parseFloat(getReimbursementHours(current.days[0],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[1],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[2],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[3],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[4],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[5],1)) +
-                                                    parseFloat(getReimbursementHours(current.days[6],1))
+                                            parseFloat(getReimbursementHours(current.days[0],1)) +
+                                            parseFloat(getReimbursementHours(current.days[1],1)) +
+                                            parseFloat(getReimbursementHours(current.days[2],1)) +
+                                            parseFloat(getReimbursementHours(current.days[3],1)) +
+                                            parseFloat(getReimbursementHours(current.days[4],1)) +
+                                            parseFloat(getReimbursementHours(current.days[5],1)) +
+                                            parseFloat(getReimbursementHours(current.days[6],1))
                                             }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,1) | currency : $}}</td>
@@ -219,13 +219,13 @@
 
                                         <td data-total-reimbursement-ot-hours class='number-td'>
                                             {{
-                                                    parseInt(getReimbursementHours(current.days[0],2)) +
-                                                    parseInt(getReimbursementHours(current.days[1],2)) +
-                                                    parseInt(getReimbursementHours(current.days[2],2)) +
-                                                    parseInt(getReimbursementHours(current.days[3],2)) +
-                                                    parseInt(getReimbursementHours(current.days[4],2)) +
-                                                    parseInt(getReimbursementHours(current.days[5],2)) +
-                                                    parseInt(getReimbursementHours(current.days[6],2))
+                                            parseInt(getReimbursementHours(current.days[0],2)) +
+                                            parseInt(getReimbursementHours(current.days[1],2)) +
+                                            parseInt(getReimbursementHours(current.days[2],2)) +
+                                            parseInt(getReimbursementHours(current.days[3],2)) +
+                                            parseInt(getReimbursementHours(current.days[4],2)) +
+                                            parseInt(getReimbursementHours(current.days[5],2)) +
+                                            parseInt(getReimbursementHours(current.days[6],2))
                                             }}
                                         </td>
                                         <td class="number-td money">{{getReimbursementRate(current.days,2) | currency : $}}</td>
@@ -233,15 +233,15 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <div class="container col-md-6">
-                            <button ng-click="addToPayroll()" ng-if="viewMode == undefined" class="btn btn-success col-md-12"><i class="fa fa-plus"></i> Add to payroll</button>
+
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                            <button ng-click="addToPayroll()" ng-if="viewMode == undefined" class="btn btn-success full-width"><i class="fa fa-plus"></i> Add to payroll</button>
                         </div>
-                        <div class="container col-md-6">
-                            <button ng-click="cancelEmployee()" ng-if="viewMode == undefined" class="btn btn-danger col-md-12"><i class="fa fa-remove"></i> Cancel</button>
+                        <div class="col-md-6 col-xs-12 col-sm-12">
+                            <button ng-click="cancelEmployee()" ng-if="viewMode == undefined" class="btn btn-danger full-width"><i class="fa fa-remove"></i> Cancel</button>
                         </div>
                     </div>
-                    <div class="col-md-1 vertical-align"><a ng-click="nextEmployee()" class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
+                    <div class="col-md-1 hidden-sm hidden-xs vertical-align"><a ng-click="nextEmployee()" class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>
                 </div>
             </div>
         </tab>
@@ -281,14 +281,14 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="container col-md-12" ng-if="viewMode == true && payroll.applied == true">
+                <div class="col-md-12 col-xs-12 col-sm-12" ng-if="viewMode == true && payroll.applied == true">
                     <button ng-click="printPayroll(payroll.payment_id)" class="btn btn-primary col-md-12"><i class="fa fa-print"></i> Print payroll</button>
                 </div>
-                <div class="container col-md-6" ng-if="viewMode == undefined">
-                    <button class="btn btn-info col-md-12"  ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
+                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == undefined">
+                    <button class="btn btn-info full-width" ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
                 </div>
-                <div class="container col-md-6" ng-if="viewMode == undefined">
-                    <button class="btn btn-success col-md-12" ng-click="applyPayroll()"><i class="fa fa-check"></i> Apply payroll</button>
+                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == undefined">
+                    <button class="btn btn-success full-width" ng-click="applyPayroll()"><i class="fa fa-check"></i> Apply payroll</button>
                 </div>
             </div>
         </tab>

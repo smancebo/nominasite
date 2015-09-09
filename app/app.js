@@ -7,8 +7,8 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia']);
     app.constant('$serverInfo', {
-        server: "http://10.172.0.170:85/api"
-        //server: "http://10.0.0.5:85/api"
+        //server: "http://10.172.0.170:85/api"
+        server: "http://10.0.0.5:85/api"
     });
 
     app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', 'screenSize', function ($scope, $sessionStorage, $rootScope, screenSize) {
@@ -407,17 +407,27 @@
 
 
         //<contractor>
+          //<contractor>
              .when('/permits/contractor', {
-                 templateUrl: 'app/permits/contractor/view.html',
+                 templateUrl: 'app/permits/contractor/list.html',
                  controller: 'contractorController'
              })
 
-        .when('/permits/contractor/add', {
-            templateUrl: 'app/permits/contractor/add.html',
-            controller: 'contractorController'
-        })
+            .when('/permits/contractor/:mode', {
+                templateUrl: 'app/permits/contractor/add.html',
+                controller: 'contractorController'
+            })
+             .when('/permits/contractor/:mode/:id', {
+                 templateUrl: 'app/permits/contractor/add.html',
+                 controller: 'contractorController'
+             })
 
-            .when('/permits/contractor/edit/:id', {
+            .when('/permits/contractor/:mode/:id', {
+                templateUrl: 'app/permits/contractor/add.html',
+                controller: 'contractorController'
+            })
+
+            .when('/permits/contractor/:mode/:id', {
                 templateUrl: 'app/permits/contractor/add.html',
                 controller: 'contractorController'
             })
