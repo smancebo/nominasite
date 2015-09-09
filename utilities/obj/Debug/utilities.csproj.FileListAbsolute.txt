@@ -52,3 +52,10 @@ C:\Users\smancebo\Desktop\proj\nv5\nominasite\utilities\bin\Debug\Newtonsoft.Jso
 C:\Users\smancebo\Desktop\proj\nv5\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
 C:\Users\smancebo\Desktop\proj\nv5\nominasite\utilities\obj\Debug\utilities.dll
 C:\Users\smancebo\Desktop\proj\nv5\nominasite\utilities\obj\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\bin\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\bin\Debug\utilities.pdb
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\bin\Debug\Newtonsoft.Json.dll
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\bin\Debug\Newtonsoft.Json.xml
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\obj\Debug\utilities.csprojResolveAssemblyReference.cache
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\obj\Debug\utilities.dll
+C:\Users\smancebo\Desktop\proj\nv6\nominasite\utilities\obj\Debug\utilities.pdb

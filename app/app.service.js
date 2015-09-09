@@ -433,7 +433,7 @@ app.service('$loginModal', ['$modal', '$rootScope', '$window', '$sessionStorage'
 }]);
 
 
-app.factory('$screensService', ['$http', '$serverInfo', function ($http, $serverInfo) {
+app.factory('$screensService', ['$http', '$serverInfo', '$toast', function ($http, $serverInfo, $toast) {
 
     var screensService = {};
     var serviceBaseAddress = $serverInfo.server + '/api/security';
@@ -445,9 +445,46 @@ app.factory('$screensService', ['$http', '$serverInfo', function ($http, $server
         })
     };
 
-    screensService.save = function (screens) {
+    screensService.getScreensUserGroup = function (id, callback) {
+        $http.get(serviceBaseAddress + '/getScreensUserGroup/' + id)
+        .success(function (data) {
+            callback(data);
+        })
+    };
+
+    screensService.getScreensUserGroupAble = function (id, callback) {
+        $http.get(serviceBaseAddress + '/getScreensUserGroupAble/' + id)
+        .success(function (data) {
+            callback(data);
+        })
+    };
+
+    
+
+    screensService.loadUserGroup = function (name) {
+        return $http.get(serviceBaseAddress + '/loadUserGroup', {
+            params: {
+                name: name
+            }
+        })
 
     }
+
+    screensService.save = function (permits, callback) {
+        $http.post(serviceBaseAddress + '/save', permits)
+        .success(function (data) {
+
+            if (data == 1) {
+                $toast.create('success', 'Permits saved succesfully!');
+            }
+            else {
+                $toast.create('danger', '<b>Error:</b> ' + data);
+            }
+            if (callback) {
+                callback(data);
+            }
+        });
+    };
 
     return screensService;
 

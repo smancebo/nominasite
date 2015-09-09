@@ -4,12 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="contract_permit_periods">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="guid" Type="nvarchar(max)" />
           <Property Name="number_registered" Type="varchar" MaxLength="50" />
           <Property Name="week_days" Type="varchar" MaxLength="200" />
           <Property Name="start_date" Type="datetime" />
@@ -17,8 +18,6 @@
           <Property Name="start_time" Type="varchar" MaxLength="10" />
           <Property Name="end_time" Type="varchar" MaxLength="10" />
           <Property Name="hours" Type="int" />
-          <Property Name="registration_date" Type="datetime" />
-          <Property Name="guid" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="contract_permit_periods_hours_worked">
           <Key>
@@ -38,15 +37,10 @@
           <Property Name="organization_name" Type="varchar" MaxLength="100" />
           <Property Name="telephone" Type="varchar" MaxLength="20" />
           <Property Name="mailing_address" Type="varchar" MaxLength="100" />
-          <Property Name="city" Type="varchar" MaxLength="50" />
-          <Property Name="state" Type="varchar" MaxLength="100" />
-          <Property Name="zip_code" Type="varchar" MaxLength="20" />
           <Property Name="authorized_organization_name" Type="varchar" MaxLength="100" />
           <Property Name="permit_start_date" Type="datetime" />
           <Property Name="permit_end_date" Type="datetime" />
           <Property Name="number_registered" Type="varchar" MaxLength="50" />
-          <Property Name="total_hours" Type="int" />
-          <Property Name="registration_date" Type="datetime" />
         </EntityType>
         <EntityType Name="payments">
           <Key>
@@ -116,7 +110,7 @@
           <Property Name="employee_manager" Type="varchar" MaxLength="100" />
           <Property Name="supervisor" Type="varchar" MaxLength="100" />
           <Property Name="name" Type="varchar" MaxLength="100" />
-          <Property Name="budget" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="budget" Type="money" />
           <Property Name="last_payment_code_secuence" Type="int" />
         </EntityType>
         <EntityType Name="security_groups">
@@ -280,7 +274,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___group__3A81B327">
+        <Association Name="FK__security___group__4F47C5E3">
           <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -292,7 +286,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___scree__3B75D760">
+        <Association Name="FK__security___scree__503BEA1C">
           <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -304,7 +298,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___usern__398D8EEE">
+        <Association Name="FK__security___usern__51300E55">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -407,15 +401,15 @@
             <End Role="staff" EntitySet="staff" />
             <End Role="schools" EntitySet="schools" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___group__3A81B327" Association="Self.FK__security___group__3A81B327">
+          <AssociationSet Name="FK__security___group__4F47C5E3" Association="Self.FK__security___group__4F47C5E3">
             <End Role="security_groups" EntitySet="security_groups" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___scree__3B75D760" Association="Self.FK__security___scree__3B75D760">
+          <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
             <End Role="security_screens" EntitySet="security_screens" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___usern__398D8EEE" Association="Self.FK__security___usern__398D8EEE">
+          <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
             <End Role="users" EntitySet="users" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
@@ -440,12 +434,13 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="contract_permit_periods">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="guid" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="week_days" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="start_date" Type="DateTime" Precision="3" />
@@ -453,8 +448,6 @@
           <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="end_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="hours" Type="Int32" />
-          <Property Name="registration_date" Type="DateTime" Precision="3" />
-          <Property Name="guid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="contract_permit_periods_hours_worked">
           <Key>
@@ -474,15 +467,10 @@
           <Property Name="organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="mailing_address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="authorized_organization_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="permit_start_date" Type="DateTime" Precision="3" />
           <Property Name="permit_end_date" Type="DateTime" Precision="3" />
           <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="total_hours" Type="Int32" />
-          <Property Name="registration_date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="payments">
           <Key>
@@ -571,7 +559,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__3A81B327" FromRole="security_groups" ToRole="security_permits" />
+          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_groups" ToRole="security_permits" />
         </EntityType>
         <EntityType Name="security_permits">
           <Key>
@@ -581,9 +569,9 @@
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="group" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="screen_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__3A81B327" FromRole="security_permits" ToRole="security_groups" />
-          <NavigationProperty Name="security_screens" Relationship="Self.FK__security___scree__3B75D760" FromRole="security_permits" ToRole="security_screens" />
-          <NavigationProperty Name="users" Relationship="Self.FK__security___usern__398D8EEE" FromRole="security_permits" ToRole="users" />
+          <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_permits" ToRole="security_groups" />
+          <NavigationProperty Name="security_screens" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_permits" ToRole="security_screens" />
+          <NavigationProperty Name="users" Relationship="Self.FK__security___usern__51300E55" FromRole="security_permits" ToRole="users" />
         </EntityType>
         <EntityType Name="security_screens">
           <Key>
@@ -595,7 +583,7 @@
           <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="parent" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___scree__3B75D760" FromRole="security_screens" ToRole="security_permits" />
+          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_screens" ToRole="security_permits" />
         </EntityType>
         <EntityType Name="staff">
           <Key>
@@ -668,7 +656,7 @@
           <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
           <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
-          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__398D8EEE" FromRole="users" ToRole="security_permits" />
+          <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__51300E55" FromRole="users" ToRole="security_permits" />
         </EntityType>
         <Association Name="FK__payments___payme__1367E606">
           <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -766,7 +754,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___group__3A81B327">
+        <Association Name="FK__security___group__4F47C5E3">
           <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -778,7 +766,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___scree__3B75D760">
+        <Association Name="FK__security___scree__503BEA1C">
           <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -790,7 +778,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__security___usern__398D8EEE">
+        <Association Name="FK__security___usern__51300E55">
           <End Role="users" Type="Self.users" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
           <ReferentialConstraint>
@@ -877,15 +865,15 @@
             <End Role="schools" EntitySet="schools" />
             <End Role="users" EntitySet="users" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___group__3A81B327" Association="Self.FK__security___group__3A81B327">
+          <AssociationSet Name="FK__security___group__4F47C5E3" Association="Self.FK__security___group__4F47C5E3">
             <End Role="security_groups" EntitySet="security_groups" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___scree__3B75D760" Association="Self.FK__security___scree__3B75D760">
+          <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
             <End Role="security_screens" EntitySet="security_screens" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
-          <AssociationSet Name="FK__security___usern__398D8EEE" Association="Self.FK__security___usern__398D8EEE">
+          <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
             <End Role="users" EntitySet="users" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
@@ -908,6 +896,7 @@
             <EntityTypeMapping TypeName="fmpModel.contract_permit_periods">
               <MappingFragment StoreEntitySet="contract_permit_periods">
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="guid" ColumnName="guid" />
                 <ScalarProperty Name="number_registered" ColumnName="number_registered" />
                 <ScalarProperty Name="week_days" ColumnName="week_days" />
                 <ScalarProperty Name="start_date" ColumnName="start_date" />
@@ -915,8 +904,6 @@
                 <ScalarProperty Name="start_time" ColumnName="start_time" />
                 <ScalarProperty Name="end_time" ColumnName="end_time" />
                 <ScalarProperty Name="hours" ColumnName="hours" />
-                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
-                <ScalarProperty Name="guid" ColumnName="guid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -938,15 +925,10 @@
                 <ScalarProperty Name="organization_name" ColumnName="organization_name" />
                 <ScalarProperty Name="telephone" ColumnName="telephone" />
                 <ScalarProperty Name="mailing_address" ColumnName="mailing_address" />
-                <ScalarProperty Name="city" ColumnName="city" />
-                <ScalarProperty Name="state" ColumnName="state" />
-                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
                 <ScalarProperty Name="authorized_organization_name" ColumnName="authorized_organization_name" />
                 <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
                 <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
                 <ScalarProperty Name="number_registered" ColumnName="number_registered" />
-                <ScalarProperty Name="total_hours" ColumnName="total_hours" />
-                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

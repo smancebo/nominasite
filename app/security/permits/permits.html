@@ -1,5 +1,15 @@
 ﻿
 
+<script type="text/ng-template" id="typeHeadTemplate.html">
+
+    <a>
+        <i class="{{match.model.icon}}"></i>
+        <span bind-html-unsafe="match.model.text | typeaheadHighlight:query"></span>
+    </a>
+
+</script>
+
+
 <div class="panel panel-default">
 
     <div class="panel-heading">
@@ -10,8 +20,14 @@
 
         <div class="form-group">
             <label>User or Group</label>
+            <span ng-show="typeaheadNoResults" ng-init="typeaheadNoResults = false">
+                <i class="fa fa-close"></i>No results found
+            </span>
+            <span ng-show="typeaheadLoading" ng-init="typeaheadLoading = false">
+                <i class="fa fa-spinner fa-pulse"></i>
+            </span>
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="selected.name" />
+                <input type="text" class="form-control" ng-model="selected.name" typeahead="item.text for item in loadUserGroup($viewValue)" typeahead-on-select="onSelectUserGroup($item,$model,$label)" typeahead-template-url="typeHeadTemplate.html" typeahead-no-results="typeaheadNoResults" typeahead-loading="typeaheadLoading" />
                 <div class="input-group-addon">
                     <a><i class="fa fa-search"></i></a>
                 </div>
@@ -27,14 +43,14 @@
                     <div ng-repeat="screen in screens">
 
                         <div ng-if="screen.subItems.length==0">
-                            <span><input type="checkbox" ng-click="toggleScreen(screen)" /> {{screen.text}}</span>
+                            <span><input type="checkbox" ng-click="toggleScreen(screen)" ng-model="screen.chkParent" /> {{screen.text}}</span>
                         </div>
 
                         <div ng-if="!screen.subItems.length==0" class="">
-                            <span><input type="checkbox" ng-disabled="true" ng-model="screen.chkParent" ng-init="screen.chkParent = false" /> {{screen.text}}</span>
+                            <span><input type="checkbox" ng-disabled="true" ng-model="screen.chkParent"  /> {{screen.text}}</span>
                             <ul class="ul-permits">
                                 <li ng-repeat="item in screen.subItems">
-                                    <span><input type="checkbox" ng-click="toggleScreen(item, screen)" /> {{item.text}}</span>
+                                    <span><input type="checkbox" ng-click="toggleScreen(item, screen)" ng-model="item.chkParent"  /> {{item.text}}</span>
                                 </li>
                             </ul>
                         </div>
@@ -45,7 +61,7 @@
         </div>
 
         <div class="form-group">
-            <button class="btn btn-success col-md-12 col-xs-12" style="margin-bottom:5px;"><i class="fa fa-save"></i> Save</button>
+            <button ng-click="save()" class="btn btn-success col-md-12 col-xs-12" style="margin-bottom:5px;"><i class="fa fa-save"></i> Save</button>
             <button class="btn btn-default col-md-12 col-xs-12" back-btn> Cancel</button>
         </div>
 

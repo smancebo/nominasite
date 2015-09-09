@@ -53,9 +53,20 @@
                                     <thead>
                                         <tr ng-show="current.days.length">
                                             <th>&#xf133; Day</th>
-                                            <th>&#xf017; Regular Hours</th>
-                                            <th>&#xf017; Overtime</th>
-                                            <th>Reimbursement</th>
+                                            <th>
+                                                &#xf017; 
+                                                <span class='hidden-xs hidden-sm'>Regular Hours</span>
+                                                <span class='hidden-md hidden-lg'>Regs</span>
+                                            </th>
+                                            <th>
+                                                &#xf017;
+                                                <span class='hidden-xs hidden-sm'>Overtime</span>
+                                                <span class='hidden-md hidden-lg'>OTs</span>
+                                            </th>
+                                            <th>
+                                                <span class='hidden-xs hidden-sm'>Reimbursement</span>
+                                                <span class='hidden-md hidden-lg'>Reimb</span>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tr ng-repeat="day in current.days">
@@ -282,7 +293,7 @@
                     </table>
                 </div>
                 <div class="col-md-12 col-xs-12 col-sm-12" ng-if="viewMode == true && payroll.applied == true">
-                    <button ng-click="printPayroll(payroll.payment_id)" class="btn btn-primary col-md-12"><i class="fa fa-print"></i> Print payroll</button>
+                    <button ng-click="printPayroll(payroll.payment_id)" class="btn btn-primary full-width"><i class="fa fa-print"></i> Print payroll</button>
                 </div>
                 <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == undefined">
                     <button class="btn btn-info full-width" ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
