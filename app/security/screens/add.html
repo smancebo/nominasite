@@ -1,0 +1,48 @@
+﻿
+
+
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        Add screens
+    </div>
+    <div class="panel-body">
+
+        <div class="form-group">
+            <label>Screen Code</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model="screen.screen_code" />
+        </div>
+
+        <div class="form-group">
+            <label>Text</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model="screen.text" />
+        </div>
+
+        <div class="form-group">
+            <label>Url</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model="screen.url" />
+        </div>
+
+        <div class="form-group">
+            <label>Icon</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model="screen.icon" />
+        </div>
+
+        <div class="form-group">
+            <label>Parent</label>
+            <div class="input-group">
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model="screen.parent" />
+                <div class="input-group-addon"><a><i class="fa fa-search"></i></a></div>
+            </div>
+            
+        </div>
+
+        <div class="form-group" ng-if="!viewMode">
+            <button ng-click="save()" class="btn btn-success col-md-12 col-xs-12" style="margin-bottom:5px;"><i class="fa fa-save"></i> Save</button>
+            <button class="btn btn-default col-md-12 col-xs-12" back-btn> Cancel</button>
+        </div>
+
+
+    </div>
+
+</div>

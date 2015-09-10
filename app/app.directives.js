@@ -297,3 +297,16 @@ app.directive('hoursWorked', function () {
         }]
     }
 });
+
+app.directive('menuItem', function () {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            $(element).on('click', function () {
+                $('.menu-item').removeClass('selected-menu');
+                $(this).addClass('selected-menu');
+            })
+            
+        }
+    }
+})

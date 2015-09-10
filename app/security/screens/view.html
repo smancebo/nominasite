@@ -1,0 +1,45 @@
+﻿
+<div>
+    <h2>Screens</h2>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a href="#" ng-init="isCollapse = true" ng-click="isCollapse = !isCollapse"><i class="fa fa-search"> Filters</i></a>
+        </div>
+        <div class="panel-body" collapse="isCollapse">
+            <div class="form-group">
+                <label>Code</label>
+                <input type="text" ng-model="txtCode" ng-init="txtCode = ''" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" ng-model="txtName" ng-init="txtName = ''" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    <a class="btn btn-xs btn-success" href="security/screens/add"><i class="fa fa-plus"></i>  Add</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="row in dataRows | filter:{screen_code : txtCode || '', text: txtName}">
+                    <td>{{row.screen_code}}</td>
+                    <td>{{row.text}}</td>
+                    <td>
+                        <a href="{{'security/screens/view/' + row.id}}" class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
+                        <a href="{{'security/screens/edit/' + row.id}}" class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>
+                        <a ng-click="deleteScreen(row.id)" class='btn btn-xs btn-danger'><i class="fa fa-remove"></i> Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

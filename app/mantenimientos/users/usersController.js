@@ -15,7 +15,7 @@ app.controller('usersController', ['$scope', '$userService', '$routeParams', '$t
 
         var school_name = item.school.name;
 
-        if (school_name.toLowerCase().indexOf($scope.txtSchool.toLowerCase() != -1)) {
+        if (school_name.toLowerCase().indexOf($scope.txtSchool.toLowerCase()) != -1) {
             return true;
         }
         else

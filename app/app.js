@@ -5,7 +5,7 @@
 
 
 
-    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia']);
+    var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia', 'ngAnimate']);
     app.constant('$serverInfo', {
         server: "http://10.172.0.170:85/api"
         //server: "http://10.0.0.5:85/api"
@@ -444,10 +444,40 @@
 
         //<security>
 
-        .when('/security/screens', {
+        .when('/security/permits', {
             templateUrl: 'app/security/permits/permits.html',
             controller:'securityPermitsController'
         })
+
+        .when('/security/screens', {
+            templateUrl: 'app/security/screens/view.html',
+            controller: 'securityScreensController'
+        })
+
+        .when('/security/screens/add', {
+            templateUrl: 'app/security/screens/add.html',
+            controller: 'securityScreensController'
+        })
+
+
+        .when('/security/screens/edit/:Id', {
+            templateUrl: 'app/security/screens/add.html',
+            controller: 'securityScreensController'
+        })
+
+         .when('/security/screens/view/:Id', {
+             templateUrl: 'app/security/screens/add.html',
+             controller: ['$scope', '$routeParams', '$screensService', function ($scope, $routeParams, $screensService) {
+
+                 $scope.viewMode = true;
+                 if ($routeParams.Id) {
+                     $screensService.getScreen($routeParams.Id, function (result) {
+                         $scope.screen = result;
+                     });
+                 }
+
+             }]
+         })
 
 
         //</security>

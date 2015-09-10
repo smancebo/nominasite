@@ -433,7 +433,7 @@ app.service('$loginModal', ['$modal', '$rootScope', '$window', '$sessionStorage'
 }]);
 
 
-app.factory('$screensService', ['$http', '$serverInfo', '$toast', function ($http, $serverInfo, $toast) {
+app.factory('$screensService', ['$http', '$serverInfo', '$toast', '$locationService', function ($http, $serverInfo, $toast, $locationService) {
 
     var screensService = {};
     var serviceBaseAddress = $serverInfo.server + '/api/security';
@@ -444,6 +444,54 @@ app.factory('$screensService', ['$http', '$serverInfo', '$toast', function ($htt
             callback(data);
         })
     };
+
+    screensService.getAllScreensView = function (callback) {
+        $http.get(serviceBaseAddress + '/getAllScreensView')
+        .success(function (data) {
+            callback(data);
+        })
+    };
+
+    screensService.getScreen = function (id, callback) {
+        $http.get(serviceBaseAddress + '/getScreen/' + id)
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
+    screensService.saveScreen = function (data, callback) {
+        $http.post(serviceBaseAddress + '/saveScreen', data)
+        .success(function (data) {
+            if (data == 1) {
+                $toast.create('success', 'Screen Saved Successfully!');
+                $locationService.changeLocation('security/screens/');
+            }
+            else
+            {
+                $toast.create('error', '<b>Error</b> ' + data);
+            }
+            if (callback) {
+                callback(data);
+            }
+        })
+    }
+
+    screensService.deleteScreen = function (id, callback) {
+        if (confirm('Are you sure you want delete the selected item?')) {
+            $http.post(serviceBaseAddress + '/deleteScreen', id)
+            .success(function (data) {
+                if (data == 1) {
+                    $toast.create('success', 'Item delected Successfully');
+                }
+                else {
+                    $toast.create('error', '<b>Error</b> ' + data);
+                }
+                if (callback) {
+                    callback(data);
+                }
+            })
+        }
+    }
 
     screensService.getScreensUserGroup = function (id, callback) {
         $http.get(serviceBaseAddress + '/getScreensUserGroup/' + id)

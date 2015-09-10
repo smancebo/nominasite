@@ -60,14 +60,14 @@
                     <ul class="menu list-unstyled">
                         <li ng-repeat="item in menu">
                             <div class="li-bound">
-                                <a href="{{item.url}}" ng-click="showHideSubMenu(item)">
+                                <a menu-item class="menu-item" href="{{item.url}}" ng-click="showHideSubMenu(item)">
                                     <div>
                                         <i ng-class=" 'fa ' + item.icon"></i>{{item.text}}
                                     </div>
                                 </a>
-                                <ul class='sub-parent' ng-if="item.subItems.length && item.showMenu">
+                                <ul class='sub-parent animate' ng-show="item.subItems.length && item.showMenu">
                                     <li class="subItem" ng-repeat="subItem in item.subItems">
-                                        <a href="{{subItem.url}}">{{subItem.text}}</a>
+                                        <a menu-item class="menu-item" href="{{subItem.url}}"><span class="sub-item-text"><i class="fa fa-caret-right"></i> {{subItem.text}}</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -118,6 +118,7 @@
     <script src="/app/mantenimientos/titles/titlesController.js"></script>
     <script src="/app/mantenimientos/users/usersController.js"></script>
     <script src="/app/security/permits/securityPermitsController.js"></script>
+    <script src="/app/security/screens/securityScreensController.js"></script>
     <script src="/app/reports/payroll/payrollPrintController.js"></script>
     <script src="/app/login/loginController.js"></script>
     <script src="/app/payroll/payrollController.js"></script>

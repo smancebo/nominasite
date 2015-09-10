@@ -38,16 +38,107 @@ namespace api.Controllers
         }
 
         [HttpGet]
+        [Route("getAllScreensView")]
+        public IHttpActionResult getAllScreensView()
+        {
+
+            var screens = from s in fmp.security_screens
+                          select new
+                          {
+                              s.id,
+                              s.parent,
+                              s.screen_code,
+                              s.text,
+                              s.url,
+                              s.icon
+                          };
+
+            return Ok(screens);
+        }
+
+        [HttpGet]
+        [Route("getScreen/{id}")]
+        public IHttpActionResult getScreen(int id)
+        {
+
+            var screens = from s in fmp.security_screens
+                          where s.id == id
+                          select new
+                          {
+                              s.id,
+                              s.parent,
+                              s.screen_code,
+                              s.text,
+                              s.url,
+                              s.icon
+                          };
+
+            return Ok(screens.FirstOrDefault());
+        }
+
+        [HttpPost]
+        [Route("saveScreen")]
+        public IHttpActionResult saveScreen([FromBody] security_screens screen)
+        {
+
+            try
+            {
+                var record = (from s in fmp.security_screens
+                              where s.id == screen.id
+                              select s).FirstOrDefault();
+
+                if (record == null)
+                {
+                    record = new security_screens();
+                    utilities.objMapper.Map<security_screens>(ref record, screen);
+                }
+                else
+                {
+                    fmp.security_screens.Add(screen);
+                }
+                
+                fmp.SaveChanges();
+
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("deleteScreen")]
+        public IHttpActionResult saveScreen([FromBody] int id)
+        {
+
+            try
+            {
+                var record = (from s in fmp.security_screens
+                              where s.id == id
+                              select s).FirstOrDefault();
+
+                fmp.security_screens.Remove(record);
+                
+
+                fmp.SaveChanges();
+
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("getScreensUserGroupAble/{id}")]
         public IHttpActionResult getScreensUserGroupAble(string id)
         {
             var screens = from s in fmp.security_screens
-                          join sp in fmp.security_permits
-                          on s.screen_code equals sp.screen_code into spr
-                          from x in spr.DefaultIfEmpty()
-                          where (x.username == id || x.username == null) &&
-                          (s.parent == null || s.parent == "")
-                         
+                          where (s.parent == null || s.parent == "")
                           orderby s.id ascending
                           select new
                            {
@@ -56,13 +147,9 @@ namespace api.Controllers
                                s.icon,
                                s.screen_code,
                                s.parent,
-                               chkParent = x.username == null ? false : true,//((s.screen_code == x.screen_code) == null ? false : (s.screen_code == x.screen_code)),
+                               chkParent = fmp.security_permits.Where(x => (x.username == id || x.@group == id) && x.screen_code == s.screen_code).Select(x => x).Count() > 0 ? true : false,
                                subItems = (from sub in fmp.security_screens
-                                           join subsp in fmp.security_permits
-                                           on sub.screen_code equals subsp.screen_code into subspr
-                                           from subx in subspr.DefaultIfEmpty()
-                                           where sub.parent == s.screen_code &&
-                                           (subx.username == id || subx.username == null)
+                                           where sub.parent == s.screen_code
                                            select new
                                            {
                                                sub.text,
@@ -70,7 +157,7 @@ namespace api.Controllers
                                                sub.icon,
                                                sub.parent,
                                                sub.screen_code,
-                                               chkParent = subx.username == null ? false : true//((sub.screen_code == subx.screen_code) == null ? false : (sub.screen_code == subx.screen_code))
+                                               chkParent = fmp.security_permits.Where(x => (x.username == id || x.@group == id) && x.screen_code == sub.screen_code).Select(x => x).Count() > 0 ? true : false
                                            })
                            };
 

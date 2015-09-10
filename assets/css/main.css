@@ -29,11 +29,21 @@ body, html {overflow-x:hidden}
   height: 150px;
 }
 .menu .sub-parent {
-  margin-left: 25px;
+    padding:0;
+}
+
+.sub-item-text
+{
+    margin-left:22px;
+}
+
+.selected-menu{
+    background-color: #DFE3E6 !important;
 }
 .menu .subItem a {
   display: block;
   height: 25px;
+  
   padding: 0;
 }
 .menu .subItem i {
@@ -41,14 +51,14 @@ body, html {overflow-x:hidden}
 }
 .menu li a {
   background-color: #bdc3c7;
-  height: 50px;
-  display: block;
+  height: 50px !important;
+  display: block !important;
   color: #222222;
-  padding: 15px;
+  padding: 15px !important;
   cursor: pointer;
 }
 .menu li a:hover {
-  background-color: #16a085;
+  background-color: #DFE3E6;
 }
 .menu {
   height: 100%;
@@ -338,4 +348,18 @@ button.full-width
 a.btn.btn-xs.btn-success
 {
     margin-bottom:5px;
+}
+
+
+.animate {
+  
+}
+
+.animate {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.animate.ng-hide{
+    opacity:0
 }
