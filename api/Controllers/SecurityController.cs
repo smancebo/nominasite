@@ -87,13 +87,13 @@ namespace api.Controllers
                               where s.id == screen.id
                               select s).FirstOrDefault();
 
-                if (record == null)
+                if (record != null)
                 {
-                    record = new security_screens();
                     utilities.objMapper.Map<security_screens>(ref record, screen);
                 }
                 else
                 {
+                    record = new security_screens();
                     fmp.security_screens.Add(screen);
                 }
                 
@@ -110,7 +110,7 @@ namespace api.Controllers
 
         [HttpPost]
         [Route("deleteScreen")]
-        public IHttpActionResult saveScreen([FromBody] int id)
+        public IHttpActionResult deleteScreen([FromBody] int id)
         {
 
             try
@@ -195,6 +195,8 @@ namespace api.Controllers
             return Ok(results);
         }
 
+    
+
         [HttpGet]
         [Route("getAllScreens")]
         public IHttpActionResult getAllScreens()
@@ -270,6 +272,129 @@ namespace api.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("getGroups")]
+        public IHttpActionResult getGroups()
+        {
+            var groups = from g in fmp.security_groups
+                         select new
+                         {
+                             g.id,
+                             g.group_code,
+                             g.description,
+                             users = from u in fmp.users
+                                     join ug in fmp.security_groups_users
+                                     on u.username equals ug.username
+                                     select new
+                                     {
+                                         u.id,
+                                         u.username,
+                                         school = new
+                                         {
+                                             u.schools.name,
+                                             u.schools.id,
+                                             u.schools.code,
+                                             u.schools.location
+                                         }
+                                     }
+                         };
+
+            return Ok(groups);
+        }
+
+        [HttpGet]
+        [Route("getGroup/{id}")]
+        public IHttpActionResult getGroup(int id)
+        {
+            var group = from g in fmp.security_groups
+                        where g.id == id
+                        select new
+                        {
+                            g.id,
+                            g.group_code,
+                            g.description,
+                            users = from u in fmp.users
+                                    join ug in fmp.security_groups_users
+                                    on u.username equals ug.username
+                                    select new
+                                    {
+                                        u.id,
+                                        u.username,
+                                        school = new
+                                        {
+                                            u.schools.name,
+                                            u.schools.id,
+                                            u.schools.code,
+                                            u.schools.location
+                                        }
+                                    }
+                        };
+
+            return Ok(group.FirstOrDefault());
+        }
+
+        [HttpPost]
+        [Route("saveGroup")]
+        public IHttpActionResult saveGroup([FromBody] security_groups group)
+        {
+
+            try
+            {
+                var record = (from g in fmp.security_groups
+                              where g.id == @group.id
+                              select g).FirstOrDefault();
+
+                if (record != null)
+                {
+                    utilities.objMapper.Map<security_groups>(ref record, group);
+                    deleteAllUsersInGroup(record);
+                }
+                else
+                {
+                    fmp.security_groups.Add(group);
+                }
+
+                fmp.SaveChanges();
+
+                return Ok(1);
+            }
+            catch (Exception ex)
+            {
+
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpPost]
+        [Route("deleteGroup")]
+        public IHttpActionResult deleteGroup([FromBody] int id)
+        {
+            try
+            {
+                var record = (from g in fmp.security_groups
+                              where g.id == id
+                              select g).FirstOrDefault();
+
+                fmp.security_groups.Remove(record);
+                fmp.SaveChanges();
+                return Ok(1);
+
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        public void deleteAllUsersInGroup(security_groups group)
+        {
+            var users = fmp.security_groups_users.Where(x=> x.group_code == @group.group_code).Select(x=>x);
+            foreach (var item in users)
+            {
+                fmp.security_groups_users.Remove(item);
+            }
+        }
+
         public void deleteAllPermits(string id)
         {
             var permits = fmp.security_permits.Where(x => x.group == id || x.username == id).Select(x => x);
@@ -277,10 +402,6 @@ namespace api.Controllers
             {
                 fmp.security_permits.Remove(item);
             }
-
-
         }
-
-
     }
 }

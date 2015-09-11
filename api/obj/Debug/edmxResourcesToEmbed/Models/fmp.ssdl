@@ -116,6 +116,14 @@
     <Property Name="group_code" Type="varchar" MaxLength="10" Nullable="false" />
     <Property Name="description" Type="varchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="security_groups_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="group_code" Type="varchar" MaxLength="10" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+  </EntityType>
   <EntityType Name="security_permits">
     <Key>
       <PropertyRef Name="id" />
@@ -281,6 +289,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__security___group__662B2B3B">
+    <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
+    <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="security_groups">
+        <PropertyRef Name="group_code" />
+      </Principal>
+      <Dependent Role="security_groups_users">
+        <PropertyRef Name="group_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__security___scree__503BEA1C">
     <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
@@ -301,6 +321,18 @@
         <PropertyRef Name="username" />
       </Principal>
       <Dependent Role="security_permits">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___usern__671F4F74">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="security_groups_users">
         <PropertyRef Name="username" />
       </Dependent>
     </ReferentialConstraint>
@@ -364,6 +396,7 @@
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="security_groups" EntityType="Self.security_groups" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="security_groups_users" EntityType="Self.security_groups_users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="security_permits" EntityType="Self.security_permits" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="security_screens" EntityType="Self.security_screens" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
@@ -400,6 +433,10 @@
       <End Role="security_groups" EntitySet="security_groups" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
+    <AssociationSet Name="FK__security___group__662B2B3B" Association="Self.FK__security___group__662B2B3B">
+      <End Role="security_groups" EntitySet="security_groups" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
+    </AssociationSet>
     <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
       <End Role="security_screens" EntitySet="security_screens" />
       <End Role="security_permits" EntitySet="security_permits" />
@@ -407,6 +444,10 @@
     <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
       <End Role="users" EntitySet="users" />
       <End Role="security_permits" EntitySet="security_permits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___usern__671F4F74" Association="Self.FK__security___usern__671F4F74">
+      <End Role="users" EntitySet="users" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
     </AssociationSet>
     <AssociationSet Name="FK__staff__title__0519C6AF" Association="Self.FK__staff__title__0519C6AF">
       <End Role="titles" EntitySet="titles" />

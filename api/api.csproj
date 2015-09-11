@@ -201,6 +201,9 @@
     <Compile Include="Models\security_groups.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\security_groups_users.cs">
+      <DependentUpon>fmp.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\security_permits.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>

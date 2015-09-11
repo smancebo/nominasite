@@ -43,5 +43,6 @@ namespace api.Models
         public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<titles> titles { get; set; }
         public DbSet<users> users { get; set; }
+        public DbSet<security_groups_users> security_groups_users { get; set; }
     }
 }

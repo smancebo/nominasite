@@ -125,6 +125,7 @@
     <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_groups" ToRole="security_permits" />
+    <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups" ToRole="security_groups_users" />
   </EntityType>
   <EntityType Name="security_permits">
     <Key>
@@ -222,6 +223,7 @@
     <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
     <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
     <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__51300E55" FromRole="users" ToRole="security_permits" />
+    <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="users" ToRole="security_groups_users" />
   </EntityType>
   <Association Name="FK__payments___payme__1367E606">
     <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -450,5 +452,48 @@
       <End Role="staff" EntitySet="staff" />
       <End Role="staff_by_schools" EntitySet="staff_by_schools" />
     </AssociationSet>
+    <EntitySet Name="security_groups_users" EntityType="fmpModel.security_groups_users" />
+    <AssociationSet Name="FK__security___group__662B2B3B" Association="fmpModel.FK__security___group__662B2B3B">
+      <End Role="security_groups" EntitySet="security_groups" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___usern__671F4F74" Association="fmpModel.FK__security___usern__671F4F74">
+      <End Role="users" EntitySet="users" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="security_groups_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="security_groups" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups_users" ToRole="security_groups" />
+    <NavigationProperty Name="users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="security_groups_users" ToRole="users" />
+  </EntityType>
+  <Association Name="FK__security___group__662B2B3B">
+    <End Type="fmpModel.security_groups" Role="security_groups" Multiplicity="0..1" />
+    <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="security_groups">
+        <PropertyRef Name="group_code" />
+      </Principal>
+      <Dependent Role="security_groups_users">
+        <PropertyRef Name="group_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___usern__671F4F74">
+    <End Type="fmpModel.users" Role="users" Multiplicity="0..1" />
+    <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="security_groups_users">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -323,6 +323,22 @@ app.factory('$userService', ['$http', '$serverInfo', '$window', '$sessionStorage
         });
     };
 
+    userService.getUser = function (username, callback) {
+        $http.get(serviceBaseAddress + '/getUser/' + username)
+        .success(function (data) {
+            callback(data);
+        });
+    };
+
+    userService.loadUsers = function (name) {
+        return $http.get(serviceBaseAddress + '/loadUsers', {
+            params: {
+                name: name
+            }
+        })
+    }
+
+
     userService.save = function (user, callback) {
         $http.post(serviceBaseAddress + '/save', user)
         .success(function (data) {
@@ -518,6 +534,8 @@ app.factory('$screensService', ['$http', '$serverInfo', '$toast', '$locationServ
 
     }
 
+    
+
     screensService.save = function (permits, callback) {
         $http.post(serviceBaseAddress + '/save', permits)
         .success(function (data) {
@@ -533,6 +551,56 @@ app.factory('$screensService', ['$http', '$serverInfo', '$toast', '$locationServ
             }
         });
     };
+
+
+    screensService.getGroups = function (callback) {
+        $http.get(serviceBaseAddress + '/getGroups')
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
+    screensService.getGroup = function (id, callback) {
+        $http.get(serviceBaseAddress + '/getGroup/' + id)
+        .success(function (data) {
+            callback(data);
+        })
+    }
+
+    screensService.saveGroup = function (group, callback) {
+        $http.post(serviceBaseAddress + '/saveGroup', group)
+        .success(function (data) {
+            if (data == 1) {
+                $toast.create('success', 'Group saved successfully');
+            }
+            else
+            {
+                $toast.create('danger', '<b>Error: </b>' + data);
+            }
+
+            if (callback) {
+                callback(data);
+            }
+        })
+    }
+
+    screensService.deleteGroup = function (id, callback) {
+        if (confirm('Are you sure yo want delete the selected item?')) {
+            $http.post(serviceBaseAddress + '/deleteGroup', id)
+            .success(function (data) {
+                if (data == 1) {
+                    $toast.create('success', 'Group deleted successfully!');
+                }
+                else {
+                    $toast.create('danger', '<b>Error: </b>' + data);
+                }
+            })
+
+            if (callback) {
+                callback(data);
+            }
+        };
+    }
 
     return screensService;
 

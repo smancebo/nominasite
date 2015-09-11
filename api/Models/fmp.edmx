@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="fmpModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="contract_permit_periods">
           <Key>
             <PropertyRef Name="id" />
@@ -120,6 +120,14 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="group_code" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="security_groups_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_code" Type="varchar" MaxLength="10" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="security_permits">
           <Key>
@@ -286,6 +294,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__security___group__662B2B3B">
+          <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
+          <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="security_groups">
+              <PropertyRef Name="group_code" />
+            </Principal>
+            <Dependent Role="security_groups_users">
+              <PropertyRef Name="group_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__security___scree__503BEA1C">
           <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
           <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
@@ -306,6 +326,18 @@
               <PropertyRef Name="username" />
             </Principal>
             <Dependent Role="security_permits">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__security___usern__671F4F74">
+          <End Role="users" Type="Self.users" Multiplicity="0..1" />
+          <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="security_groups_users">
               <PropertyRef Name="username" />
             </Dependent>
           </ReferentialConstraint>
@@ -369,6 +401,7 @@
           <EntitySet Name="reimbursement" EntityType="Self.reimbursement" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="schools" EntityType="Self.schools" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="security_groups" EntityType="Self.security_groups" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="security_groups_users" EntityType="Self.security_groups_users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="security_permits" EntityType="Self.security_permits" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="security_screens" EntityType="Self.security_screens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="staff" EntityType="Self.staff" Schema="dbo" store:Type="Tables" />
@@ -405,6 +438,10 @@
             <End Role="security_groups" EntitySet="security_groups" />
             <End Role="security_permits" EntitySet="security_permits" />
           </AssociationSet>
+          <AssociationSet Name="FK__security___group__662B2B3B" Association="Self.FK__security___group__662B2B3B">
+            <End Role="security_groups" EntitySet="security_groups" />
+            <End Role="security_groups_users" EntitySet="security_groups_users" />
+          </AssociationSet>
           <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
             <End Role="security_screens" EntitySet="security_screens" />
             <End Role="security_permits" EntitySet="security_permits" />
@@ -412,6 +449,10 @@
           <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
             <End Role="users" EntitySet="users" />
             <End Role="security_permits" EntitySet="security_permits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__security___usern__671F4F74" Association="Self.FK__security___usern__671F4F74">
+            <End Role="users" EntitySet="users" />
+            <End Role="security_groups_users" EntitySet="security_groups_users" />
           </AssociationSet>
           <AssociationSet Name="FK__staff__title__0519C6AF" Association="Self.FK__staff__title__0519C6AF">
             <End Role="titles" EntitySet="titles" />
@@ -430,8 +471,7 @@
             <End Role="users" EntitySet="users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -560,6 +600,7 @@
           <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_groups" ToRole="security_permits" />
+          <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups" ToRole="security_groups_users" />
         </EntityType>
         <EntityType Name="security_permits">
           <Key>
@@ -657,6 +698,7 @@
           <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
           <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
           <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__51300E55" FromRole="users" ToRole="security_permits" />
+          <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="users" ToRole="security_groups_users" />
         </EntityType>
         <Association Name="FK__payments___payme__1367E606">
           <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -885,7 +927,50 @@
             <End Role="staff" EntitySet="staff" />
             <End Role="staff_by_schools" EntitySet="staff_by_schools" />
           </AssociationSet>
+          <EntitySet Name="security_groups_users" EntityType="fmpModel.security_groups_users" />
+          <AssociationSet Name="FK__security___group__662B2B3B" Association="fmpModel.FK__security___group__662B2B3B">
+            <End Role="security_groups" EntitySet="security_groups" />
+            <End Role="security_groups_users" EntitySet="security_groups_users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__security___usern__671F4F74" Association="fmpModel.FK__security___usern__671F4F74">
+            <End Role="users" EntitySet="users" />
+            <End Role="security_groups_users" EntitySet="security_groups_users" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="security_groups_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="security_groups" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups_users" ToRole="security_groups" />
+          <NavigationProperty Name="users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="security_groups_users" ToRole="users" />
+        </EntityType>
+        <Association Name="FK__security___group__662B2B3B">
+          <End Type="fmpModel.security_groups" Role="security_groups" Multiplicity="0..1" />
+          <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="security_groups">
+              <PropertyRef Name="group_code" />
+            </Principal>
+            <Dependent Role="security_groups_users">
+              <PropertyRef Name="group_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__security___usern__671F4F74">
+          <End Type="fmpModel.users" Role="users" Multiplicity="0..1" />
+          <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="security_groups_users">
+              <PropertyRef Name="username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1104,6 +1189,15 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="school_code" ColumnName="school_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="security_groups_users">
+            <EntityTypeMapping TypeName="fmpModel.security_groups_users">
+              <MappingFragment StoreEntitySet="security_groups_users">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="group_code" ColumnName="group_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

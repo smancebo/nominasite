@@ -63,6 +63,50 @@ namespace api.Controllers
             return Ok(users);
         }
 
+        [HttpGet]
+        [Route("getUser/{username}")]
+        public IHttpActionResult getUser(string username)
+        {
+            var users = (from u in fmp.users
+                         where u.username == username
+                         select new
+                         {
+                             u.id,
+                             u.username,
+                             password = "passwordNotChanged",
+                             u.school_code,
+                             school = new
+                             {
+                                 u.schools.name,
+                                 u.schools.id,
+                                 u.schools.code,
+                                 u.schools.location
+                             },
+                         }).FirstOrDefault();
+
+            return Ok(users);
+        }
+
+        [HttpGet]
+        [Route("loadUsers")]
+        public IHttpActionResult loadUsers()
+        {
+
+            var queryString = ActionContext.Request.GetQueryNameValuePairs().ToDictionary(x => x.Key, x => x.Value);
+            string name = queryString["name"];
+
+            var results = (from u in fmp.users
+                           where u.username.Contains(name)
+                           select new
+                           {
+                               text = u.username,
+                               type = "user",
+                               icon = "fa fa-user",
+                               id = u.username
+                           });
+            return Ok(results);
+        }
+
         [HttpPost]
         [Route("delete")]
         public IHttpActionResult delete([FromBody]int Id)

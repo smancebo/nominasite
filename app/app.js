@@ -248,9 +248,9 @@
 
         //<users>
          .when('/users', {
-            templateUrl: 'app/mantenimientos/users/view.html',
-            controller: 'usersController',
-        })
+             templateUrl: 'app/mantenimientos/users/view.html',
+             controller: 'usersController',
+         })
 
         .when('/users/add', {
             templateUrl: 'app/mantenimientos/users/add.html',
@@ -478,6 +478,36 @@
 
              }]
          })
+
+        .when('/security/groups', {
+            templateUrl: 'app/security/groups/view.html',
+            controller: 'securityGroupsController'
+        })
+        .when('/security/groups/add', {
+            templateUrl: 'app/security/groups/add.html',
+            controller: 'securityGroupsController'
+        })
+        .when('/security/groups/view/:Id', {
+            templateUrl: 'app/security/groups/add.html',
+            controller: ['$scope', '$routeParams', '$screensService', function ($scope, $routeParams, $screenService) {
+
+                $scope.viewMode = true;
+                
+                $scope.modeClass = 'panel-info';
+                if($routeParams.Id)
+                {
+                    $screenService.getGroup($routeParams.Id, function (data) {
+                        $scope.title = "Viewing Group \"" + data.description + "\"";
+                        $scope.group = data;
+                    });
+                }
+            }]
+        })
+
+        .when('/security/groups/edit/:Id', {
+            templateUrl: 'app/security/groups/add.html',
+            controller: 'securityGroupsController'
+        })
 
 
         //</security>

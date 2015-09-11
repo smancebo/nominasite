@@ -16,6 +16,15 @@ app.controller('securityScreensController', ['$scope', '$screensService', '$loca
         })
     }
 
+
+    $scope.delete = function (id) {
+        $screensService.deleteScreen(id, function (data) {
+            if (data == 1) {
+                $locationService.changeLocation('/security/screens');
+            }
+        });
+    }
+
     $scope.save = function () {
         if ($scope.screen != undefined) {
             $screensService.saveScreen($scope.screen);

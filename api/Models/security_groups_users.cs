@@ -12,19 +12,13 @@ namespace api.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class security_groups
+    public partial class security_groups_users
     {
-        public security_groups()
-        {
-            this.security_permits = new HashSet<security_permits>();
-            this.security_groups_users = new HashSet<security_groups_users>();
-        }
-    
         public int id { get; set; }
         public string group_code { get; set; }
-        public string description { get; set; }
+        public string username { get; set; }
     
-        public virtual ICollection<security_permits> security_permits { get; set; }
-        public virtual ICollection<security_groups_users> security_groups_users { get; set; }
+        public virtual security_groups security_groups { get; set; }
+        public virtual users users { get; set; }
     }
 }

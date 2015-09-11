@@ -1,14 +1,5 @@
 ﻿
 
-<script type="text/ng-template" id="typeHeadTemplate.html">
-
-    <a>
-        <i class="{{match.model.icon}}"></i>
-        <span bind-html-unsafe="match.model.text | typeaheadHighlight:query"></span>
-    </a>
-
-</script>
-
 
 <div class="panel panel-default">
 
@@ -27,7 +18,7 @@
                 <i class="fa fa-spinner fa-pulse"></i>
             </span>
             <div class="input-group">
-                <input type="text" class="form-control" ng-model="selected.name" typeahead="item.text for item in loadUserGroup($viewValue)" typeahead-on-select="onSelectUserGroup($item,$model,$label)" typeahead-template-url="typeHeadTemplate.html" typeahead-no-results="typeaheadNoResults" typeahead-loading="typeaheadLoading" />
+                <input type="text" class="form-control" ng-model="selected.name" typeahead="item.text for item in loadUserGroup($viewValue)" typeahead-on-select="onSelectUserGroup($item,$model,$label)" typeahead-template-url="app/shared/partials/typeahead.html" typeahead-no-results="typeaheadNoResults" typeahead-loading="typeaheadLoading" />
                 <div class="input-group-addon">
                     <a><i class="fa fa-search"></i></a>
                 </div>

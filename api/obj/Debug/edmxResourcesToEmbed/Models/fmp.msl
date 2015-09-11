@@ -216,5 +216,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="security_groups_users">
+      <EntityTypeMapping TypeName="fmpModel.security_groups_users">
+        <MappingFragment StoreEntitySet="security_groups_users">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="group_code" ColumnName="group_code" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

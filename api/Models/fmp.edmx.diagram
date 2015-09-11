@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="fmpModel.staff" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.staff_by_schools" Width="1.5" PointX="7.5" PointY="13.5" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.sys_parameters" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.sysdiagrams" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.sysdiagrams" Width="1.5" PointX="8" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.titles" Width="1.5" PointX="0.75" PointY="10.25" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.users" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
         <AssociationConnector Association="fmpModel.FK__payments___payme__1367E606" ManuallyRouted="false" />
@@ -36,6 +36,9 @@
         <AssociationConnector Association="fmpModel.FK__security___usern__51300E55" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__staff__title__0519C6AF" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__staff_by___emplo__1332DBDC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="fmpModel.security_groups_users" Width="1.5" PointX="12.75" PointY="23.875" />
+        <AssociationConnector Association="fmpModel.FK__security___group__662B2B3B" />
+        <AssociationConnector Association="fmpModel.FK__security___usern__671F4F74" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

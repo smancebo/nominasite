@@ -1,0 +1,71 @@
+﻿
+
+<div class="panel" ng-class="modeClass">
+
+    <div class="panel-heading">
+        {{title}}
+    </div>
+    <div class="panel-body">
+
+        <tabset>
+            <tab>
+                <tab-heading>
+                    <i class="fa fa-info"></i> Group Info
+                </tab-heading>
+                <div>
+                    <div class="form-group" ng-class="{'has-error' : group.group_code == undefined || group.group_code == ''}">
+                        <label>Code</label>
+                        <input type="text" class="form-control" ng-disabled="viewMode" ng-model="group.group_code" />
+                    </div>
+                    <div class="form-group" ng-class="{'has-error' : group.description == '' || group.description == undefined}">
+                        <label>Name</label>
+                        <input type="text" class="form-control" ng-disabled="viewMode" ng-model="group.description" />
+                    </div>
+                </div>
+            </tab>
+            <tab>
+                <tab-heading>
+                    <i class="fa fa-users"></i> Users
+                </tab-heading>
+                <div>
+                    <div class="form-group">
+                        <label>User</label>
+                        <input type="text" ng-model="form.userGrp" ng-disabled="viewMode" class="form-control" typeahead="item.text for item in loadUsers($viewValue)" typeahead-template-url="app/shared/partials/typeahead.html" typeahead-on-select="onSelectUser($item, $model, $label)" />
+                        <button class="btn btn-success btn-xs" ng-disabled="$scope.form.user == undefined || $scope.form.user == ''" ng-if="!viewMode" ng-click="addUserToGroup()" style="margin-top:10px;"><i class="fa fa-user-plus"></i> Add user</button>
+                    </div>
+                    <div>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>School</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="user in group.users">
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.school.name}}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-xs"><i class="fa fa-remove"></i>Remove</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+        </tabset>
+
+        <div class="form-group" ng-if="!viewMode">
+            <button ng-click="save()" class="btn btn-success col-md-12 col-xs-12" style="margin-bottom:5px;"><i class="fa fa-save"></i> Save</button>
+        </div>
+        <button class="btn btn-default col-md-12 col-xs-12" back-btn> Cancel</button>
+
+       
+
+    </div>
+
+</div>
