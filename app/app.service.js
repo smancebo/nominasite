@@ -346,7 +346,7 @@ app.factory('$userService', ['$http', '$serverInfo', '$window', '$sessionStorage
         });
     };
 
-    userService.delete = function (username, callback) {
+    userService.delete = function (userId, callback) {
         if (confirm('Are you sure yo want to delete the selected user?')) {
             $http.post(serviceBaseAddress + '/delete', userId)
             .success(function (data) {

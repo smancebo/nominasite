@@ -70,6 +70,7 @@ app.controller('usersController', ['$scope', '$userService', '$routeParams', '$t
     };
 
     $scope.deleteUser = function (userId) {
+        debugger
         $userService.delete(userId, function (data) {
             if (data == 1) {
                 $toast.create('success', 'User deleted successfully');
