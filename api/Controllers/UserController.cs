@@ -8,6 +8,7 @@ using api.Models;
 using System.Security.Cryptography;
 using System.Text;
 using utilities;
+using System.Collections;
 
 
 namespace api.Controllers
@@ -190,6 +191,13 @@ namespace api.Controllers
                              where u.username == username
                              select u).FirstOrDefault<users>();
                  token = utilities.Security.createToken(username, password);
+                 
+                 var groups = from gu in fmp.security_groups_users
+                              where gu.username == username
+                              select gu.group_code;
+
+                 var comparer = new LambdaEqualityComparer<dynamic>(
+                     (x, y) => x.text == y.text && x.url == y.url, x => x.url.GetHashCode() ^ x.text.GetHashCode());
                  try
                  {
                      return Ok(new
@@ -203,10 +211,9 @@ namespace api.Controllers
                              user.schools.id,
                              user.schools.location
                          },
-                         screens = from s in fmp.security_screens
-                                   join sp in fmp.security_permits
-                                   on s.screen_code equals sp.screen_code
-                                   where sp.username == username &&
+                         screens = (from s in fmp.security_screens
+                                   join sp in fmp.security_permits on s.screen_code equals sp.screen_code
+                                   where (sp.username == username || (groups.Contains(sp.@group))) &&
                                    (s.parent == null || s.parent == "")
                                    orderby s.id ascending
                                    select new
@@ -217,16 +224,15 @@ namespace api.Controllers
                                        subItems = (from sub in fmp.security_screens
                                                    join subsp in fmp.security_permits
                                                    on sub.screen_code equals subsp.screen_code
-                                                   where subsp.username == username &&
+                                                   where (subsp.username == username || (groups.Contains(sp.@group))) &&
                                                    sub.parent == s.screen_code
                                                    select new
                                                    {
                                                        sub.text,
                                                        sub.url,
                                                        sub.icon
-                                                   }
-)
-                                   }
+                                                   }).Distinct()
+                                   })
 
                      });
                  }
@@ -242,15 +248,52 @@ namespace api.Controllers
                  return StatusCode(HttpStatusCode.NoContent);
              }
          }
+    }
 
+    class StuffComparer<T> : IEqualityComparer<T>
+    {
+        public StuffComparer(Func<T, T, bool> equals, Func<T, int> getHashCode)
+        {
+            this.equals = equals;
+            this.getHashCode = getHashCode;
+        }
 
+        readonly Func<T, T, bool> equals;
+        public bool Equals(T x, T y)
+        {
+            return equals(x, y);
+        }
 
+        readonly Func<T, int> getHashCode;
+        public int GetHashCode(T obj)
+        {
+            return getHashCode(obj);
+        }
+    }
 
+    public class LambdaEqualityComparer<T> : IEqualityComparer<T>
+    {
+        Func<T, T, bool> _equalsFunction;
+        Func<T, int> _hashCodeFunction;
 
+        public LambdaEqualityComparer(
+            Func<T, T, bool> equalsFunction, Func<T, int> hashCodeFunction)
+        {
+            if (equalsFunction == null) throw new ArgumentNullException();
+            if (hashCodeFunction == null) throw new ArgumentNullException();
 
+            _equalsFunction = equalsFunction;
+            _hashCodeFunction = hashCodeFunction;
+        }
 
+        public bool Equals(T x, T y)
+        {
+            return _equalsFunction(x, y);
+        }
 
-        
-      
+        public int GetHashCode(T obj)
+        {
+            return _hashCodeFunction(obj);
+        }
     }
 }

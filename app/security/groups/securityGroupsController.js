@@ -15,7 +15,18 @@ app.controller('securityGroupsController', ['$scope', '$routeParams', '$screensS
     if ($routeParams.Id) {
         $screensService.getGroup($routeParams.Id, function (data) {
             $scope.group = data;
+
             $scope.group.security_groups_users = [];
+            if ($scope.group.users.length > 0) {
+
+                $scope.group.users.forEach(function (item) {
+
+                    $scope.group.security_groups_users.push({
+                        group_code: $scope.group.group_code,
+                        username: item.username
+                    });
+                })
+            }
             $scope.modeClass = 'panel-warning';
             $scope.title = "Editing Group \"" + data.description + "\"";
         });
@@ -28,9 +39,7 @@ app.controller('securityGroupsController', ['$scope', '$routeParams', '$screensS
     $scope.onSelectUser = function (item, model, label) {
         
         $userService.getUser(item.id, function (user) {
-            
             $scope.form.user = user;
-            console.log($scope.form.user);
         });
 
     }
@@ -52,7 +61,6 @@ app.controller('securityGroupsController', ['$scope', '$routeParams', '$screensS
     }
 
     $scope.addUserToGroup = function () {
-        
         if (!$scope.userInGroup($scope.form.userGrp)) {
 
             $scope.group.security_groups_users.push({
@@ -60,7 +68,9 @@ app.controller('securityGroupsController', ['$scope', '$routeParams', '$screensS
                 username: $scope.form.userGrp
             });
 
-            $scope.users.push($scope.form.user);
+            $scope.group.users.push(angular.copy($scope.form.user));
+            $scope.form.user = '';
+            $scope.form.userGrp = ''
         }
         else {
             alert('the selected user is already in group');
@@ -68,9 +78,10 @@ app.controller('securityGroupsController', ['$scope', '$routeParams', '$screensS
     };
 
     $scope.removeUserFromGroup = function (user) {
+        
         var foundUser = $scope.group.security_groups_users.filter(function (item) {
             return item.username == user.username;
-        });
+        })[0];
 
         var index = $scope.group.security_groups_users.indexOf(foundUser);
         var indexUser = $scope.group.users.indexOf(user);

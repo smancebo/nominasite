@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="contract_permit_periods">
     <Key>
       <PropertyRef Name="id" />
@@ -114,7 +114,7 @@
     <Property Name="budget" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="last_payment_code_secuence" Type="Int32" />
     <NavigationProperty Name="staff" Relationship="Self.FK__schools__employe__1A14E395" FromRole="schools" ToRole="staff" />
-    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___schoo__14270015" FromRole="schools" ToRole="staff_by_schools" />
+    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___schoo__3D5E1FD2" FromRole="schools" ToRole="staff_by_schools" />
     <NavigationProperty Name="users" Relationship="Self.FK_users_schools" FromRole="schools" ToRole="users" />
   </EntityType>
   <EntityType Name="security_groups">
@@ -124,8 +124,18 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_groups" ToRole="security_permits" />
-    <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups" ToRole="security_groups_users" />
+    <NavigationProperty Name="security_groups_users" Relationship="Self.FK__security___group__36B12243" FromRole="security_groups" ToRole="security_groups_users" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___group__38996AB5" FromRole="security_groups" ToRole="security_permits" />
+  </EntityType>
+  <EntityType Name="security_groups_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__36B12243" FromRole="security_groups_users" ToRole="security_groups" />
+    <NavigationProperty Name="users" Relationship="Self.FK__security___usern__37A5467C" FromRole="security_groups_users" ToRole="users" />
   </EntityType>
   <EntityType Name="security_permits">
     <Key>
@@ -135,9 +145,9 @@
     <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="group" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="screen_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__4F47C5E3" FromRole="security_permits" ToRole="security_groups" />
-    <NavigationProperty Name="security_screens" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_permits" ToRole="security_screens" />
-    <NavigationProperty Name="users" Relationship="Self.FK__security___usern__51300E55" FromRole="security_permits" ToRole="users" />
+    <NavigationProperty Name="security_groups" Relationship="Self.FK__security___group__38996AB5" FromRole="security_permits" ToRole="security_groups" />
+    <NavigationProperty Name="security_screens" Relationship="Self.FK__security___scree__398D8EEE" FromRole="security_permits" ToRole="security_screens" />
+    <NavigationProperty Name="users" Relationship="Self.FK__security___usern__3A81B327" FromRole="security_permits" ToRole="users" />
   </EntityType>
   <EntityType Name="security_screens">
     <Key>
@@ -149,7 +159,7 @@
     <Property Name="url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="icon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="parent" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___scree__503BEA1C" FromRole="security_screens" ToRole="security_permits" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___scree__398D8EEE" FromRole="security_screens" ToRole="security_permits" />
   </EntityType>
   <EntityType Name="staff">
     <Key>
@@ -173,7 +183,7 @@
     <NavigationProperty Name="phones" Relationship="Self.FK__phones__employee__1ED998B2" FromRole="staff" ToRole="phones" />
     <NavigationProperty Name="schools" Relationship="Self.FK__schools__employe__1A14E395" FromRole="staff" ToRole="schools" />
     <NavigationProperty Name="titles" Relationship="Self.FK__staff__title__0519C6AF" FromRole="staff" ToRole="titles" />
-    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___emplo__1332DBDC" FromRole="staff" ToRole="staff_by_schools" />
+    <NavigationProperty Name="staff_by_schools" Relationship="Self.FK__staff_by___emplo__3C69FB99" FromRole="staff" ToRole="staff_by_schools" />
   </EntityType>
   <EntityType Name="staff_by_schools">
     <Key>
@@ -182,8 +192,8 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="schools" Relationship="Self.FK__staff_by___schoo__14270015" FromRole="staff_by_schools" ToRole="schools" />
-    <NavigationProperty Name="staff" Relationship="Self.FK__staff_by___emplo__1332DBDC" FromRole="staff_by_schools" ToRole="staff" />
+    <NavigationProperty Name="schools" Relationship="Self.FK__staff_by___schoo__3D5E1FD2" FromRole="staff_by_schools" ToRole="schools" />
+    <NavigationProperty Name="staff" Relationship="Self.FK__staff_by___emplo__3C69FB99" FromRole="staff_by_schools" ToRole="staff" />
   </EntityType>
   <EntityType Name="sys_parameters">
     <Key>
@@ -191,16 +201,6 @@
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="last_payment_code_secuence" Type="Int32" />
-  </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="titles">
     <Key>
@@ -222,8 +222,8 @@
     <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="payments" Relationship="Self.FK__payments__userna__0EA330E9" FromRole="users" ToRole="payments" />
     <NavigationProperty Name="schools" Relationship="Self.FK_users_schools" FromRole="users" ToRole="schools" />
-    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__51300E55" FromRole="users" ToRole="security_permits" />
-    <NavigationProperty Name="security_groups_users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="users" ToRole="security_groups_users" />
+    <NavigationProperty Name="security_groups_users" Relationship="Self.FK__security___usern__37A5467C" FromRole="users" ToRole="security_groups_users" />
+    <NavigationProperty Name="security_permits" Relationship="Self.FK__security___usern__3A81B327" FromRole="users" ToRole="security_permits" />
   </EntityType>
   <Association Name="FK__payments___payme__1367E606">
     <End Role="payments" Type="Self.payments" Multiplicity="0..1" />
@@ -297,7 +297,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__staff_by___schoo__14270015">
+  <Association Name="FK__staff_by___schoo__3D5E1FD2">
     <End Role="schools" Type="Self.schools" Multiplicity="0..1" />
     <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
     <ReferentialConstraint>
@@ -321,7 +321,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___group__4F47C5E3">
+  <Association Name="FK__security___group__36B12243">
+    <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
+    <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="security_groups">
+        <PropertyRef Name="group_code" />
+      </Principal>
+      <Dependent Role="security_groups_users">
+        <PropertyRef Name="group_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___group__38996AB5">
     <End Role="security_groups" Type="Self.security_groups" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -333,7 +345,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___scree__503BEA1C">
+  <Association Name="FK__security___usern__37A5467C">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="security_groups_users" Type="Self.security_groups_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="security_groups_users">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__security___scree__398D8EEE">
     <End Role="security_screens" Type="Self.security_screens" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -345,7 +369,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__security___usern__51300E55">
+  <Association Name="FK__security___usern__3A81B327">
     <End Role="users" Type="Self.users" Multiplicity="0..1" />
     <End Role="security_permits" Type="Self.security_permits" Multiplicity="*" />
     <ReferentialConstraint>
@@ -369,7 +393,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__staff_by___emplo__1332DBDC">
+  <Association Name="FK__staff_by___emplo__3C69FB99">
     <End Role="staff" Type="Self.staff" Multiplicity="0..1" />
     <End Role="staff_by_schools" Type="Self.staff_by_schools" Multiplicity="*" />
     <ReferentialConstraint>
@@ -392,12 +416,12 @@
     <EntitySet Name="reimbursement" EntityType="Self.reimbursement" />
     <EntitySet Name="schools" EntityType="Self.schools" />
     <EntitySet Name="security_groups" EntityType="Self.security_groups" />
+    <EntitySet Name="security_groups_users" EntityType="Self.security_groups_users" />
     <EntitySet Name="security_permits" EntityType="Self.security_permits" />
     <EntitySet Name="security_screens" EntityType="Self.security_screens" />
     <EntitySet Name="staff" EntityType="Self.staff" />
     <EntitySet Name="staff_by_schools" EntityType="Self.staff_by_schools" />
     <EntitySet Name="sys_parameters" EntityType="Self.sys_parameters" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
     <EntitySet Name="titles" EntityType="Self.titles" />
     <EntitySet Name="users" EntityType="Self.users" />
     <AssociationSet Name="FK__payments___payme__1367E606" Association="Self.FK__payments___payme__1367E606">
@@ -424,7 +448,7 @@
       <End Role="staff" EntitySet="staff" />
       <End Role="schools" EntitySet="schools" />
     </AssociationSet>
-    <AssociationSet Name="FK__staff_by___schoo__14270015" Association="Self.FK__staff_by___schoo__14270015">
+    <AssociationSet Name="FK__staff_by___schoo__3D5E1FD2" Association="Self.FK__staff_by___schoo__3D5E1FD2">
       <End Role="schools" EntitySet="schools" />
       <End Role="staff_by_schools" EntitySet="staff_by_schools" />
     </AssociationSet>
@@ -432,15 +456,23 @@
       <End Role="schools" EntitySet="schools" />
       <End Role="users" EntitySet="users" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___group__4F47C5E3" Association="Self.FK__security___group__4F47C5E3">
+    <AssociationSet Name="FK__security___group__36B12243" Association="Self.FK__security___group__36B12243">
+      <End Role="security_groups" EntitySet="security_groups" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___group__38996AB5" Association="Self.FK__security___group__38996AB5">
       <End Role="security_groups" EntitySet="security_groups" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___scree__503BEA1C" Association="Self.FK__security___scree__503BEA1C">
+    <AssociationSet Name="FK__security___usern__37A5467C" Association="Self.FK__security___usern__37A5467C">
+      <End Role="users" EntitySet="users" />
+      <End Role="security_groups_users" EntitySet="security_groups_users" />
+    </AssociationSet>
+    <AssociationSet Name="FK__security___scree__398D8EEE" Association="Self.FK__security___scree__398D8EEE">
       <End Role="security_screens" EntitySet="security_screens" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
-    <AssociationSet Name="FK__security___usern__51300E55" Association="Self.FK__security___usern__51300E55">
+    <AssociationSet Name="FK__security___usern__3A81B327" Association="Self.FK__security___usern__3A81B327">
       <End Role="users" EntitySet="users" />
       <End Role="security_permits" EntitySet="security_permits" />
     </AssociationSet>
@@ -448,52 +480,9 @@
       <End Role="titles" EntitySet="titles" />
       <End Role="staff" EntitySet="staff" />
     </AssociationSet>
-    <AssociationSet Name="FK__staff_by___emplo__1332DBDC" Association="Self.FK__staff_by___emplo__1332DBDC">
+    <AssociationSet Name="FK__staff_by___emplo__3C69FB99" Association="Self.FK__staff_by___emplo__3C69FB99">
       <End Role="staff" EntitySet="staff" />
       <End Role="staff_by_schools" EntitySet="staff_by_schools" />
     </AssociationSet>
-    <EntitySet Name="security_groups_users" EntityType="fmpModel.security_groups_users" />
-    <AssociationSet Name="FK__security___group__662B2B3B" Association="fmpModel.FK__security___group__662B2B3B">
-      <End Role="security_groups" EntitySet="security_groups" />
-      <End Role="security_groups_users" EntitySet="security_groups_users" />
-    </AssociationSet>
-    <AssociationSet Name="FK__security___usern__671F4F74" Association="fmpModel.FK__security___usern__671F4F74">
-      <End Role="users" EntitySet="users" />
-      <End Role="security_groups_users" EntitySet="security_groups_users" />
-    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="security_groups_users">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="group_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="security_groups" Relationship="fmpModel.FK__security___group__662B2B3B" FromRole="security_groups_users" ToRole="security_groups" />
-    <NavigationProperty Name="users" Relationship="fmpModel.FK__security___usern__671F4F74" FromRole="security_groups_users" ToRole="users" />
-  </EntityType>
-  <Association Name="FK__security___group__662B2B3B">
-    <End Type="fmpModel.security_groups" Role="security_groups" Multiplicity="0..1" />
-    <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="security_groups">
-        <PropertyRef Name="group_code" />
-      </Principal>
-      <Dependent Role="security_groups_users">
-        <PropertyRef Name="group_code" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__security___usern__671F4F74">
-    <End Type="fmpModel.users" Role="users" Multiplicity="0..1" />
-    <End Type="fmpModel.security_groups_users" Role="security_groups_users" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="username" />
-      </Principal>
-      <Dependent Role="security_groups_users">
-        <PropertyRef Name="username" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

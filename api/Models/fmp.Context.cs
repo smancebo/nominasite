@@ -35,14 +35,13 @@ namespace api.Models
         public DbSet<reimbursement> reimbursement { get; set; }
         public DbSet<schools> schools { get; set; }
         public DbSet<security_groups> security_groups { get; set; }
+        public DbSet<security_groups_users> security_groups_users { get; set; }
         public DbSet<security_permits> security_permits { get; set; }
         public DbSet<security_screens> security_screens { get; set; }
         public DbSet<staff> staff { get; set; }
         public DbSet<staff_by_schools> staff_by_schools { get; set; }
         public DbSet<sys_parameters> sys_parameters { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<titles> titles { get; set; }
         public DbSet<users> users { get; set; }
-        public DbSet<security_groups_users> security_groups_users { get; set; }
     }
 }

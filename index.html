@@ -58,7 +58,7 @@
                 <div style="padding:0" class="col-md-2 max-height main-menu" ng-class="{'close-menu' : menuClosed == true}">
 
                     <ul class="menu list-unstyled">
-                        <li ng-repeat="item in menu">
+                        <li ng-repeat="item in menu | unique: 'text'">
                             <div class="li-bound">
                                 <a menu-item class="menu-item" href="{{item.url}}" ng-click="showHideSubMenu(item)">
                                     <div>
@@ -66,7 +66,7 @@
                                     </div>
                                 </a>
                                 <ul class='sub-parent animate' ng-show="item.subItems.length && item.showMenu">
-                                    <li class="subItem" ng-repeat="subItem in item.subItems">
+                                    <li class="subItem" ng-repeat="subItem in item.subItems | unique: 'text'">
                                         <a menu-item class="menu-item" href="{{subItem.url}}"><span class="sub-item-text"><i class="fa fa-caret-right"></i> {{subItem.text}}</span></a>
                                     </li>
                                 </ul>

@@ -16,15 +16,15 @@ namespace api.Models
     {
         public security_groups()
         {
-            this.security_permits = new HashSet<security_permits>();
             this.security_groups_users = new HashSet<security_groups_users>();
+            this.security_permits = new HashSet<security_permits>();
         }
     
         public int id { get; set; }
         public string group_code { get; set; }
         public string description { get; set; }
     
-        public virtual ICollection<security_permits> security_permits { get; set; }
         public virtual ICollection<security_groups_users> security_groups_users { get; set; }
+        public virtual ICollection<security_permits> security_permits { get; set; }
     }
 }

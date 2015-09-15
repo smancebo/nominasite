@@ -216,9 +216,6 @@
     <Compile Include="Models\staff_by_schools.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagrams.cs">
-      <DependentUpon>fmp.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\sys_parameters.cs">
       <DependentUpon>fmp.tt</DependentUpon>
     </Compile>
