@@ -363,3 +363,9 @@ a.btn.btn-xs.btn-success
 .animate.ng-hide{
     opacity:0
 }
+
+
+.income-header-th{
+    background-color:#f0f0f0;
+    text-align:center
+}

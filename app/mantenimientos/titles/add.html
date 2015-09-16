@@ -1,40 +1,34 @@
 
 
 
-<div class="">
-    <h2>Add Title</h2>
-    <div class='form-group'>
-        <label>Description</label>
-        <input type="text" class="form-control" ng-model='title.description'/>
-    </div>
-    
-    <div class="form-group">
-        <label>Payrate</label>
-        <div class="input-group">
-            <div class="input-group-addon">$</div>
-            <input type="text" format="currency" class="form-control" ng-model='title.payrate' value="title.payrate|currency:$"/>
+<div class="panel panel-default">
+    <div class="panel-heading">Add Title</div>
+    <div class="panel-body">
+        <div class='form-group'>
+            <label>Description</label>
+            <input type="text" class="form-control" ng-model='title.description' ng-disabled="viewMode" />
         </div>
-    </div>
-    <div class="form-group">
-        <label>NigthDiff</label>
-        <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-money"></i></div>
-            <input type="text" format="currency" class="form-control" ng-model="title.nigthdiff" value="title.payrate|currency:$" />
-        </div>
-    </div>
-    
-   
-    <div>
-        <div class='col-md-12 container' ng-hide="viewMode">
-            <div class="col-md-6 col-xs-6">
-                <button class='col-md-12 col-xs-12 btn btn-primary' ng-click="save()">Add</button>
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
+
+        <div class="form-group">
+            <label>Payrate</label>
+            <div class="input-group">
+                <div class="input-group-addon">$</div>
+                <input type="text" format="currency" class="form-control" ng-model='title.payrate' ng-disabled="viewMode" value="title.payrate|currency:$" />
             </div>
         </div>
-            
-            
+        <div class="form-group">
+            <label>NigthDiff</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-money"></i></div>
+                <input type="text" format="currency" class="form-control" ng-model="title.nigthdiff" ng-disabled="viewMode" value="title.payrate|currency:$" />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <button class='full-width btn btn-success' ng-click="save()" ng-if="!viewMode"><i class="fa fa-save"></i> Save</button>
+            <button back-btn class='full-width btn btn-default'>Cancel</button>
+        </div>
     </div>
     
 </div>

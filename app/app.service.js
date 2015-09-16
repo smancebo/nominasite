@@ -1,6 +1,11 @@
 ﻿
 var app = angular.module('fmpPortal');
 
+
+app.service('$session', function () {
+    this.params = {};
+});
+
 app.factory('$toast', ['ngToast', function (ngToast) {
 
     var toast = {

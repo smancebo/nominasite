@@ -3,102 +3,104 @@
 
 
 
+<div class="panel panel-default">
 
-
-<div class="">
-    <h2>Add Employee</h2>
-    <div class='form-group'>
-        <label>Employee code</label>
-        <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.employee_code' />
+    <div class="panel-heading">
+        Add employee
     </div>
-    
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.name' />
-    </div>
-    
-    <div class="form-group">
-        <label>Middle name</label>
-        <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.middle_name' />
-    </div>
-    
-    <div class="form-group">
-        <label>Last name</label>
-        <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.last_name' />
-    </div>
-    
-    <div class="form-group">
-        <label>Sex</label>
-        <select class="form-control" ng-model='employee.sex' ng-disabled="viewMode">
-            <option value="">Choose...</option>
-            <option value="M">M</option>
-            <option value="F">F</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label>Birthday</label>
-        <div class="input-group" date-picker date-model="employee.birthday">
-            <input type="text" class="form-control" ng-model='employee.birthday' ng-disabled="viewMode" />
-            <div class='input-group-addon'>
-                <a href="#"><i class="fa fa-calendar"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <phone-numbers phones="employee.phones" read-only="viewMode"></phone-numbers>
-
-    <div class="form-group">
-        <label>Email</label>
-        <div class="input-group">
-            <div class="input-group-addon">@</div>
-            <input type="text" class='form-control' ng-model='employee.email' ng-disabled="viewMode" />
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label>Address</label>
-        <input type="text" class="form-control" ng-model='employee.address' ng-disabled="viewMode" />
-    </div>
-
-     <div class="form-group">
-        <label>Title</label>
-         <select class="form-control" ng-model='employee.title' ng-options="title.id as title.description for title in titles" ng-disabled="viewMode">
-             <option value="">Choose...</option>
-         </select>
-    </div>
-
-     <div class="form-group">
-        <label>Hire date</label>
-         <div class="input-group" date-picker date-model="employee.hire_date" >
-             <input type="text" class="form-control" ng-model='employee.hire_date' ng-disabled="viewMode" />
-             <div class='input-group-addon'>
-                 <a href="#"><i class="fa fa-calendar"></i></a>
-             </div>
-         </div>
-    </div>
-
-    <div class="round-section">
-        <div class="form-group">
-            <label>
-                <input type="checkbox" class="" ng-model='employee.supervisor' ng-disabled="viewMode" />
-                Supervisor
-            </label>
-        </div>
-    </div>
-
-    <div>
-        <div class='col-md-12 container' ng-hide="viewMode">
-            <div class="col-md-6 col-xs-6">
-                <button ng-click="save()" class='col-md-12 col-xs-12 btn btn-primary'>Add</button>
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
+    <div class="panel-body">
+        <div class="">
+            
+            <div class='form-group'>
+                <label>Employee code</label>
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.employee_code' />
             </div>
 
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.name' />
+            </div>
+
+            <div class="form-group">
+                <label>Middle name</label>
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.middle_name' />
+            </div>
+
+            <div class="form-group">
+                <label>Last name</label>
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.last_name' />
+            </div>
+
+            <div class="form-group">
+                <label>Sex</label>
+                <select class="form-control" ng-model='employee.sex' ng-disabled="viewMode">
+                    <option value="">Choose...</option>
+                    <option value="M">M</option>
+                    <option value="F">F</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Birthday</label>
+                <div class="input-group" date-picker date-model="employee.birthday">
+                    <input type="text" class="form-control" ng-model='employee.birthday' ng-disabled="viewMode" />
+                    <div class='input-group-addon'>
+                        <a href="#"><i class="fa fa-calendar"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <phone-numbers phones="employee.phones" read-only="viewMode"></phone-numbers>
+
+            <div class="form-group">
+                <label>Email</label>
+                <div class="input-group">
+                    <div class="input-group-addon">@</div>
+                    <input type="text" class='form-control' ng-model='employee.email' ng-disabled="viewMode" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" ng-model='employee.address' ng-disabled="viewMode" />
+            </div>
+
+            <div class="form-group">
+                <label>Title</label>
+                <select class="form-control" ng-model='employee.title' ng-options="title.id as title.description for title in titles" ng-disabled="viewMode">
+                    <option value="">Choose...</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Hire date</label>
+                <div class="input-group" date-picker date-model="employee.hire_date">
+                    <input type="text" class="form-control" ng-model='employee.hire_date' ng-disabled="viewMode" />
+                    <div class='input-group-addon'>
+                        <a href="#"><i class="fa fa-calendar"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="round-section">
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" class="" ng-model='employee.supervisor' ng-disabled="viewMode" />
+                        Supervisor
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button ng-click="save()" class='full-width btn btn-success' ng-if="!viewMode"><i class="fa fa-save"></i> Save</button>
+                <button back-btn class='full-width btn btn-default'>Cancel</button>
+            </div>
 
         </div>
     </div>
 
 </div>
+
+
+
 

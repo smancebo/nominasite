@@ -1,111 +1,107 @@
 
 
 
-<div class="">
-    <h2>Add School</h2>
-    <div class='form-group'>
-        <label>School code</label>
-        <input type="text" class="form-control" ng-model='school.code'/>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Add school
     </div>
-    
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="form-control" ng-model='school.name'/>
-    </div>
-    
-    <div class="form-group">
-        <label>Localization</label>
-        <div class="input-group">
-            <input type="text" class="form-control" ng-model='school.location'/>
-            <div class="input-group-addon">
-                <a>
-                    <i class="fa fa-location-arrow"></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="form-group">
-        <label>Size</label>
-        <input type="number" class="form-control" ng-model='school.size'/>
-    </div>
-    
-    <div class="form-group">
-        <label>User in Charge</label>
-        <div class="input-group">
-            <select class="form-control" ng-model='school.employee_manager' ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
-                <option value="">Choose...</option>
-            </select>
-            <div class="input-group-addon">
-                <a>
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+    <div class="panel-body">
 
-    <div class="form-group">
-        <label>Supervisor</label>
-        <div class="input-group">
-            <select class="form-control" ng-model='school.supervisor' ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
-                <option value="">Choose...</option>
-            </select>
-            <div class="input-group-addon">
-                <a>
-                    <i class="fa fa-search"></i>
-                </a>
-            </div>
-        </div>
-    </div>
 
-    <div class="form-group">
-        <label>Employees</label>
-        <div class="round-section">
-           
-            <button ng-hide="viewMode" class="btn btn-success btn-xs" ng-click="openEmployees()"><i class="fa fa-plus"></i> Add</button>
-            <br />
-             <div class="input-group" style="margin-top:10px">
-                <input ng-model="txtFilter" type="text" class="form-control" />
+        <div class='form-group'>
+            <label>School code</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model='school.code' />
+        </div>
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" ng-disabled="viewMode" ng-model='school.name' />
+        </div>
+
+        <div class="form-group">
+            <label>Localization</label>
+            <div class="input-group">
+                <input type="text" class="form-control" ng-disabled="viewMode" ng-model='school.location' />
                 <div class="input-group-addon">
-                    <i class="fa fa-search"></i>
+                    <a>
+                        <i class="fa fa-location-arrow"></i>
+                    </a>
                 </div>
             </div>
-            
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="employee in school.employees | filter:txtFilter track by employee.employee_code">
-                            <td>{{employee.employee_code}}</td>
-                            <td>{{employee.name}} {{employee.middle_name}} {{employee.last_name}}</td>
-                            <td>
-                                <button ng-hide="viewMode" class="btn btn-danger btn-xs" ng-click="removeEmployee(employee)"><i class="fa fa-remove"></i> Remove</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        </div>
+
+        <div class="form-group">
+            <label>Size</label>
+            <input type="number" class="form-control" ng-disabled="viewMode" ng-model='school.size' />
+        </div>
+
+        <div class="form-group">
+            <label>User in Charge</label>
+            <div class="input-group">
+                <select class="form-control" ng-model='school.employee_manager' ng-disabled="viewMode" ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
+                    <option value="">Choose...</option>
+                </select>
+                <div class="input-group-addon">
+                    <a>
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    
-   
-    
-    <div>
-        <div class='col-md-12 container' ng-hide="viewMode">
-            <div class="col-md-6 col-xs-6">
-                <button class='col-md-12 col-xs-12 btn btn-primary' ng-click="save()">Add</button>
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
-            </div>
 
+        <div class="form-group">
+            <label>Supervisor</label>
+            <div class="input-group">
+                <select class="form-control" ng-model='school.supervisor' ng-disabled="viewMode" ng-options="employee.employee_code as (employee.name + ' ' + employee.last_name) for employee in charges">
+                    <option value="">Choose...</option>
+                </select>
+                <div class="input-group-addon">
+                    <a>
+                        <i class="fa fa-search"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
 
+        <div class="form-group">
+            <label>Employees</label>
+            <div class="round-section">
+
+                <button ng-if="!viewMode" class="btn btn-success btn-xs" ng-click="openEmployees()"><i class="fa fa-plus"></i> Add</button>
+                <br />
+                <div class="input-group" style="margin-top:10px">
+                    <input ng-model="txtFilter" type="text" class="form-control" />
+                    <div class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="employee in school.employees | filter:txtFilter track by employee.employee_code">
+                                <td>{{employee.employee_code}}</td>
+                                <td>{{employee.name}} {{employee.middle_name}} {{employee.last_name}}</td>
+                                <td>
+                                    <button ng-hide="viewMode" class="btn btn-danger btn-xs" ng-click="removeEmployee(employee)"><i class="fa fa-remove"></i> Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class='full-width btn btn-success' ng-click="save()" ng-if="!viewMode"><i class="fa fa-save"></i> Save</button>
+            <button back-btn class='full-width btn btn-default'>Cancel</button>
         </div>
     </div>
     

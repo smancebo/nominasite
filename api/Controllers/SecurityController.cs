@@ -314,8 +314,10 @@ namespace api.Controllers
                             g.group_code,
                             g.description,
                             users = from u in fmp.users
-                                    join ug in fmp.security_groups_users
-                                    on u.username equals ug.username
+                                    join ug in fmp.security_groups_users on u.username equals ug.username
+                                    join grp in fmp.security_groups on ug.group_code equals grp.group_code
+                                    where grp.id == id
+                                    
                                     select new
                                     {
                                         u.id,

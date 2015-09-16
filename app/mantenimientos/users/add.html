@@ -1,70 +1,69 @@
 
 
 
-<div class="">
-    <h2>Add User</h2>
-    <div ng-switch="viewMode">
+<div class="panel panel-default">
+    <div class="panel-heading">Add User</div>
 
-        <div class="form-group" ng-switch-when="true" ng-class="{'has-error' : user.school == undefined || user.school == ''}">
-            <label>School</label>
-            <input type="text" class="form-control" ng-model="user.school.name" />
+    <div class="panel-body">
+
+
+        <div ng-switch="viewMode">
+
+            <div class="form-group" ng-switch-when="true" ng-class="{'has-error' : user.school == undefined || user.school == ''}">
+                <label>School</label>
+                <input type="text" class="form-control" ng-model="user.school.name" />
+            </div>
+
+            <div class="form-group" ng-switch-when="undefined" ng-class="{'has-error' : user.school_code == undefined || user.school_code == ''}">
+                <label>School</label>
+                <div class="input-group">
+                    <select class="form-control" ng-model="user.school_code" ng-options="school.code as school.name for school in schools ">
+                        <option value="">Select...</option>
+                    </select>
+                    <div class="input-group-addon"><a><i class="fa fa-search"></i></a></div>
+                </div>
+            </div>
+
         </div>
-        
-        <div class="form-group" ng-switch-when="undefined" ng-class="{'has-error' : user.school_code == undefined || user.school_code == ''}">
-            <label>School</label>
+
+        <div ng-switch="editing">
+            <div ng-switch-when="false" class='form-group' ng-class="{'has-error' : user.username == undefined || user.username == '' || user.username.length < 4}">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model='user.username' tooltip="User must be at least 4 caracters length" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-enable="{{user.username.length < 4 && user.username != undefined}}" />
+            </div>
+
+            <div ng-switch-when="true" class='form-group' ng-class="{'has-error' : user.username == undefined || user.username == '' || user.username.length < 4}">
+                <label>Username</label>
+                <input type="text" class="form-control" ng-model='txtUsername' ng-disabled="editing" />
+            </div>
+        </div>
+
+
+        <div class="form-group" ng-hide="viewMode" ng-class="{'has-error' : user.password == undefined || user.password == '' || passwordNotMath == true}">
+            <label>Password</label>
             <div class="input-group">
-                <select class="form-control" ng-model="user.school_code" ng-options="school.code as school.name for school in schools ">
-                    <option value="">Select...</option>
-                </select>
-                <div class="input-group-addon"><a><i class="fa fa-search"></i></a></div>
+                <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                <input type="password" class="form-control" ng-model='user.password' />
             </div>
         </div>
-        
-    </div>
-
-    <div ng-switch="editing">
-        <div ng-switch-when="false" class='form-group' ng-class="{'has-error' : user.username == undefined || user.username == '' || user.username.length < 4}">
-            <label>Username</label>
-            <input type="text" class="form-control" ng-model='user.username' tooltip="User must be at least 4 caracters length" tooltip-placement="top" tooltip-trigger="mouseenter" tooltip-enable="{{user.username.length < 4 && user.username != undefined}}" />
-        </div>
-
-        <div ng-switch-when="true" class='form-group' ng-class="{'has-error' : user.username == undefined || user.username == '' || user.username.length < 4}">
-            <label>Username</label>
-            <input type="text" class="form-control" ng-model='txtUsername' ng-disabled="editing" />
-        </div>
-    </div>
-    
-   
-    <div class="form-group" ng-hide="viewMode" ng-class="{'has-error' : user.password == undefined || user.password == '' || passwordNotMath == true}">
-        <label>Password</label>
-        <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-key"></i></div>
-            <input type="password" class="form-control" ng-model='user.password' />
-        </div>
-    </div>
-    <div class="form-group" ng-hide="viewMode" ng-class="{'has-error' : txtConfirmPassword == undefined || txtConfirmPassword == '' || passwordNotMath == true}">
-        <label>Confirm Password</label>
-        <div class="input-group">
-            <div class="input-group-addon"><i class="fa fa-key"></i></div>
-            <input type="password" class="form-control" ng-model="txtConfirmPassword" />
-        </div>
-    </div>
-    
-
-    
-    
-   
-    <div>
-        <div class='col-md-12 container' ng-hide="viewMode">
-            <div class="col-md-6 col-xs-6">
-                <button class='col-md-12 col-xs-12 btn btn-primary' ng-click="save()">Add</button>
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <button back-btn class='col-md-12 col-xs-12 btn btn-default'>Cancel</button>
+        <div class="form-group" ng-hide="viewMode" ng-class="{'has-error' : txtConfirmPassword == undefined || txtConfirmPassword == '' || passwordNotMath == true}">
+            <label>Confirm Password</label>
+            <div class="input-group">
+                <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                <input type="password" class="form-control" ng-model="txtConfirmPassword" />
             </div>
         </div>
-            
-            
+
+
+
+
+
+        <div class="form-group">
+            <button class='full-width btn btn-success' ng-click="save()" ng-if="!viewMode"><i class="fa fa-save"></i> Save</button>
+            <button back-btn class='full-width btn btn-default'>Cancel</button>
+          
+        </div>
+
     </div>
     
 </div>
