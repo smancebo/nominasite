@@ -7,8 +7,8 @@
 
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia', 'ngAnimate']);
     app.constant('$serverInfo', {
-        server: "http://10.172.0.170:85/api"
-        //server: "http://10.0.0.7:85/api"
+        //server: "http://10.172.0.170:85/api"
+        server: "http://10.0.0.7:85/api"
     });
 
     app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', 'screenSize', function ($scope, $sessionStorage, $rootScope, screenSize) {

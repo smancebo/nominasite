@@ -7,18 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Collections.Generic;
+
+public partial class staff_by_schools
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class staff_by_schools
-    {
-        public int id { get; set; }
-        public string employee_code { get; set; }
-        public string school_code { get; set; }
-    
-        public virtual schools schools { get; set; }
-        public virtual staff staff { get; set; }
-    }
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public string school_code { get; set; }
+
+    public virtual schools schools { get; set; }
+    public virtual staff staff { get; set; }
 }

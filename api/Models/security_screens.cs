@@ -7,25 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Collections.Generic;
+
+public partial class security_screens
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class security_screens
+    public security_screens()
     {
-        public security_screens()
-        {
-            this.security_permits = new HashSet<security_permits>();
-        }
-    
-        public int id { get; set; }
-        public string screen_code { get; set; }
-        public string text { get; set; }
-        public string url { get; set; }
-        public string icon { get; set; }
-        public string parent { get; set; }
-    
-        public virtual ICollection<security_permits> security_permits { get; set; }
+        this.security_permits = new HashSet<security_permits>();
     }
+
+    public int id { get; set; }
+    public string screen_code { get; set; }
+    public string text { get; set; }
+    public string url { get; set; }
+    public string icon { get; set; }
+    public string parent { get; set; }
+
+    public virtual ICollection<security_permits> security_permits { get; set; }
 }

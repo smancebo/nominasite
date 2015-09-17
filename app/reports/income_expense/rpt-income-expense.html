@@ -31,17 +31,59 @@
                     <th>Variance</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr>
                     <td></td>
-                    <td class="td-number money">{{10000 | currency : $}}</td>
+                    <td class="td-number money">{{row.budget | currency : $}}</td>
                     <td colspan="8"></td>
                 </tr>
+                <tr ng-repeat-start="item in items">
+                    <td>{{row.periodOne | currency : $}}</td>
+                    <td></td>
+                    <td>{{row.permitOne | currency : $}}</td>
+                    <td>{{row.emergencyOne | currency : $}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{row.payrollOne | currency : $}}</td>
+                    <td>{{row.suppliesOne | currency : $}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 <tr>
-
+                    <td>{{row.periodTwo | currency : $}}</td>
+                    <td></td>
+                    <td>{{row.permitTwo | currency : $}}</td>
+                    <td>{{row.emergencyTwo | currency : $}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{row.payrollTwo | currency : $}}</td>
+                    <td>{{row.suppliesTwo | currency : $}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat-end="">
+                    <td></td>
+                    <td>{{row.budget / 2 | currency : $}}</td>
+                    <td>{{(row.permitOne + row.permitTwo | currency : $}}</td>
+                    <td>{{(row.emergencyOne + row.emergencyTwo) | currency : $}}</td>
+                    <td>{{(row.permitOne + row.permitTwo + row.emergencyOne + row.emergencyTwo) | currency : $}}</td>
+                    <td></td>
+                    <td>{{(row.payrollOne + row.payrollTwo) | currency : $}}</td>
+                    <td>{{(row.suppliesOne + row.suppliesTwo) | currency : $}}</td>
+                    <td>{{(row.payrollOne + row.payrollTwo + row.suppliesOne + row.suppliesTwo) | currency : $}}</td>
+                    <td>{{((row.payrollOne + row.payrollTwo + row.suppliesOne + row.suppliesTwo) - (row.permitOne + row.permitTwo + row.emergencyOne + row.emergencyTwo)) | currency : $}}</td>
                 </tr>
             </tbody>
         </table>
+        
     </div>
 
 </div>
+
+
+<script type="text/ng-template" id="firstTr.html">
+   
+</script>
+<script type="text/ng-template" id="othersTr.html">
+    
+</script>

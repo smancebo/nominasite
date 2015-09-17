@@ -7,18 +7,15 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace api.Models
+using System;
+using System.Collections.Generic;
+
+public partial class phones
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class phones
-    {
-        public int id { get; set; }
-        public string employee_code { get; set; }
-        public Nullable<decimal> number { get; set; }
-        public string phone_type { get; set; }
-    
-        public virtual staff staff { get; set; }
-    }
+    public int id { get; set; }
+    public string employee_code { get; set; }
+    public Nullable<decimal> number { get; set; }
+    public string phone_type { get; set; }
+
+    public virtual staff staff { get; set; }
 }
