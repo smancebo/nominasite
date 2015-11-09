@@ -39,7 +39,7 @@ app.controller('payrollPrintController', ['$rootScope', '$payrollService', '$rou
             for (var i = 0; i <= rRegular.length - 1; i++) {
                 comments += day.reimbursements[i].comment;
                 if (i != rRegular.length - 1) {
-                    comments += '|';
+                    (comments) += '|';
                 }
             }
         }

@@ -7,15 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class security_groups_users
+namespace api.Models
 {
-    public int id { get; set; }
-    public string group_code { get; set; }
-    public string username { get; set; }
-
-    public virtual security_groups security_groups { get; set; }
-    public virtual users users { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class security_groups_users
+    {
+        public int id { get; set; }
+        public string group_code { get; set; }
+        public string username { get; set; }
+    
+        public virtual security_groups security_groups { get; set; }
+        public virtual users users { get; set; }
+    }
 }

@@ -7,17 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class contract_permits
+namespace api.Models
 {
-    public int id { get; set; }
-    public string organization_name { get; set; }
-    public string telephone { get; set; }
-    public string mailing_address { get; set; }
-    public string authorized_organization_name { get; set; }
-    public Nullable<System.DateTime> permit_start_date { get; set; }
-    public Nullable<System.DateTime> permit_end_date { get; set; }
-    public string number_registered { get; set; }
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class contract_permits
+    {
+        public int id { get; set; }
+        public string organization_name { get; set; }
+        public string telephone { get; set; }
+        public string mailing_address { get; set; }
+        public string authorized_organization_name { get; set; }
+        public Nullable<System.DateTime> permit_start_date { get; set; }
+        public Nullable<System.DateTime> permit_end_date { get; set; }
+        public string number_registered { get; set; }
+    }
 }

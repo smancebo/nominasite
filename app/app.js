@@ -8,7 +8,12 @@
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia', 'ngAnimate']);
     app.constant('$serverInfo', {
         //server: "http://10.172.0.170:85/api"
-        server: "http://10.0.0.7:85/api"
+        server: "http://10.0.0.6:85/api"
+	 //server: "http://localhost/api"
+    });
+
+    app.constant('$paramsValues', {
+        overtimeMultiply: 1.5
     });
 
     app.controller('indexController', ['$scope', '$sessionStorage', '$rootScope', 'screenSize', function ($scope, $sessionStorage, $rootScope, screenSize) {
@@ -295,6 +300,11 @@
             templateUrl: 'app/mantenimientos/employees/add.html',
             controller: ['$scope', '$staffService', '$routeParams', '$titlesService', function ($scope, $staffService, $routeParams, $titlesService) {
                 $scope.viewMode = true;
+                $scope.statusAvailable = [
+                     { description: 'Active', id: "1" },
+                     { description: 'Inactive', id: "0" }
+                ];
+
                 $titlesService.getAll(function (data) {
                     $scope.titles = data;
 

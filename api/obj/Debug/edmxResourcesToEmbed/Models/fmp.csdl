@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="fmpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="contract_permit_periods">
     <Key>
       <PropertyRef Name="id" />
@@ -192,6 +192,8 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="employee_code" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="school_code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="order" Type="Int32" />
+    <Property Name="status" Type="Boolean" />
     <NavigationProperty Name="schools" Relationship="Self.FK__staff_by___schoo__3D5E1FD2" FromRole="staff_by_schools" ToRole="schools" />
     <NavigationProperty Name="staff" Relationship="Self.FK__staff_by___emplo__3C69FB99" FromRole="staff_by_schools" ToRole="staff" />
   </EntityType>

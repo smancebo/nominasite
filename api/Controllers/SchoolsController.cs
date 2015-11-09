@@ -65,6 +65,8 @@ namespace api.Controllers
                                       sbs.school_code == s.code
                                       select new
                                       {
+                                          sbs.status,
+                                          sbs.order,
                                           e.employee_code,
                                           e.name,
                                           e.middle_name,
@@ -161,8 +163,10 @@ namespace api.Controllers
             foreach (dynamic item in employees)
             {
                 staff_by_schools sbs = new staff_by_schools();
+                sbs.status = item.status;
                 sbs.school_code = school.code;
                 sbs.employee_code = item.employee_code;
+                sbs.order = item.order;
                 school.staff_by_schools.Add(sbs);
             }
         }

@@ -4,12 +4,14 @@ var app = angular.module('fmpPortal');
 
 var indx = 0;
 
-app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', 'viewing', function ($scope, $reimbursementService, $modalInstance, day, employee, viewing) {
+app.controller('modalReimbursementController', ['$scope', '$reimbursementService', '$modalInstance', 'day', 'employee', 'viewing', '$paramsValues', function ($scope, $reimbursementService, $modalInstance, day, employee, viewing, $paramsValues) {
     
     
     $scope.day = day;
     $scope.employee = employee;
-    //$scope.reimbursement = {;
+    $scope.reimbursement = {};
+    $scope.overtimeMultiply = $paramsValues.overtimeMultiply;
+
     if (viewing) {
         $scope.viewMode = true;
     }
@@ -27,7 +29,7 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
 
 
     $scope.addReimbursement = function () {
-
+        debugger
         if (day.reimbursements == undefined) {
             day.reimbursements = [];
         }
@@ -46,11 +48,19 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
         if (day.totalReimbursementOvertime == undefined) { day.totalReimbursementOvertime = 0;}
         if (day.totalReimbursementNigthDiff == undefined) { day.totalReimbursementNigthDiff = 0; }
 
-        $scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate * ($scope.reimbursement.type.payrateMultiply));
+
+        if ($scope.reimbursement.overtime) {
+            $scope.reimbursement.rate = parseFloat($scope.employee.title.payrate * ($scope.overtimeMultiply));
+        } else
+        {
+            $scope.reimbursement.rate = parseFloat($scope.employee.title.payrate)
+        }
+
+        /*$scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate * ($scope.reimbursement.type.payrateMultiply));
         if ($scope.reimbursement.type.id == 3) //Nigth Diff
         {
             $scope.reimbursement.rate = parseFloat($scope.reimbursement.obj.payrate + ($scope.employee.title.nigthdiff));
-        }
+        }*/
         /*var rateByHour = ($scope.reimbursement.rate * $scope.reimbursement.hours);
         if ($scope.reimbursement.type.id == 1) //Reg Hours
         {
@@ -70,8 +80,10 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
         re.index = $scope.reimbursement.index;
         re.hours = parseFloat($scope.reimbursement.hours);
         re.rate = $scope.reimbursement.rate;
-        re.comment = $scope.reimbursement.comment;
-        re.type = angular.copy($scope.reimbursement.type);
+        re.comment = $scope.reimbursement.comment == undefined ? '' : $scope.reimbursement.comment;
+        //re.type = angular.copy($scope.reimbursement.type);
+        re.type = $scope.reimbursement.overtime == true ? 2 : 1 
+        
         re.obj = angular.copy($scope.reimbursement.obj);
 
         day.reimbursements.push(clone(re));

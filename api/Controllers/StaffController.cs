@@ -67,7 +67,9 @@ namespace API.Controllers
             var staff = from emp in fmp.staff
                         from sbs in fmp.staff_by_schools
                         where sbs.employee_code == emp.employee_code &&
-                              sbs.school_code == user.school_code
+                              sbs.school_code == user.school_code &&
+                              (sbs.status == true && emp.status == "1")
+                        orderby sbs.order
                         select new
                         {
                             emp.name,

@@ -308,7 +308,7 @@ namespace api.Controllers
                                     pr.comment = Convert.ToString(reimbursement.comment);
                                     pr.hours = Convert.ToDecimal(reimbursement.hours);
                                     pr.rate = Convert.ToDecimal(reimbursement.rate);
-                                    pr.reimbursement_type = Convert.ToInt32(reimbursement.type.id);
+                                    pr.reimbursement_type = Convert.ToInt32(reimbursement.type);
                                     pr.payment_id = p.payment_id;
                                     pr.reimbursement_id = Convert.ToInt32(reimbursement.obj.id);
                                     pr.day = Convert.ToString(day.day);

@@ -369,3 +369,8 @@ a.btn.btn-xs.btn-success
     background-color:#f0f0f0;
     text-align:center
 }
+
+.table-footer
+{
+    font-weight:bold;
+}

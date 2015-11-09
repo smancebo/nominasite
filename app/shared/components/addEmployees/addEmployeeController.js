@@ -4,12 +4,17 @@ var app = angular.module('fmpPortal');
 
 app.controller('modalAddEmployeesController', ['$scope', '$modalInstance', '$staffService', 'employees', 'ngToast', function ($scope, $modalInstance, $staffService, employees, ngToast) {
     
+
+  
+
     $scope.employees = [];
     $scope.schoolEmployees = employees;
 
     $staffService.getAll(function (data) {
         $scope.employees = data;
     })
+
+    
 
     $scope.addEmployee = function(employee)
     {

@@ -4,25 +4,25 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9b953509500b48728fea3848811cf07a" Name="Diagram1">
+      <Diagram DiagramId="26c4b926dff4463c93a812a7cf5dfdbb" Name="Diagram1">
         <EntityTypeShape EntityType="fmpModel.contract_permit_periods" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.contract_permit_periods_hours_worked" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.contract_permits" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.payments" Width="1.5" PointX="9.75" PointY="21.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.payments_details" Width="1.5" PointX="12" PointY="15.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.payments_reimbursements" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.phones" Width="1.5" PointX="5.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.payments" Width="1.5" PointX="9.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.payments_details" Width="1.5" PointX="12" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.payments_reimbursements" Width="1.5" PointX="5.25" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.phones" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.reimbursement" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.schools" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.security_groups" Width="1.5" PointX="7.5" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.security_groups_users" Width="1.5" PointX="9.75" PointY="18.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.security_permits" Width="1.5" PointX="12.75" PointY="21.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.security_screens" Width="1.5" PointX="10.5" PointY="25.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.staff" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.schools" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.security_groups" Width="1.5" PointX="7.5" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.security_groups_users" Width="1.5" PointX="9.75" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.security_permits" Width="1.5" PointX="12.75" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.security_screens" Width="1.5" PointX="10.5" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.staff" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.staff_by_schools" Width="1.5" PointX="7.5" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="fmpModel.sys_parameters" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.titles" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="fmpModel.users" Width="1.5" PointX="7.5" PointY="21.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.titles" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="fmpModel.users" Width="1.5" PointX="7.5" PointY="22" IsExpanded="true" />
         <AssociationConnector Association="fmpModel.FK__payments___payme__1367E606" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__payments__userna__0EA330E9" ManuallyRouted="false" />
         <AssociationConnector Association="fmpModel.FK__payments___emplo__145C0A3F" ManuallyRouted="false" />

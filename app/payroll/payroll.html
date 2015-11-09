@@ -47,14 +47,14 @@
                 <div class="employee-div" ng-hide="current.employee.employee_code == undefined">
                     <div class="col-md-1 hidden-sm hidden-xs vertical-align"><a ng-click="prevEmployee()" class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
                     <div class="col-md-10 col-xs-12 col-sm-12">
-                        <div>
+                        <div ng-hide="payroll.startdate == ''">
                             <div class="table-responsive">
                                 <table class="table fi table-striped">
                                     <thead>
                                         <tr ng-show="current.days.length">
                                             <th>&#xf133; Day</th>
                                             <th>
-                                                &#xf017; 
+                                                &#xf017;
                                                 <span class='hidden-xs hidden-sm'>Regular Hours</span>
                                                 <span class='hidden-md hidden-lg'>Regs</span>
                                             </th>
@@ -172,7 +172,7 @@
                                             }}
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style="display:none">
                                         <td>Nigth Diff</td>
                                         <td class='number-td'>{{getReimbursementHours(current.days[0],3)}}</td>
                                         <td class='number-td'>{{getReimbursementHours(current.days[1],3)}}</td>
@@ -268,19 +268,28 @@
                                 <th>Employee</th>
                                 <th>Total Regular Hours</th>
                                 <th>Total Overtime Hours</th>
-                                <th>Total Nigth Diff</th>
                                 <th>Total Reimbursement/Reg</th>
                                 <th>Total Reimbursement/OT</th>
                                 <th>Total Pay</th>
                                 <th></th>
                             </tr>
                         </thead>
+                        <tfoot>
+                            <tr>
+                                <td class="table-footer">Total</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') | currency : $}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalOvertimeHours') | currency : $}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours(1) | currency : $}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours(2)  | currency : $}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') + getTotalHours('totalOvertimeHours') + getTotalHours(2) + getTotalHours(3) + getTotalHours(1)  | currency : $}}</td>
+                            </tr>
+                        </tfoot>
                         <tbody>
                             <tr ng-repeat="item in payroll.employees" >
                                 <td>{{item.employee.name + ' ' + item.employee.middle_name + ' ' + item.employee.last_name}}</td>
                                 <td class='number-td'>{{item.totalRegHours | currency : $}}</td>
                                 <td class='number-td'>{{item.totalOvertimeHours | currency : $}}</td>
-                                <td class='number-td'>{{getReimbursementRate(item.days,3) | currency : $}}</td>
+                                <!--<td class='number-td'>{{getReimbursementRate(item.days,3) | currency : $}}</td>-->
                                 <td class='number-td'>{{getReimbursementRate(item.days,1) | currency : $}}</td>
                                 <td class='number-td'>{{getReimbursementRate(item.days,2)  | currency : $}}</td>
                                 <td class='number-td'>{{getReimbursementRate(item.days,3) + getReimbursementRate(item.days,1) + getReimbursementRate(item.days,2) + item.totalRegHours + item.totalOvertimeHours | currency : $}}</td>
@@ -289,6 +298,7 @@
                                     <button class="btn btn-danger btn-xs" ng-if="viewMode == undefine" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
                                 </td>
                             </tr>
+                            
                         </tbody>
                     </table>
                 </div>

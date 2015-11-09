@@ -11,6 +11,14 @@
     <div class="panel-body">
         <div class="">
             
+
+            <div class='form-group'>
+                <label>Condition</label>
+                <select ng-model="employee.status" ng-disabled="viewMode" class="form-control" ng-options="status.id as status.description for status in statusAvailable ">
+                    <option value="">Choose...</option>
+                </select>
+            </div>
+
             <div class='form-group'>
                 <label>Employee code</label>
                 <input type="text" class="form-control" ng-disabled="viewMode" ng-model='employee.employee_code' />

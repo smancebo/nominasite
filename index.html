@@ -35,7 +35,7 @@
                         </span>
                         
                         <div class="pull-left">
-                            <a href="#" id="lnkUser" style="color:white" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="#" ng-cloak id="lnkUser" style="color:white" class="dropdown-toggle" data-toggle="dropdown">
                                 {{currentUser.username}}<span ng-show="currentUser" class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="lnkUser">
@@ -44,7 +44,7 @@
                         </div>
 
                         <a ng-if="!currentUser" href="/login" style="color:white">Sign In</a>
-                        <label class="pull-right" style="color: white; margin-right: 15px; margin-left: 5px">{{currentUser.school.name}}</label>
+                        <label ng-cloak class="pull-right" style="color: white; margin-right: 15px; margin-left: 5px">{{currentUser.school.code}}  - {{currentUser.school.name}}</label>
                         <i ng-show="ajaxLoading" class="fa fa-spinner fa-pulse ajax-loader"></i>
                     </div>
                 

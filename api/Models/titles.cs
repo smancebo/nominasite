@@ -7,20 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class titles
+namespace api.Models
 {
-    public titles()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class titles
     {
-        this.staff = new HashSet<staff>();
+        public titles()
+        {
+            this.staff = new HashSet<staff>();
+        }
+    
+        public int id { get; set; }
+        public string description { get; set; }
+        public Nullable<decimal> payrate { get; set; }
+        public Nullable<decimal> nigthdiff { get; set; }
+    
+        public virtual ICollection<staff> staff { get; set; }
     }
-
-    public int id { get; set; }
-    public string description { get; set; }
-    public Nullable<decimal> payrate { get; set; }
-    public Nullable<decimal> nigthdiff { get; set; }
-
-    public virtual ICollection<staff> staff { get; set; }
 }

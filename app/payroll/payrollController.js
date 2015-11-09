@@ -67,6 +67,8 @@
         });
     }
 
+    
+
     $payrollService.getAll(function (data) {
         $scope.dataRows = data;
     })
@@ -183,7 +185,7 @@
         $scope.current.days = [];
         
         var totalDays = dateTo.getDate() - dateFrom.getDate();
-        for (var i = 0; i <= totalDays ; i++) {
+        for (var i = 0; i <= 6 ; i++) {
             var day = new Object();
             var currentDate = new Date();
             currentDate.setDate(dateFrom.getDate() + i);
@@ -307,7 +309,7 @@
         if (day != undefined && day.reimbursements != undefined) {
 
             var rRegular = day.reimbursements.filter(function (r) {
-                return r.type.id == type
+                return r.type == type
             });
 
             for (var i = 0; i <= rRegular.length - 1; i++) {
@@ -326,7 +328,7 @@
             days.forEach(function (day) {
                 if (day != undefined && day.reimbursements != undefined) {
                     var rRegular = day.reimbursements.filter(function (r) {
-                        return r.type.id == type
+                        return r.type == type
                     });
 
                     for (var i = 0; i <= rRegular.length - 1; i++) {
@@ -441,6 +443,26 @@
         {
             alert('Choose an employee first!')
         }
+    }
+
+
+    $scope.getTotalHours = function (field) {
+        var total = 0;
+        if (typeof (field) == "number") {
+
+            for (var i = 0; i <= $scope.payroll.employees.length - 1; i++) {
+                total += $scope.getReimbursementRate($scope.payroll.employees[i].days, field);
+            }
+          
+        }
+        else {
+
+            for (var i = 0; i <= $scope.payroll.employees.length - 1; i++) {
+                total += $scope.payroll.employees[i][field];
+            }
+        }
+
+        return total;
     }
 
 

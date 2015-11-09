@@ -30,14 +30,12 @@
             <thead>
                 <tr>
                     <th>Description</th>
-                    <th>Payrate</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="row in reimbursements | filter:{ description: txtDescription || '', payrate: txtPayrate || ''}">
                     <td>{{row.description}}</td>
-                    <td>{{row.payrate | currency : $}}</td>
                     <td>
                         <a href='{{ "reimbursements/view/" + row.id }}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                         <a href='{{ "reimbursements/edit/" + row.id }}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>

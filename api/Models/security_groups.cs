@@ -7,21 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class security_groups
+namespace api.Models
 {
-    public security_groups()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class security_groups
     {
-        this.security_groups_users = new HashSet<security_groups_users>();
-        this.security_permits = new HashSet<security_permits>();
+        public security_groups()
+        {
+            this.security_groups_users = new HashSet<security_groups_users>();
+            this.security_permits = new HashSet<security_permits>();
+        }
+    
+        public int id { get; set; }
+        public string group_code { get; set; }
+        public string description { get; set; }
+    
+        public virtual ICollection<security_groups_users> security_groups_users { get; set; }
+        public virtual ICollection<security_permits> security_permits { get; set; }
     }
-
-    public int id { get; set; }
-    public string group_code { get; set; }
-    public string description { get; set; }
-
-    public virtual ICollection<security_groups_users> security_groups_users { get; set; }
-    public virtual ICollection<security_permits> security_permits { get; set; }
 }

@@ -7,6 +7,11 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
     $scope.dataRows = {};
     $scope.titles = {};
 
+    $scope.statusAvailable = [
+      { description: 'Active', id: "1" },
+      { description: 'Inactive', id: "0" }
+    ]
+
     $scope.nameFilter = function(employee)
     {
         var name = employee.name + ' ' + (employee.middle_name ==  null ? '' : employee.middle_name) + ' ' + employee.last_name;
@@ -26,7 +31,7 @@ app.controller('employeesController', ['$scope', '$staffService', '$routeParams'
         if ($routeParams.employeeCode) {
             $staffService.get($routeParams.employeeCode, function (data) {
                 $scope.employee = data;
-                console.log($scope.employee);
+                console.log($scope.employee)
             });
         }
 

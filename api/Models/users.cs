@@ -7,25 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class users
+namespace api.Models
 {
-    public users()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class users
     {
-        this.payments = new HashSet<payments>();
-        this.security_groups_users = new HashSet<security_groups_users>();
-        this.security_permits = new HashSet<security_permits>();
+        public users()
+        {
+            this.payments = new HashSet<payments>();
+            this.security_groups_users = new HashSet<security_groups_users>();
+            this.security_permits = new HashSet<security_permits>();
+        }
+    
+        public int id { get; set; }
+        public string username { get; set; }
+        public string password { get; set; }
+        public string school_code { get; set; }
+    
+        public virtual ICollection<payments> payments { get; set; }
+        public virtual schools schools { get; set; }
+        public virtual ICollection<security_groups_users> security_groups_users { get; set; }
+        public virtual ICollection<security_permits> security_permits { get; set; }
     }
-
-    public int id { get; set; }
-    public string username { get; set; }
-    public string password { get; set; }
-    public string school_code { get; set; }
-
-    public virtual ICollection<payments> payments { get; set; }
-    public virtual schools schools { get; set; }
-    public virtual ICollection<security_groups_users> security_groups_users { get; set; }
-    public virtual ICollection<security_permits> security_permits { get; set; }
 }

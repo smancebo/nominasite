@@ -183,6 +183,8 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="employee_code" ColumnName="employee_code" />
           <ScalarProperty Name="school_code" ColumnName="school_code" />
+          <ScalarProperty Name="order" ColumnName="order" />
+          <ScalarProperty Name="status" ColumnName="status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -25,22 +25,29 @@
                 <option value=''>Choose...</option>
             </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="display:none">
             <label>Reimbursement Type</label>
             <select ng-model="reimbursement.type" class="form-control" ng-options="r.description for r in reimbursementsTypes track by r.id">
                 <option value=''>Choose...</option>
             </select>
         </div>
+
+        <div class="checkbox">
+            <label> <input type="checkbox" class="" ng-model="reimbursement.overtime" />Overtime</label>
+            
+        </div>
+
         <div class="form-group">
             <label>Payrate: </label>
-            <span ng-if="reimbursement.type.id != 3" class="money">{{reimbursement.obj.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}</span>
-            <span ng-if="reimbursement.type.id == 3" class="money">{{reimbursement.obj.payrate + ((employee.title.nigthdiff || 0 )) | currency : $}}</span>
+            <span ng-if="reimbursement.overtime" class="money">{{ employee.title.payrate * (overtimeMultiply) || 0 | currency : $}}</span>
+            <span ng-if="!reimbursement.overtime" class="money">{{employee.title.payrate | currency : $}}</span>
         </div>
         <div class="form-group">
             <label>Hours</label>
+            <input type="hidden" ng-if="reimbursement.overtime" ng-model="reimbursement.rate" value="{{employee.title.payrate * (overtimeMultiply)}}" />
+            <input type="hidden" ng-if="!reimbursement.overtime" ng-model="reimbursement.rate" value="{{employee.title.payrate}}" />
             <div class="input-group">
-                <input type="hidden" ng-if="reimbursement.type.id != 3" ng-model="reimbursement.rate" value="{{reimbursement.obj.payrate * ((reimbursement.type.payrateMultiply || 1 )) | currency : $}}" />
-                <input type="hidden" ng-if="reimbursement.type.id == 3" ng-model="reimbursement.rate" value="{{reimbursement.obj.payrate + ((employee.title.nigthdiff || 0 ))}}" />
+                
                 <input type="text" placeholder="Hours" ng-model="reimbursement.hours" class="form-control" />
                 <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>

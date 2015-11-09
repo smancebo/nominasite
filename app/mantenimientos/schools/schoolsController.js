@@ -38,11 +38,12 @@ app.controller('schoolsController', ['$scope', '$schoolService', '$routeParams',
 
     if ($routeParams.schoolId) {
         $schoolService.get($routeParams.schoolId, function (data) {
-            ;
+            
             if (!data.employees)
             {
                 data.employees = [];
             }
+            
             $scope.school = data;
         });
     }
@@ -111,7 +112,7 @@ app.controller('schoolsController', ['$scope', '$schoolService', '$routeParams',
 
     $scope.save = function () {
 
-
+        debugger
         if ($scope.school != undefined) {
 
             $schoolService.save($scope.school, function (data) {

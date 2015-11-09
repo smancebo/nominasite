@@ -80,17 +80,25 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>Active</th>
+                                <th>Order</th>
                                 <th>Code</th>
                                 <th>Name</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="employee in school.employees | filter:txtFilter track by employee.employee_code">
+                            <tr ng-repeat="employee in school.employees | orderBy:employee.order | filter:txtFilter track by employee.employee_code">
+                                <td style="width:60px; text-align:center">
+                                    <input type="checkbox" ng-disabled="viewMode" ng-model="employee.status" />
+                                </td>
+                                <td style="width:70px">
+                                    <input type="text" ng-disabled="viewMode" class="form-control" ng-model="employee.order" style="width:50px; text-align:center" />
+                                </td>
                                 <td>{{employee.employee_code}}</td>
                                 <td>{{employee.name}} {{employee.middle_name}} {{employee.last_name}}</td>
-                                <td>
-                                    <button ng-hide="viewMode" class="btn btn-danger btn-xs" ng-click="removeEmployee(employee)"><i class="fa fa-remove"></i> Remove</button>
+                                <td style="width:100px">
+                                    <button ng-if="!viewMode" class="btn btn-danger btn-xs" ng-click="removeEmployee(employee)"><i class="fa fa-remove"></i> Remove</button>
                                 </td>
                             </tr>
                         </tbody>
