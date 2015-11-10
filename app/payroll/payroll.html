@@ -87,7 +87,7 @@
                                             <input type="text" class="form-control" ng-model="day.overtime" disabled />
                                         </td>
                                         <td>
-                                            <a ng-if="viewMode == undefined" class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
+                                            <a ng-if="viewMode == false" class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
                                             <a ng-if="day.reimbursements.length > 0" class="btn btn-xs btn-info" ng-click="openReimbursement(day)"><i class="fa fa-search"></i> {{day.reimbursements.length}}</a>
                                         </td>
                                     </tr>
