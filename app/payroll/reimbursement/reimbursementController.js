@@ -96,9 +96,12 @@ app.controller('modalReimbursementController', ['$scope', '$reimbursementService
         $scope.reimbursement = angular.copy({});
     }
     $scope.editReimbursement = function (index) {
+        debugger
         $scope.reimbursement = clone(day.reimbursements.filter(function (e) {
             return e.index == index;
         })[0]);
+
+        $scope.reimbursement.overtime = $scope.reimbursement.type == 2 ? true : false;
     }
 
     $scope.removeReimbursement = function (index) {

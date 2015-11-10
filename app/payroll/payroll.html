@@ -7,7 +7,14 @@
     </p>
     <label>Pay Period</label>
     <div class="round-section">
-        <div class="form-inline">
+        <div class="form-group">
+            <label>Payroll Week</label>
+            <input class="form-control" ng-disabled="viewMode == true || editing == true" ng-if="viewMode != false || editing != false" ng-model="payroll.rangeText" />
+            <select class="form-control" ng-if="editing == false && viewMode == false" ng-change="selectDate()" ng-model="payroll.dateRange" ng-options="date as date.text for date in payrollDates">
+                <option value="">Choose</option>
+            </select>
+        </div>
+        <div class="form-inline" style="display:none">
             <div class="form-group">
                 <label>From</label>
                 <div class="input-group" date-picker days-disabled="disableDaysFrom" ng-class="{'has-error' : payroll.startdate == ''}" date-model="payroll.startdate">
@@ -246,10 +253,10 @@
                         </div>
 
                         <div class="col-md-6 col-xs-12 col-sm-12">
-                            <button ng-click="addToPayroll()" ng-if="viewMode == undefined" class="btn btn-success full-width"><i class="fa fa-plus"></i> Add to payroll</button>
+                            <button ng-click="addToPayroll()" ng-if="viewMode == false" class="btn btn-success full-width"><i class="fa fa-plus"></i> Add to payroll</button>
                         </div>
                         <div class="col-md-6 col-xs-12 col-sm-12">
-                            <button ng-click="cancelEmployee()" ng-if="viewMode == undefined" class="btn btn-danger full-width"><i class="fa fa-remove"></i> Cancel</button>
+                            <button ng-click="cancelEmployee()" ng-if="viewMode == false" class="btn btn-danger full-width"><i class="fa fa-remove"></i> Cancel</button>
                         </div>
                     </div>
                     <div class="col-md-1 hidden-sm hidden-xs vertical-align"><a ng-click="nextEmployee()" class="arrow pull-right" href="#"><i class="fa fa-chevron-circle-right"></i></a></div>

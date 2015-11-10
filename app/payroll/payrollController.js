@@ -46,10 +46,27 @@
         username: '',
         employees: []
     }
+    $scope.editing = false;
+    $scope.viewMode = false;
+
+    $scope.payrollDates = [];
 
     $scope.payrollStatus = [{ id: true, description: 'Applied' }, { id: false, description: 'Not Applied' }];
     $scope.isCollapse = true;
    
+
+    $payrollService.getPayrollDates(function (dates) {
+        $scope.payrollDates = dates;
+    })
+
+    $scope.selectDate = function () {
+        if ($scope.payroll.dateRange == null) {
+            $scope.payroll.startdate = '';
+            return;
+        }
+        $scope.payroll.startdate = $scope.payroll.dateRange.fromDate;
+        
+    }
 
     if ($route.current.$$route.viewing)
     {
@@ -58,15 +75,19 @@
 
     if ($routeParams.Id) {
         $payrollService.get($routeParams.Id, function (data) {
+            
             $scope.payroll = data;
             $scope.current.employee = angular.copy($scope.employees[0]);
+
+            $scope.payroll.rangeText = "From " + $scope.payroll.startdate + " To " + $scope.payroll.enddate ;
+
             if (!$scope.viewMode) {
                 $scope.editing = true;
             }
-            console.log(data);
         });
     }
 
+    
     
 
     $payrollService.getAll(function (data) {
@@ -78,6 +99,8 @@
         if (oldValue != newValue) {
             $scope.calculateEndDate();
             $scope.calculateDiff();
+            
+
         }
     }, true);
 
@@ -111,6 +134,7 @@
         dateTo.setDate(date.getDate() + 6);
         $scope.payroll.enddate = dateTo.formatDate();
         $('.date-end').val(dateTo.formatDate());
+        console.log($scope.current);
     }
 
    /* $scope.$watch('current', function (newValue, oldValue) {
@@ -305,6 +329,7 @@
 
     $scope.getReimbursementHours = function(day, type)
     {
+        
         var totalHours = 0;
         if (day != undefined && day.reimbursements != undefined) {
 
@@ -465,7 +490,7 @@
         return total;
     }
 
-
+    console.log($scope.viewMode, $scope.editing);
 
 }]);
 

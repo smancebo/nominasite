@@ -37,6 +37,60 @@ namespace api.Controllers
             return Ok(payrolls);
         }
 
+        [HttpGet]
+        [Route("getPayrollDates")]
+        public IHttpActionResult getPayrollDates()
+        {
+
+
+            DateTime firstDayMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
+            List<dynamic> payrollDates = new List<dynamic>();
+            
+            if (firstDayMonth.DayOfWeek != DayOfWeek.Monday)
+            {
+                firstDayMonth = sumUntilDate(firstDayMonth, DayOfWeek.Monday);
+            }
+
+            DateTime nextMonday = firstDayMonth;
+            DateTime nextSunday = new DateTime(nextMonday.Year, nextMonday.Month, nextMonday.Day + 6);
+
+
+            bool endOfMonth = false;
+
+            var indx = 0;
+            do
+            {
+                if (nextSunday.Month != nextMonday.Month) { endOfMonth = true; };
+                payrollDates.Add(new  { 
+                                            index = indx++,
+                                            text = "From " + nextMonday.ToString("MM/dd/yyyy") + " To " + nextSunday.ToString("MM/dd/yyyy"),
+                                            fromDate = nextMonday.ToString("MM/dd/yyyy"),
+                                            toDate = nextSunday.ToString("MM/dd/yyyy")
+                                      }
+                                );
+                nextMonday = sumUntilDate(nextMonday, DayOfWeek.Monday);
+                nextSunday = sumUntilDate(nextSunday, DayOfWeek.Sunday);
+            } while (!endOfMonth);
+            
+
+
+            return Ok(payrollDates);
+        }
+
+        public DateTime sumUntilDate(DateTime fromDate, DayOfWeek day)
+        {
+            DateTime retDatetime = fromDate;
+
+            do
+            {
+                retDatetime = retDatetime.AddDays(1);
+            }
+            while (retDatetime.DayOfWeek != day);
+            
+
+            return retDatetime;
+        }
+
         [HttpPost]
         [Route("apply")]
         public IHttpActionResult apply([FromBody]int payment_id)
@@ -221,8 +275,8 @@ namespace api.Controllers
                             emp.days[count].reimbursements[count_ri].obj = reim_type;
                             emp.days[count].reimbursements[count_ri].payrate = reim_type.payrate;
                             emp.days[count].reimbursements[count_ri].rate = ri.rate;
-                            emp.days[count].reimbursements[count_ri].type = new ExpandoObject();
-                            emp.days[count].reimbursements[count_ri].type.id = ri.reimbursement_id;
+                            emp.days[count].reimbursements[count_ri].type = ri.reimbursement_type;
+                            //emp.days[count].reimbursements[count_ri].type.id = ri.reimbursement_id;
                             count_ri++;
                         }
                     }

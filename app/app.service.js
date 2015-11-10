@@ -48,6 +48,13 @@ app.factory('$payrollService', ['$http', '$serverInfo', function ($http, $server
             callback(data);
         })
     }
+
+    payrollService.getPayrollDates = function (callback) {
+        $http.get(serviceBaseAddress + '/getpayrolldates')
+         .success(function (data) {
+             callback(data);
+         });
+    }
     
     payrollService.get = function (payroll_id, callback) {
         $http.get(serviceBaseAddress + '/get/' + payroll_id)
