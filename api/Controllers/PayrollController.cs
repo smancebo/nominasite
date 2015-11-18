@@ -243,6 +243,7 @@ namespace api.Controllers
                     emp.days[count].date = item.date;
                     emp.days[count].day = item.day;
                     emp.days[count].nigthDiff = 0;
+                    emp.days[count].comment = item.comments;
                     emp.days[count].overtime = item.overtime;
                     emp.days[count].overtimeReimbursement = 0;
                     emp.days[count].regularHours = item.required_hours;
@@ -352,6 +353,7 @@ namespace api.Controllers
                             detail.payment_id = p.payment_id;
                             detail.employee_code = Convert.ToString(employee.employee.employee_code);
                             detail.payrate = Convert.ToDecimal(employee.employee.title.payrate);
+                            detail.comments = day.comment;
                             fmp.payments_details.Add(detail);
 
                             if (day.reimbursements != null)

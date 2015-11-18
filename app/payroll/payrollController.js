@@ -196,7 +196,7 @@
                     day.regularHours = 8;
                 }
                 else if (parseInt(day.regularHours) <= 8) {
-                    day.overtime = 0;
+                    //day.overtime = 0;
                 }
             }
         }

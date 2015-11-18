@@ -13,6 +13,7 @@
     <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="end_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
     <Property Name="hours" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="contract_permit_periods_hours_worked">
     <Key>
@@ -36,6 +37,11 @@
     <Property Name="permit_start_date" Type="DateTime" Precision="3" />
     <Property Name="permit_end_date" Type="DateTime" Precision="3" />
     <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="total_hours" Type="Int32" />
+    <Property Name="registration_date" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="payments">
     <Key>
@@ -99,6 +105,7 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="payrate" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="abbreviation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="schools">
     <Key>

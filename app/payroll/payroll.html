@@ -71,6 +71,11 @@
                                                 <span class='hidden-md hidden-lg'>OTs</span>
                                             </th>
                                             <th>
+                                                &#xf0e5;
+                                                <span class='hidden-xs hidden-sm'>Comment</span>
+                                                <span class='hidden-md hidden-lg'>Comts</span>
+                                            </th>
+                                            <th>
                                                 <span class='hidden-xs hidden-sm'>Reimbursement</span>
                                                 <span class='hidden-md hidden-lg'>Reimb</span>
                                             </th>
@@ -84,7 +89,10 @@
                                             <input type="text" class="form-control" tab-index='{{$index}}' event-handler on-blur="checkOvertime(day)" on-tab="checkOvertime(day)" ng-model="day.regularHours" ng-disabled="viewMode == true" />
                                         </td>
                                         <td>
-                                            <input type="text" class="form-control" ng-model="day.overtime" disabled />
+                                            <input type="text" class="form-control" ng-model="day.overtime" event-handler ng-disabled="viewMode == true" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="day.comment" ng-disabled="viewMode == true" />
                                         </td>
                                         <td>
                                             <a ng-if="viewMode == false" class="btn btn-xs btn-success" ng-click="openReimbursement(day)"><i class="fa fa-plus"></i> Add</a>
@@ -302,7 +310,7 @@
                                 <td class='number-td'>{{getReimbursementRate(item.days,3) + getReimbursementRate(item.days,1) + getReimbursementRate(item.days,2) + item.totalRegHours + item.totalOvertimeHours | currency : $}}</td>
                                 <td>
                                     <button class="btn btn-warning btn-xs" ng-click="editEmployee(item.employee.employee_code)"><i class="fa fa-edit"></i> Edit</button>
-                                    <button class="btn btn-danger btn-xs" ng-if="viewMode == undefine" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
+                                    <button class="btn btn-danger btn-xs" ng-if="viewMode == false" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
                                 </td>
                             </tr>
                             
@@ -312,10 +320,10 @@
                 <div class="col-md-12 col-xs-12 col-sm-12" ng-if="viewMode == true && payroll.applied == true">
                     <button ng-click="printPayroll(payroll.payment_id)" class="btn btn-primary full-width"><i class="fa fa-print"></i> Print payroll</button>
                 </div>
-                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == undefined">
+                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == false">
                     <button class="btn btn-info full-width" ng-click="savePayroll()"><i class="fa fa-save"></i> Save payroll</button>
                 </div>
-                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == undefined">
+                <div class="col-md-6 col-xs-12 col-sm-12" ng-if="viewMode == false">
                     <button class="btn btn-success full-width" ng-click="applyPayroll()"><i class="fa fa-check"></i> Apply payroll</button>
                 </div>
             </div>

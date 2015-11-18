@@ -16,7 +16,7 @@ app.controller('payrollPrintController', ['$rootScope', '$payrollService', '$rou
         if (day != undefined && day.reimbursements != undefined) {
 
             var rRegular = day.reimbursements.filter(function (r) {
-                return r.type.id == type
+                return r.type == type
             });
 
             for (var i = 0; i <= rRegular.length - 1; i++) {
@@ -30,14 +30,16 @@ app.controller('payrollPrintController', ['$rootScope', '$payrollService', '$rou
 
     $scope.getReimbursementComments = function (day, type) {
         var comments = '';
+        debugger
         if (day != undefined && day.reimbursements != undefined) {
 
             var rRegular = day.reimbursements.filter(function (r) {
-                return r.type.id == type
+                return r.type == type
             });
 
             for (var i = 0; i <= rRegular.length - 1; i++) {
-                comments += day.reimbursements[i].comment;
+                debugger
+                comments += day.reimbursements[i].obj.abbreviation;
                 if (i != rRegular.length - 1) {
                     (comments) += '|';
                 }
@@ -55,7 +57,7 @@ app.controller('payrollPrintController', ['$rootScope', '$payrollService', '$rou
             days.forEach(function (day) {
                 if (day != undefined && day.reimbursements != undefined) {
                     var rRegular = day.reimbursements.filter(function (r) {
-                        return r.type.id == type
+                        return r.type == type
                     });
 
                     for (var i = 0; i <= rRegular.length - 1; i++) {

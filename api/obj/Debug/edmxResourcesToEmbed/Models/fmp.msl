@@ -13,6 +13,7 @@
           <ScalarProperty Name="start_time" ColumnName="start_time" />
           <ScalarProperty Name="end_time" ColumnName="end_time" />
           <ScalarProperty Name="hours" ColumnName="hours" />
+          <ScalarProperty Name="registration_date" ColumnName="registration_date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -38,6 +39,11 @@
           <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
           <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
           <ScalarProperty Name="number_registered" ColumnName="number_registered" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+          <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+          <ScalarProperty Name="registration_date" ColumnName="registration_date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -100,6 +106,7 @@
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="description" ColumnName="description" />
           <ScalarProperty Name="payrate" ColumnName="payrate" />
+          <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

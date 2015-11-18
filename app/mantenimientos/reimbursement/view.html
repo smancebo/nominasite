@@ -14,8 +14,8 @@
                 <input type="text" ng-model="txtDescription" class="form-control" />
             </div>
             <div class="form-group">
-                <label>Payrate</label>
-                <input type="text" ng-model="txtPayrate" class="form-control" />
+                <label>Abbreviation</label>
+                <input type="text" ng-model="txtAbbreviation" class="form-control" />
             </div>
         </div>
     </div>
@@ -30,12 +30,13 @@
             <thead>
                 <tr>
                     <th>Description</th>
-                    <th></th>
+                    <th>Abbreviation</th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="row in reimbursements | filter:{ description: txtDescription || '', payrate: txtPayrate || ''}">
+                <tr ng-repeat="row in reimbursements | filter:{ description: txtDescription || '', abbreviation: txtAbbreviation || ''}">
                     <td>{{row.description}}</td>
+                    <td>{{row.abbreviation}}</td>
                     <td>
                         <a href='{{ "reimbursements/view/" + row.id }}' class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                         <a href='{{ "reimbursements/edit/" + row.id }}' class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>

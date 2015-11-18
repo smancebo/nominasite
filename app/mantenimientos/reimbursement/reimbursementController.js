@@ -19,7 +19,7 @@ app.controller('reimbursementController', ['$scope', '$routeParams', '$reimburse
 
 
         if ($scope.reimbursement != undefined) {
-            reimbursement.payrate = 1;
+            $scope.reimbursement.payrate = 1;
 
             $reimbursementService.save($scope.reimbursement, function (data) {
                 if (data == 1) {

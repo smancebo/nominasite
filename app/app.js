@@ -8,7 +8,7 @@
     var app = angular.module('fmpPortal', ['ngRoute', 'ngGridView', 'ui.bootstrap', 'ngToast', 'ngStorage', 'popoverToggle', 'matchMedia', 'ngAnimate']);
     app.constant('$serverInfo', {
         //server: "http://10.172.0.170:85/api"
-        server: "http://10.0.0.6:85/api"
+        server: "http://10.0.0.8:85/api"
 	 //server: "http://localhost/api"
     });
 

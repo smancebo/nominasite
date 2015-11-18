@@ -25,7 +25,8 @@ namespace api.Controllers
                      {
                          r.id,
                          r.description,
-                         r.payrate
+                         r.payrate,
+                         r.abbreviation
                      };
 
             return Ok(ri);
@@ -41,7 +42,8 @@ namespace api.Controllers
                       {
                           r.id,
                           r.description,
-                          r.payrate
+                          r.payrate,
+                          r.abbreviation
                       }).FirstOrDefault();
 
             return Ok(ri);

@@ -18,6 +18,7 @@
           <Property Name="start_time" Type="varchar" MaxLength="10" />
           <Property Name="end_time" Type="varchar" MaxLength="10" />
           <Property Name="hours" Type="int" />
+          <Property Name="registration_date" Type="datetime" />
         </EntityType>
         <EntityType Name="contract_permit_periods_hours_worked">
           <Key>
@@ -41,6 +42,11 @@
           <Property Name="permit_start_date" Type="datetime" />
           <Property Name="permit_end_date" Type="datetime" />
           <Property Name="number_registered" Type="varchar" MaxLength="50" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="100" />
+          <Property Name="zip_code" Type="varchar" MaxLength="20" />
+          <Property Name="total_hours" Type="int" />
+          <Property Name="registration_date" Type="datetime" />
         </EntityType>
         <EntityType Name="payments">
           <Key>
@@ -98,6 +104,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="100" />
           <Property Name="payrate" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="abbreviation" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="schools">
           <Key>
@@ -480,6 +487,7 @@
           <Property Name="start_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="end_time" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="hours" Type="Int32" />
+          <Property Name="registration_date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="contract_permit_periods_hours_worked">
           <Key>
@@ -503,6 +511,11 @@
           <Property Name="permit_start_date" Type="DateTime" Precision="3" />
           <Property Name="permit_end_date" Type="DateTime" Precision="3" />
           <Property Name="number_registered" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="state" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="zip_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="total_hours" Type="Int32" />
+          <Property Name="registration_date" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="payments">
           <Key>
@@ -566,6 +579,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="payrate" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="abbreviation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="schools">
           <Key>
@@ -972,6 +986,7 @@
                 <ScalarProperty Name="start_time" ColumnName="start_time" />
                 <ScalarProperty Name="end_time" ColumnName="end_time" />
                 <ScalarProperty Name="hours" ColumnName="hours" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -997,6 +1012,11 @@
                 <ScalarProperty Name="permit_start_date" ColumnName="permit_start_date" />
                 <ScalarProperty Name="permit_end_date" ColumnName="permit_end_date" />
                 <ScalarProperty Name="number_registered" ColumnName="number_registered" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="zip_code" ColumnName="zip_code" />
+                <ScalarProperty Name="total_hours" ColumnName="total_hours" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1059,6 +1079,7 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="description" ColumnName="description" />
                 <ScalarProperty Name="payrate" ColumnName="payrate" />
+                <ScalarProperty Name="abbreviation" ColumnName="abbreviation" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

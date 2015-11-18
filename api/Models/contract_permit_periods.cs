@@ -23,5 +23,6 @@ namespace api.Models
         public string start_time { get; set; }
         public string end_time { get; set; }
         public Nullable<int> hours { get; set; }
+        public Nullable<System.DateTime> registration_date { get; set; }
     }
 }
