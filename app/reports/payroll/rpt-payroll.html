@@ -96,7 +96,10 @@
                                 {{getOvertimeRate(employee) | currency : $}}
                             </td>
                         </tr>
-                        <tr>
+
+                       
+
+                        <tr style="display:none">
                             <td>NIGHT HOURS</td>
                             <td class='number-td'>{{getReimbursementHours(employee.days[0],3)}}</td>
                             <td class='number-td'>{{getReimbursementHours(employee.days[1],3)}}</td>
@@ -118,6 +121,25 @@
                                 }}
                             </td>
                             <td class="number-td money">{{getReimbursementRate(employee.days,3) | currency : $}}</td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="success" style="text-align:center">GROSS</td>
+                            <td class="success number-td money">
+                                {{
+                                (getRegularRate(employee) +
+                                getOvertimeRate(employee)) | currency : $
+                                }}
+
+                            </td>
                         </tr>
                        
                         <tr>
@@ -191,8 +213,7 @@
                             <td class=""></td>
                             <td class=""></td>
                         </tr>
-                        <tr class="success">
-                            <td>TOTAL</td>
+                        <tr>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -201,13 +222,10 @@
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td class="number-td money">
+                            <td class="info text-center">TOTAL REIMBURSEMENT</td>
+                            <td class="number-td money info">
                                 {{
-                                    (getRegularRate(employee) +
-                                    getOvertimeRate(employee) +
-                                    getReimbursementRate(employee.days,3) +
-                                    getReimbursementRate(employee.days,1) +
-                                    getReimbursementRate(employee.days,2) ) | currency : $
+                                    (getReimbursementRate(employee.days,1) + getReimbursementRate(employee.days,2) + getReimbursementRate(employee.days,3)) | currency : $
                                 }}
 
                             </td>

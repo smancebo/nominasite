@@ -113,7 +113,8 @@ app.directive('format', ['$filter', function ($filter) {
         require: 'ngModel',
         link: function (scope, element, attrs, ctrl) {
             ctrl.$formatters.push(function toView() {
-                return $filter(attrs.format)(ctrl.$modelValue,'');
+                debugger
+                return $filter(attrs.format)(ctrl.$modelValue,'',3);
             })
         }
     }

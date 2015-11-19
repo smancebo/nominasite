@@ -25,15 +25,14 @@
                 <tr>
                     <th>Description</th>
                     <th>Payrate</th>
-                    <th>Night Diff</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="row in dataRows | filter:{description:txtDescription || ''}">
                     <td>{{row.description}}</td>
-                    <td>{{row.payrate}}</td>
-                    <td>{{row.nigthdiff}}</td>
+                    <td>{{row.payrate | currency : $ : 3}}</td>
+                    <td class="hidden">{{row.nigthdiff}}</td>
                     <td>
                         <a href="{{'titles/view/' + row.id }}" class='btn btn-xs btn-info'><i class="fa fa-search"></i> View</a>
                         <a href="{{'titles/edit/' + row.id }}" class='btn btn-xs btn-warning'><i class="fa fa-edit"></i> Edit</a>

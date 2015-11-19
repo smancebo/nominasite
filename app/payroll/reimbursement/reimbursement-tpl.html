@@ -39,8 +39,8 @@
 
         <div class="form-group">
             <label>Payrate: </label>
-            <span ng-if="reimbursement.overtime" class="money">{{ employee.title.payrate * (overtimeMultiply) || 0 | currency : $}}</span>
-            <span ng-if="!reimbursement.overtime" class="money">{{employee.title.payrate | currency : $}}</span>
+            <span ng-if="reimbursement.overtime" class="money">{{ employee.title.payrate * (overtimeMultiply) || 0 | currency : $ : 3}}</span>
+            <span ng-if="!reimbursement.overtime" class="money">{{employee.title.payrate | currency : $ : 3}}</span>
         </div>
         <div class="form-group">
             <label>Hours</label>
@@ -82,10 +82,10 @@
             <tbody>
                 <tr ng-repeat="r in day.reimbursements" index="{{r.index}}">
                     <td>{{r.description}}</td>
-                    <td class='currency-td'>{{r.rate | currency : $}}</td>
+                    <td class='currency-td'>{{r.rate | currency : $ : 3}}</td>
                     <td class='number-td'>{{r.hours}}</td>
                     <td>{{r.comment}}</td>
-                    <td class="currency-td money">{{(r.hours * r.rate) | currency : $}}</td>
+                    <td class="currency-td money">{{(r.hours * r.rate) | currency : $ : 3}}</td>
                     <td class="text-right">
                         <button class="btn btn-warning btn-xs" ng-if="!viewMode" ng-click="editReimbursement(r.index)"><i class="fa fa-edit"></i> Edit</button>
                         <button class="btn btn-danger btn-xs" ng-if="!viewMode" ng-click="removeReimbursement(r.index)"><i class="fa fa-remove"></i> Remove</button>
@@ -98,7 +98,7 @@
                     <td class='currency-td'></td>
                     <td class='currency-td'></td>
                     <td></td>
-                    <td class="currency-td money"><label>{{sumPayrate() | currency : $}}</label></td>
+                    <td class="currency-td money"><label>{{sumPayrate() | currency : $ : 3}}</label></td>
                     <td></td>
                 </tr>
             </tfoot>

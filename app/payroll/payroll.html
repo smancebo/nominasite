@@ -49,7 +49,7 @@
                         </select>
                     </div>
                     <label>Regular Rate: </label>
-                    <label class="money">{{current.employee.title.payrate | currency : $}}</label>
+                    <label class="money">{{current.employee.title.payrate | currency : $ : 3}}</label>
                 </div>
                 <div class="employee-div" ng-hide="current.employee.employee_code == undefined">
                     <div class="col-md-1 hidden-sm hidden-xs vertical-align"><a ng-click="prevEmployee()" class="arrow pull-left" href="#"><i class="fa fa-chevron-circle-left"></i></a></div>
@@ -150,7 +150,7 @@
                                             parseInt(current.days[3].regularHours) +
                                             parseInt(current.days[4].regularHours) +
                                             parseInt(current.days[5].regularHours) +
-                                            parseInt(current.days[6].regularHours) ) * parseFloat(current.employee.title.payrate)) | currency : $
+                                            parseInt(current.days[6].regularHours) ) * parseFloat(current.employee.title.payrate)) | currency : $ : 3
                                             }}
                                         </td>
                                     </tr>
@@ -183,7 +183,7 @@
                                             parseInt(current.days[3].overtime) +
                                             parseInt(current.days[4].overtime) +
                                             parseInt(current.days[5].overtime) +
-                                            parseInt(current.days[6].overtime) ) * (parseFloat(current.employee.title.payrate)) * 1.5) | currency : $
+                                            parseInt(current.days[6].overtime) ) * (parseFloat(current.employee.title.payrate)) * 1.5) | currency : $ : 3
                                             }}
                                         </td>
                                     </tr>
@@ -208,7 +208,7 @@
                                             parseInt(getReimbursementHours(current.days[6],3))
                                             }}
                                         </td>
-                                        <td class="number-td money">{{getReimbursementRate(current.days,3) | currency : $}}</td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,3) | currency : $ : 3}}</td>
                                     </tr>
                                     <tr>
                                         <td>Reimbursements/Reg</td>
@@ -231,7 +231,7 @@
                                             parseFloat(getReimbursementHours(current.days[6],1))
                                             }}
                                         </td>
-                                        <td class="number-td money">{{getReimbursementRate(current.days,1) | currency : $}}</td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,1) | currency : $ : 3}}</td>
                                     </tr>
                                     <tr>
                                         <td>Reimbursements/OT</td>
@@ -254,7 +254,7 @@
                                             parseInt(getReimbursementHours(current.days[6],2))
                                             }}
                                         </td>
-                                        <td class="number-td money">{{getReimbursementRate(current.days,2) | currency : $}}</td>
+                                        <td class="number-td money">{{getReimbursementRate(current.days,2) | currency : $ : 3}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -292,22 +292,22 @@
                         <tfoot>
                             <tr>
                                 <td class="table-footer">Total</td>
-                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') | currency : $}}</td>
-                                <td class='table-footer number-td'>{{getTotalHours('totalOvertimeHours') | currency : $}}</td>
-                                <td class='table-footer number-td'>{{getTotalHours(1) | currency : $}}</td>
-                                <td class='table-footer number-td'>{{getTotalHours(2)  | currency : $}}</td>
-                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') + getTotalHours('totalOvertimeHours') + getTotalHours(2) + getTotalHours(3) + getTotalHours(1)  | currency : $}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') | currency : $ : 3}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalOvertimeHours') | currency : $ : 3}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours(1) | currency : $ : 3}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours(2)  | currency : $ : 3}}</td>
+                                <td class='table-footer number-td'>{{getTotalHours('totalRegHours') + getTotalHours('totalOvertimeHours') + getTotalHours(2) + getTotalHours(3) + getTotalHours(1)  | currency : $ : 3}}</td>
                             </tr>
                         </tfoot>
                         <tbody>
                             <tr ng-repeat="item in payroll.employees" >
                                 <td>{{item.employee.name + ' ' + item.employee.middle_name + ' ' + item.employee.last_name}}</td>
-                                <td class='number-td'>{{item.totalRegHours | currency : $}}</td>
-                                <td class='number-td'>{{item.totalOvertimeHours | currency : $}}</td>
-                                <!--<td class='number-td'>{{getReimbursementRate(item.days,3) | currency : $}}</td>-->
-                                <td class='number-td'>{{getReimbursementRate(item.days,1) | currency : $}}</td>
-                                <td class='number-td'>{{getReimbursementRate(item.days,2)  | currency : $}}</td>
-                                <td class='number-td'>{{getReimbursementRate(item.days,3) + getReimbursementRate(item.days,1) + getReimbursementRate(item.days,2) + item.totalRegHours + item.totalOvertimeHours | currency : $}}</td>
+                                <td class='number-td'>{{item.totalRegHours | currency : $ : 3}}</td>
+                                <td class='number-td'>{{item.totalOvertimeHours | currency : $ : 3}}</td>
+                                <!--<td class='number-td'>{{getReimbursementRate(item.days,3) | currency : $ : 3}}</td>-->
+                                <td class='number-td'>{{getReimbursementRate(item.days,1) | currency : $ : 3}}</td>
+                                <td class='number-td'>{{getReimbursementRate(item.days,2)  | currency : $ : 3}}</td>
+                                <td class='number-td'>{{item.totalRegHours + item.totalOvertimeHours | currency : $ : 3}}</td>
                                 <td>
                                     <button class="btn btn-warning btn-xs" ng-click="editEmployee(item.employee.employee_code)"><i class="fa fa-edit"></i> Edit</button>
                                     <button class="btn btn-danger btn-xs" ng-if="viewMode == false" ng-click="removeEmployee(item.employee.employee_code)"><i class="fa fa-remove"></i> Remove</button>
